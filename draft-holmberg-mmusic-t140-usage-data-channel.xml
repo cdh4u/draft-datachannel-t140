@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="windows-1252"?>
-<!DOCTYPE rfc SYSTEM "rfc2629.dtd" [
-<!ENTITY RFC2119 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">
-<!ENTITY RFC3264 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3264.xml">
-<!ENTITY RFC4103 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4103.xml">
-<!ENTITY RFC8174 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8174.xml">
-]>
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd" []>
 <?rfc toc="yes" ?>
 <?rfc compact="yes" ?>
 <?rfc subcompact="yes" ?>
@@ -52,7 +47,7 @@
     <section title="Introduction" toc="default">
       <t>
         The ITU-T Protocol for multimedia application text conversation (Recommendation ITU-T T.140)
-        <xref target="ITU-T T.140"/> defines a protocol for text conversation, also known as
+        <xref target="T140"/> defines a protocol for text conversation, also known as
         realtime text or text telephony. The native transport for IP networks is based on the
         Real-time Transport Protocol (RTP) <xref target="RFC4103"/>.
       </t>
@@ -70,7 +65,7 @@
         NOTE - This WebRTC term of a "T.140 data channel" is actually
         synonym to the originally introduced concept of a "T.140 data
         channel"] for the T.140 protocol back in 1998, see Section 4.3
-        of <xref target="ITU-T T.140"/>.
+        of <xref target="T140"/>.
       </t>
       <t>
         NOTE - The decision to transport realtime text over a data channel,
@@ -81,7 +76,7 @@
       </t>
       <t>
         The brief notation "T.140" is used as a synonym for the text
-        conversation protocol according to <xref target="ITU-T T.140"/>.
+        conversation protocol according to <xref target="T140"/>.
       </t>
       <t>
         This document is based on an earlier Internet draft edited by Keith Drage,
@@ -160,7 +155,7 @@
         </t>
         <t>
           NOTE: The 'cps' attribute parameter is especially useful when a T.140 data channel
-          endpoint is acting as a gateway <xref target"sec-gw"/> and is interworking with
+          endpoint is acting as a gateway <xref target="sec.gw"/> and is interworking with
           a T.140 transport mechanism that have restrictions on how many characters can be sent
           per second.
         </t>
@@ -196,7 +191,7 @@
     <section anchor="sec.t140" title="T.140 Considerations">
         <section anchor="sec.t140.slf" title="Session Layer Functions">
           <t>
-            Section 6.1 of <xref target="ITU-T T.140"/> describes the generic T.140 session
+            Section 6.1 of <xref target="T140"/> describes the generic T.140 session
             control functions at high-level and a signalling protocol
             independent manner. The list below describes how the functions
             are realized when using a T.140 data channel.
@@ -221,23 +216,23 @@
             T.140 text is encoded and framed as T140blocks <xref target="RFC4103"/>.
           </t>
           <t>
-            See Section 8 of <xref target="ITU-T T.140"/> for coding details.
+            See Section 8 of <xref target="T140"/> for coding details.
           </t>
         </section>
         <section anchor="sec.t140.send" title="Data Sending and Reporting">
           <t>
-            Data sending and reporting procedures conform to <xref target="ITU-T T.140"/>.
+            Data sending and reporting procedures conform to <xref target="T140"/>.
           </t>
           <t>
             Each T140block is sent on the SCTP stream <xref target="RFC4960"/> used to
             realize the T.140 data channel using standard T.140 transmission procedures
-            <xref target="ITU-T T.140"/>. One or more T140blocks can be sent in a single
+            <xref target="T140"/>. One or more T140blocks can be sent in a single
             SCTP user message <xref target="RFC4960"/>.
           </t>
         </section>
         <section anchor="sec.t140.buff" title="Data Buffering">
           <t>
-            As described in <xref target="ITU-T T.140"/>, buffering can be used to reduce
+            As described in <xref target="T140"/>, buffering can be used to reduce
             overhead, with the maximum buffering time being 500 ms. It can also be used for
             staying within the maximum character transmission rate <xref target="sec.sdp.dcsa"/>,
             if such has been provided by the peer.
@@ -247,13 +242,13 @@
 
     <section anchor="sec.gw" title="Gateway Considerations">
       <t>
-        Multiple transport mechanisms have been defined for T.140 <xref target="ITU-T T.140"/>, due to 
+        Multiple transport mechanisms have been defined for T.140 <xref target="T140"/>, due to 
         the long history and usage of the service in legacy packet-switched and 
         circuit-switched networks. Some examples are listed below:
         <list style="symbols">
           <t>IP text telephony in text conversation mode <xref target="RFC4103"/></t>
-          <t>IP text telephony in text relay mode, also known as Text-over-IP (ToIP) <xref target="ITU-T V.151"/></t>
-          <t>IP text telephony in text pass-through mode, also known as Voiceband-over-IP (VBDoIP) <xref target="ITU-T V.152"/></t>
+          <t>IP text telephony in text relay mode, also known as Text-over-IP (ToIP) <xref target="V151"/></t>
+          <t>IP text telephony in text pass-through mode, also known as Voiceband-over-IP (VBDoIP) <xref target="V152"/></t>
           <t>PSTN text telephony</t>
         </list>
       </t>
@@ -304,7 +299,7 @@
       <?rfc include="reference.RFC.8174"?>
       <?rfc include='reference.I-D.ietf-rtcweb-data-channel'?>
       <?rfc include='reference.I-D.ietf-mmusic-data-channel-sdpneg'?>
-      <reference anchor="ITU-T T.140">
+      <reference anchor="T140">
         <front>
           <title>Recommendation ITU-T T.140 (02/1998), "Protocol for
              multimedia application text conversation"</title>
@@ -315,7 +310,7 @@
       </reference>
     </references>
     <references title="Informative References">
-      <reference anchor="ITU-T V.151">
+      <reference anchor="V151">
         <front>
           <title>Recommendation ITU-T V.151 (05/2006), "Procedures for the end-to-end connection of 
             analogue PSTN text telephones over an IP network utilizing text relay"</title>
@@ -324,7 +319,7 @@
         </front>
         <format type="HTML" target="https://www.itu.int/rec/T-REC-V.151/en"/>
       </reference>
-      <reference anchor="ITU-T V.152">
+      <reference anchor="V152">
         <front>
           <title>Recommendation ITU-T V.152 (09/2010), "Procedures for supporting voice-band data over 
             IP networks"</title>
