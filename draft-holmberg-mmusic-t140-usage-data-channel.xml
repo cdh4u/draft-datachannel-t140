@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd" [
+<!ENTITY RFC2119 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">
+<!ENTITY RFC3264 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3264.xml">
+<!ENTITY RFC4103 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4103.xml">
+<!ENTITY RFC8174 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8174.xml">
+]>
+<?rfc toc="yes" ?>
+<?rfc compact="yes" ?>
+<?rfc subcompact="yes" ?>
+<?rfc sortrefs="no" ?>
+<?rfc strict="yes" ?>
+<rfc ipr="trust200902" category="std" docName="draft-holmberg-mmusic-t140-usage-data-channel" obsoletes="" updates="" submissionType="IETF" xml:lang="en">
+  <front>
+    <title abbrev="T.140 Data Channel">
+       T.140 Text Conversation over WebRTC Data Channels
+    </title>
+    <author initials="C.H." surname="Holmberg" fullname="Christer Holmberg">
+      <organization>Ericsson</organization>
+      <address>
+        <postal>
+          <street>Hirsalantie 11</street>
+          <code>02420</code>
+          <city>Jorvas</city>
+          <country>Finland</country>
+        </postal>
+        <email>christer.holmberg@ericsson.com</email>
+      </address>
+    </author>
+  
+    <date year="2019"/>
+    <area>Transport</area>
+    <workgroup>MMUSIC Working Group</workgroup>
+    <keyword>SDP</keyword>
+    <keyword>ITU-T</keyword>
+    <keyword>T.140</keyword>
+    <keyword>Data Channel</keyword>
+    <keyword>WebRTC</keyword>
+    <keyword>real-time text</keyword>
+    <abstract>
+      <t>
+        This document specifies how a WebRTC data channel can be used as a
+        transport mechanism for the ITU-T Protocol for multimedia
+        application text conversation (Recommendation ITU-T T.140), and
+        how the SDP offer/answer mechanism can be used to negotiate
+        such data channel, referred to as T.140 data channel.
+      </t>
+    </abstract>
+  </front>
+
+  <middle>
+    <section title="Introduction" toc="default">
+      <t>
+        The ITU-T Protocol for multimedia application text conversation (Recommendation ITU-T T.140)
+        <xref target="ITU-T T.140"/> defines a protocol for text conversation, also known as
+        realtime text or text telephony. The native transport for IP networks is based on the
+        Real-time Transport Protocol (RTP) <xref target="RFC4103"/>.
+      </t>
+      <t>
+        This document specifies how a WebRTC data channel <xref target="I-D.ietf-rtcweb-data-channel"/>
+        can be used as a transport mechanism for T.140, and how the SDP offer/answer mechanism
+        <xref target="I-D.ietf-mmusic-data-channel-sdpneg"/> can be used to negotiate such data channel.
+      </t>
+      <t>      
+        In this document, a T.140 data channel refers to a WebRTC data channel for which
+        the instantiated sub-protocol is "t140", and where the channel is negotiated
+        using the SDP-based external negotiation method <xref target="I-D.ietf-mmusic-data-channel-sdpneg"/>.
+      </t>
+      <t>
+        NOTE - This WebRTC term of a "T.140 data channel" is actually
+        synonym to the originally introduced concept of a "T.140 data
+        channel"] for the T.140 protocol back in 1998, see Section 4.3
+        of <xref target="ITU-T T.140"/>.
+      </t>
+      <t>
+        NOTE - The decision to transport realtime text over a data channel,
+        instead of using RTP based transport [RFC4103], in WebRTC
+        is constituted by use-case "U-C 5: Realtime text chat during an audio
+        and/or video call with an individual or with multiple people in a conference",
+        see Section 3.2 of <xref target="I-D.ietf-rtcweb-data-channel"/>.
+      </t>
+      <t>
+        The brief notation "T.140" is used as a synonym for the text
+        conversation protocol according to <xref target="ITU-T T.140"/>.
+      </t>
+      <t>
+        This document is based on an earlier Internet draft edited by Keith Drage,
+        Juergen Stoetzer-Bradler and Albrecht Schwarz.
+      </t>
+    </section>
+ 
+    <section title="Conventions">
+      <t>
+        The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL
+        NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED",
+        "MAY", and "OPTIONAL" in this document are to be interpreted as
+        described in BCP 14 <xref target="RFC2119"></xref> <xref target="RFC8174"></xref>
+        when, and only when, they appear in all capitals, as shown here.
+      </t>
+    </section>
+
+    <section anchor="sec.sdp" title="SDP Considerations">
+      <t>
+        The generic SDP considerations, including the SDP Offer/Answer proceudres, for
+        negotiating a WebRTC data channel are defined in <xref target="I-D.ietf-mmusic-data-channel-sdpneg"/>.
+        This section defines the SDP considerations that are specific to a T.140 data channel.
+      </t>
+      <section anchor="sec.sdp.dcmap" title="Use of dcmap Attribute">
+        <t>
+           An offerer and answerer MUST, in each offer and answer, include an SDP 'dcmap' 
+           attribute <xref target="I-D.ietf-mmusic-data-channel-sdpneg"/> in the SDP media
+           descripton (m= line) <xref target="RFC4566"/> describing the SCTP association
+           <xref target="RFC4960"/> used to realize the T.140 data channel.
+        </t>
+        <t>
+          The offerer and answerer MUST include the following attribute parameters, and
+          parameter values in the dcmap attribute:
+          <list style="symbols">
+            <t>"label=" labelstring</t>
+            <t>"subprotocol=" "t140"</t>
+          </list>
+        </t>
+        <t>
+          The offerer and answerer MUST NOT include the max-retr, max-time and ordered
+          attribute parameters in the dcmap attribute.
+        </t>
+        <t>
+          The offerer and answerer MAY, based on local policy, include the priority
+          attribute parameter in the dcmap attribute value.
+        </t>
+        <t>
+          Below is an example of the dcmap attribute for an T.140
+          data channel with stream=3 and without any label:
+        </t>
+        <t>
+          a=dcmap:3 subprotocol="t140"
+        </t>
+      </section>
+      <section anchor="sec.sdp.dcsa" title="Use of dcsa Attribute">
+        <t>
+           An offerer and answerer MAY, in each offer and answer, include an
+           SDP 'dcsa' attribute <xref target="I-D.ietf-mmusic-data-channel-sdpneg"/>
+           in the SDP media descripton (m= line) describing the SCTP association used
+           to realize the T.140 data channel.
+        </t>
+        <t>
+          If included, the 'dcsa' attribute contains the fmtp attribute used to indicate
+          a maximum character transmission rate <xref target="RFC4103"/>. The 'cps'
+          attribute parameter is used indicate the maximum character transmission rate
+          that the endpoint that includes the attribute is able to handle. The 'format' attribute
+          parameter is not used with T.140 data channels, and MUST be set to "-".
+        </t>
+        <t>
+          If not included, it indicates that no maximum character transmission rate is indicated. 
+          It does not mean that the default value of 30 applies <xref target="RFC4103"/>.
+        </t>
+        <t>
+          The offerer and answerer MAY modify the 'cpc' attribute parameter value in subsequent
+          offers and answers.
+        </t>
+        <t>
+          NOTE: The 'cps' attribute parameter is especially useful when a T.140 data channel
+          endpoint is acting as a gateway <xref target"sec-gw"/> and is interworking with
+          a T.140 transport mechanism that have restrictions on how many characters can be sent
+          per second.
+        </t>
+        <t>
+          Below is an example of the dcsa attribute for an T.140 data channel with a
+          'cps' attribute parameter with a attribute parameter value of 20:
+        </t>
+        <t>
+          a=dcsa:1 fmtp:- cps=20
+        </t>
+      </section>
+      <section anchor="sec.sdp.ex" title="Example">
+          <t>
+            Below is an example of an SDP media description (m= line) describing an
+            SCTP association used to realize a T.140 data channel.
+          </t>
+          <figure>
+            <preamble></preamble>
+            <artwork><![CDATA[
+
+    m=application 911 UDP/DTLS/SCTP webrtc-datachannel
+    c=IN IP6 2001:db8::3
+    a=max-message-size:1000
+    a=sctp-port 5000
+    a=dcmap:1 label="text conversation";subprotocol="t140"
+    a=dcsa:1 fmtp:- cps=20
+
+            ]]></artwork>
+          </figure>
+      </section>
+    </section>
+
+    <section anchor="sec.t140" title="T.140 Considerations">
+        <section anchor="sec.t140.slf" title="Session Layer Functions">
+          <t>
+            Section 6.1 of <xref target="ITU-T T.140"/> describes the generic T.140 session
+            control functions at high-level and a signalling protocol
+            independent manner. The list below describes how the functions
+            are realized when using a T.140 data channel.
+            <list style="symbols">
+              <t>Prepare session: An endpoint can indicate its support of T.140 data channels
+                using signalling specific means</t>
+              <t>Initiate session: An offer used to request the establishment of a
+                T.140 data channel</t>
+              <t>Accept session: An answer used to accept a request to establish a
+                T.140 data channel</t>
+              <t>Deny session: An answer used to reject a request the establishment
+                of a T.140 data channel</t>
+              <t>Disconnect session: An offer or answer used to disable a previously
+                established T.140 data channel, using the generic procedures for closing
+                a data channel <xref target="I-D.ietf-mmusic-data-channel-sdpneg"/></t>
+              <t>Data: Data sent on an established T.140 data channel</t>
+            </list>
+          </t>
+        </section>
+        <section anchor="sec.t140.enc" title="Data Encoding and Framing">
+          <t>
+            T.140 text is encoded and framed as T140blocks <xref target="RFC4103"/>.
+          </t>
+          <t>
+            See Section 8 of <xref target="ITU-T T.140"/> for coding details.
+          </t>
+        </section>
+        <section anchor="sec.t140.send" title="Data Sending and Reporting">
+          <t>
+            Data sending and reporting procedures conform to <xref target="ITU-T T.140"/>.
+          </t>
+          <t>
+            Each T140block is sent on the SCTP stream <xref target="RFC4960"/> used to
+            realize the T.140 data channel using standard T.140 transmission procedures
+            <xref target="ITU-T T.140"/>. One or more T140blocks can be sent in a single
+            SCTP user message <xref target="RFC4960"/>.
+          </t>
+        </section>
+        <section anchor="sec.t140.buff" title="Data Buffering">
+          <t>
+            As described in <xref target="ITU-T T.140"/>, buffering can be used to reduce
+            overhead, with the maximum buffering time being 500 ms. It can also be used for
+            staying within the maximum character transmission rate <xref target="sec.sdp.dcsa"/>,
+            if such has been provided by the peer.
+          </t>
+        </section>
+    </section>
+
+    <section anchor="sec.gw" title="Gateway Considerations">
+      <t>
+        Multiple transport mechanisms have been defined for T.140 <xref target="ITU-T T.140"/>, due to 
+        the long history and usage of the service in legacy packet-switched and 
+        circuit-switched networks. Some examples are listed below:
+        <list style="symbols">
+          <t>IP text telephony in text conversation mode <xref target="RFC4103"/></t>
+          <t>IP text telephony in text relay mode, also known as Text-over-IP (ToIP) <xref target="ITU-T V.151"/></t>
+          <t>IP text telephony in text pass-through mode, also known as Voiceband-over-IP (VBDoIP) <xref target="ITU-T V.152"/></t>
+          <t>PSTN text telephony</t>
+        </list>
+      </t>
+      <t>
+        In addition to simply moving text between two transport mechanisms, a gateway
+        might have to perform procedures related to events like inactivity of T.140 traffic,
+        RTP packets received out of order and loss of incoming RTP packets.
+      </t>
+      <t>
+        The detailed gateway procedures for interworking between T.140 over data channel and
+        other T.140 transport mechanisms are outside the scope of this document.
+      </t>
+    </section>
+
+    <section anchor="sec.sec" title="Security Considerations">
+        <t>
+          The generic security considerations for WebRTC data channels
+          are defined in <xref target="I-D.ietf-rtcweb-data-channel"/>. As data channels
+          are always encrypted by design, the T.140 data channels will
+          also be encrypted.
+        </t>
+        <t>
+          The generic security considerations for the SDP-based external 
+          negotiation method are defined in <xref target="I-D.ietf-mmusic-data-channel-sdpneg"/>.
+        </t>
+    </section>
+    <section anchor="sec.iana" title="IANA considerations">
+      <t>
+        [RFC EDITOR NOTE: Please replace all instances of RFCXXXX with the RFC number of this document.]
+      </t>
+    </section>
+
+    <section anchor="sec.acks" title="Acknowledgements" toc="default">
+      <t>
+        This document is based on an earlier Internet draft edited by Keith Drage,
+        Juergen Stoetzer-Bradler and Albrecht Schwarz.
+      </t>
+    </section>
+  </middle>
+
+  <back>
+    <references title="Normative References">
+      <?rfc include="reference.RFC.2119"?>
+      <?rfc include="reference.RFC.3264"?>
+      <?rfc include="reference.RFC.4103"?>
+      <?rfc include="reference.RFC.4566"?>
+      <?rfc include="reference.RFC.4960"?>
+      <?rfc include="reference.RFC.8174"?>
+      <?rfc include='reference.I-D.ietf-rtcweb-data-channel'?>
+      <?rfc include='reference.I-D.ietf-mmusic-data-channel-sdpneg'?>
+      <reference anchor="ITU-T T.140">
+        <front>
+          <title>Recommendation ITU-T T.140 (02/1998), "Protocol for
+             multimedia application text conversation"</title>
+          <author><organization>ITU-T</organization></author>
+          <date year="1998" month="February"/>
+        </front>
+        <format type="HTML" target="https://www.itu.int/rec/T-REC-T.140-199802-I/en"/>
+      </reference>
+    </references>
+    <references title="Informative References">
+      <reference anchor="ITU-T V.151">
+        <front>
+          <title>Recommendation ITU-T V.151 (05/2006), "Procedures for the end-to-end connection of 
+            analogue PSTN text telephones over an IP network utilizing text relay"</title>
+          <author><organization>ITU-T</organization></author>
+          <date year="2006" month="May"/>
+        </front>
+        <format type="HTML" target="https://www.itu.int/rec/T-REC-V.151/en"/>
+      </reference>
+      <reference anchor="ITU-T V.152">
+        <front>
+          <title>Recommendation ITU-T V.152 (09/2010), "Procedures for supporting voice-band data over 
+            IP networks"</title>
+          <author><organization>ITU-T</organization></author>
+          <date year="2010" month="September"/>
+        </front>
+        <format type="HTML" target="https://www.itu.int/rec/T-REC-V.152/en"/>
+      </reference>
+    </references>
+  </back>
+</rfc>
