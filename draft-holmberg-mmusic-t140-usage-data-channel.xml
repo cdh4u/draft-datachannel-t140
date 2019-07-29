@@ -5,7 +5,7 @@
 <?rfc subcompact="yes" ?>
 <?rfc sortrefs="no" ?>
 <?rfc strict="yes" ?>
-<rfc ipr="trust200902" category="std" docName="draft-holmberg-mmusic-t140-usage-data-channel" obsoletes="" updates="" submissionType="IETF" xml:lang="en">
+<rfc ipr="trust200902" category="std" docName="draft-holmberg-mmusic-t140-usage-data-channel-latest" obsoletes="" updates="" submissionType="IETF" xml:lang="en">
   <front>
     <title abbrev="T.140 Data Channel">
        T.140 Text Conversation over WebRTC Data Channels
