@@ -1,10 +1,11 @@
-﻿
+
+
 
 
 MMUSIC Working Group                                         C. Holmberg
 Internet-Draft                                                  Ericsson
-Intended status: Standards Track                           July 29, 2019
-Expires: January 30, 2020
+Intended status: Standards Track                          August 7, 2019
+Expires: February 8, 2020
 
 
            T.140 Text Conversation over WebRTC Data Channels
@@ -26,14 +27,14 @@ Status of This Memo
    Internet-Drafts are working documents of the Internet Engineering
    Task Force (IETF).  Note that other groups may also distribute
    working documents as Internet-Drafts.  The list of current Internet-
-   Drafts is at https://datatracker.ietf.org/drafts/current/.
+   Drafts is at http://datatracker.ietf.org/drafts/current/.
 
    Internet-Drafts are draft documents valid for a maximum of six months
    and may be updated, replaced, or obsoleted by other documents at any
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on January 30, 2020.
+   This Internet-Draft will expire on February 8, 2020.
 
 Copyright Notice
 
@@ -42,7 +43,7 @@ Copyright Notice
 
    This document is subject to BCP 78 and the IETF Trust's Legal
    Provisions Relating to IETF Documents
-   (https://trustee.ietf.org/license-info) in effect on the date of
+   (http://trustee.ietf.org/license-info) in effect on the date of
    publication of this document.  Please review these documents
    carefully, as they describe your rights and restrictions with respect
    to this document.  Code Components extracted from this document must
@@ -52,9 +53,9 @@ Copyright Notice
 
 
 
-Holmberg                Expires January 30, 2020                [Page 1]
+Holmberg                Expires February 8, 2020                [Page 1]
 
-Internet-Draft             T.140 Data Channel                  July 2019
+Internet-Draft             T.140 Data Channel                August 2019
 
 
 Table of Contents
@@ -67,13 +68,12 @@ Table of Contents
      3.3.  Example . . . . . . . . . . . . . . . . . . . . . . . . .   4
    4.  T.140 Considerations  . . . . . . . . . . . . . . . . . . . .   5
      4.1.  Session Layer Functions . . . . . . . . . . . . . . . . .   5
-     4.2.  Data Encoding and Framing . . . . . . . . . . . . . . . .   5
-     4.3.  Data Sending and Reporting  . . . . . . . . . . . . . . .   5
-     4.4.  Data Buffering  . . . . . . . . . . . . . . . . . . . . .   5
+     4.2.  Data Encoding and Sending . . . . . . . . . . . . . . . .   5
+     4.3.  Data Buffering  . . . . . . . . . . . . . . . . . . . . .   5
    5.  Gateway Considerations  . . . . . . . . . . . . . . . . . . .   6
    6.  Security Considerations . . . . . . . . . . . . . . . . . . .   6
    7.  IANA considerations . . . . . . . . . . . . . . . . . . . . .   6
-   8.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .   6
+   8.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .   7
    9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .   7
      9.1.  Normative References  . . . . . . . . . . . . . . . . . .   7
      9.2.  Informative References  . . . . . . . . . . . . . . . . .   8
@@ -108,9 +108,10 @@ Table of Contents
 
 
 
-Holmberg                Expires January 30, 2020                [Page 2]
+
+Holmberg                Expires February 8, 2020                [Page 2]
 
-Internet-Draft             T.140 Data Channel                  July 2019
+Internet-Draft             T.140 Data Channel                August 2019
 
 
    and/or video call with an individual or with multiple people in a
@@ -164,9 +165,9 @@ Internet-Draft             T.140 Data Channel                  July 2019
 
 
 
-Holmberg                Expires January 30, 2020                [Page 3]
+Holmberg                Expires February 8, 2020                [Page 3]
 
-Internet-Draft             T.140 Data Channel                  July 2019
+Internet-Draft             T.140 Data Channel                August 2019
 
 
 3.2.  Use of dcsa Attribute
@@ -220,9 +221,9 @@ Internet-Draft             T.140 Data Channel                  July 2019
 
 
 
-Holmberg                Expires January 30, 2020                [Page 4]
+Holmberg                Expires February 8, 2020                [Page 4]
 
-Internet-Draft             T.140 Data Channel                  July 2019
+Internet-Draft             T.140 Data Channel                August 2019
 
 
 4.  T.140 Considerations
@@ -235,35 +236,37 @@ Internet-Draft             T.140 Data Channel                  July 2019
    T.140 data channel.
 
    o  Prepare session: An endpoint can indicate its support of T.140
-      data channels using signalling specific means
+      data channels using signalling specific means, or by indicating
+      the support in an offer or answer Section 3
    o  Initiate session: An offer used to request the establishment of a
-      T.140 data channel
+      T.140 data channel Section 3
    o  Accept session: An answer used to accept a request to establish a
-      T.140 data channel
+      T.140 data channel Section 3
    o  Deny session: An answer used to reject a request the establishment
-      of a T.140 data channel
+      of a T.140 data channel, using the generic procedures for
+      rejecting a data channel [I-D.ietf-mmusic-data-channel-sdpneg]
    o  Disconnect session: An offer or answer used to disable a
       previously established T.140 data channel, using the generic
       procedures for closing a data channel
       [I-D.ietf-mmusic-data-channel-sdpneg]
-   o  Data: Data sent on an established T.140 data channel
+   o  Data: Data sent on an established T.140 data channel Section 4.2
 
-4.2.  Data Encoding and Framing
+4.2.  Data Encoding and Sending
 
    T.140 text is encoded and framed as T140blocks [RFC4103].
-
-   See Section 8 of [T140] for coding details.
-
-4.3.  Data Sending and Reporting
-
-   Data sending and reporting procedures conform to [T140].
 
    Each T140block is sent on the SCTP stream [RFC4960] used to realize
    the T.140 data channel using standard T.140 transmission procedures
    [T140].  One or more T140blocks can be sent in a single SCTP user
-   message [RFC4960].
+   message [RFC4960].  Unlike RTP based transport for realtime text
+   [RFC4103], T.140 data channels do not use reduntant transmission of
+   text.
 
-4.4.  Data Buffering
+   Data sending and reporting procedures conform to [T140].
+
+   See Section 8 of [T140] for coding details.
+
+4.3.  Data Buffering
 
    As described in [T140], buffering can be used to reduce overhead,
    with the maximum buffering time being 500 ms.  It can also be used
@@ -274,11 +277,9 @@ Internet-Draft             T.140 Data Channel                  July 2019
 
 
 
-
-
-Holmberg                Expires January 30, 2020                [Page 5]
+Holmberg                Expires February 8, 2020                [Page 5]
 
-Internet-Draft             T.140 Data Channel                  July 2019
+Internet-Draft             T.140 Data Channel                August 2019
 
 
 5.  Gateway Considerations
@@ -320,22 +321,27 @@ Internet-Draft             T.140 Data Channel                  July 2019
    [RFC EDITOR NOTE: Please replace all instances of RFCXXXX with the
    RFC number of this document.]
 
+   This document adds the subprotocol identifier "t140" to the
+   "WebSocket Subprotocol Name Registry" as follows:
+
+                +--------------------------+-------------+
+                | Subprotocol Identifier:  | t140        |
+                | Subprotocol Common Name: | ITU-T T.140 |
+                | Subprotocol Definition:  | RFCXXXX     |
+                | Reference:               | RFCXXXX     |
+                +--------------------------+-------------+
+
+
+
+Holmberg                Expires February 8, 2020                [Page 6]
+
+Internet-Draft             T.140 Data Channel                August 2019
+
+
 8.  Acknowledgements
 
    This document is based on an earlier Internet draft edited by Keith
    Drage, Juergen Stoetzer-Bradler and Albrecht Schwarz.
-
-
-
-
-
-
-
-
-Holmberg                Expires January 30, 2020                [Page 6]
-
-Internet-Draft             T.140 Data Channel                  July 2019
-
 
 9.  References
 
@@ -343,13 +349,13 @@ Internet-Draft             T.140 Data Channel                  July 2019
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
-              DOI 10.17487/RFC2119, March 1997,
-              <https://www.rfc-editor.org/info/rfc2119>.
+              DOI 10.17487/RFC2119, March 1997, <https://www.rfc-
+              editor.org/info/rfc2119>.
 
    [RFC3264]  Rosenberg, J. and H. Schulzrinne, "An Offer/Answer Model
               with Session Description Protocol (SDP)", RFC 3264,
-              DOI 10.17487/RFC3264, June 2002,
-              <https://www.rfc-editor.org/info/rfc3264>.
+              DOI 10.17487/RFC3264, June 2002, <https://www.rfc-
+              editor.org/info/rfc3264>.
 
    [RFC4103]  Hellstrom, G. and P. Jones, "RTP Payload for Text
               Conversation", RFC 4103, DOI 10.17487/RFC4103, June 2005,
@@ -378,20 +384,19 @@ Internet-Draft             T.140 Data Channel                  July 2019
               mmusic-data-channel-sdpneg-28 (work in progress), May
               2019.
 
+
+
+
+
+
+Holmberg                Expires February 8, 2020                [Page 7]
+
+Internet-Draft             T.140 Data Channel                August 2019
+
+
    [T140]     ITU-T, "Recommendation ITU-T T.140 (02/1998), "Protocol
               for multimedia application text conversation"", February
               1998.
-
-
-
-
-
-
-
-Holmberg                Expires January 30, 2020                [Page 7]
-
-Internet-Draft             T.140 Data Channel                  July 2019
-
 
 9.2.  Informative References
 
@@ -440,8 +445,4 @@ Author's Address
 
 
 
-
-
-
-
-Holmberg                Expires January 30, 2020                [Page 8]
+Holmberg                Expires February 8, 2020                [Page 8]
