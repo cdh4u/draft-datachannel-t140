@@ -192,7 +192,7 @@ Internet-Draft             T.140 Data Channel                August 2019
    value in subsequent offers and answers.
 
    NOTE: The 'cps' attribute parameter is especially useful when a T.140
-   data channel endpoint is acting as a gateway Section 5 and is
+   data channel endpoint is acting as a gateway [Section 5] and is
    interworking with a T.140 transport mechanism that have restrictions
    on how many characters can be sent per second.
 
@@ -237,11 +237,11 @@ Internet-Draft             T.140 Data Channel                August 2019
 
    o  Prepare session: An endpoint can indicate its support of T.140
       data channels using signalling specific means, or by indicating
-      the support in an offer or answer Section 3
+      the support in an offer or answer [Section 3]
    o  Initiate session: An offer used to request the establishment of a
-      T.140 data channel Section 3
+      T.140 data channel [Section 3]
    o  Accept session: An answer used to accept a request to establish a
-      T.140 data channel Section 3
+      T.140 data channel [Section 3]
    o  Deny session: An answer used to reject a request the establishment
       of a T.140 data channel, using the generic procedures for
       rejecting a data channel [I-D.ietf-mmusic-data-channel-sdpneg]
@@ -249,7 +249,7 @@ Internet-Draft             T.140 Data Channel                August 2019
       previously established T.140 data channel, using the generic
       procedures for closing a data channel
       [I-D.ietf-mmusic-data-channel-sdpneg]
-   o  Data: Data sent on an established T.140 data channel Section 4.2
+   o  Data: Data sent on an established T.140 data channel [Section 4.2]
 
 4.2.  Data Encoding and Sending
 
@@ -271,7 +271,7 @@ Internet-Draft             T.140 Data Channel                August 2019
    As described in [T140], buffering can be used to reduce overhead,
    with the maximum buffering time being 500 ms.  It can also be used
    for staying within the maximum character transmission rate
-   Section 3.2, if such has been provided by the peer.
+   [Section 3.2], if such has been provided by the peer.
 
 
 
