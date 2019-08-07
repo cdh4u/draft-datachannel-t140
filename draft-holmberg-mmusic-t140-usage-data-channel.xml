@@ -69,7 +69,7 @@
       </t>
       <t>
         NOTE - The decision to transport realtime text over a data channel,
-        instead of using RTP based transport [RFC4103], in WebRTC
+        instead of using RTP based transport <xref target="RFC4103"/>, in WebRTC
         is constituted by use-case "U-C 5: Realtime text chat during an audio
         and/or video call with an individual or with multiple people in a conference",
         see Section 3.2 of <xref target="I-D.ietf-rtcweb-data-channel"/>.
@@ -197,37 +197,39 @@
             are realized when using a T.140 data channel.
             <list style="symbols">
               <t>Prepare session: An endpoint can indicate its support of T.140 data channels
-                using signalling specific means</t>
+                using signalling specific means, or by indicating the support in an
+                offer or answer <xref target="sec.sdp"/></t>
               <t>Initiate session: An offer used to request the establishment of a
-                T.140 data channel</t>
+                T.140 data channel <xref target="sec.sdp"/></t>
               <t>Accept session: An answer used to accept a request to establish a
-                T.140 data channel</t>
+                T.140 data channel <xref target="sec.sdp"/></t>
               <t>Deny session: An answer used to reject a request the establishment
-                of a T.140 data channel</t>
+                of a T.140 data channel, using the generic procedures for rejecting
+                a data channel <xref target="I-D.ietf-mmusic-data-channel-sdpneg"/></t>
               <t>Disconnect session: An offer or answer used to disable a previously
                 established T.140 data channel, using the generic procedures for closing
                 a data channel <xref target="I-D.ietf-mmusic-data-channel-sdpneg"/></t>
-              <t>Data: Data sent on an established T.140 data channel</t>
+              <t>Data: Data sent on an established T.140 data channel <xref target="sec.t140.send"/></t>
             </list>
           </t>
         </section>
-        <section anchor="sec.t140.enc" title="Data Encoding and Framing">
+        <section anchor="sec.t140.send" title="Data Encoding and Sending">
           <t>
             T.140 text is encoded and framed as T140blocks <xref target="RFC4103"/>.
-          </t>
-          <t>
-            See Section 8 of <xref target="T140"/> for coding details.
-          </t>
-        </section>
-        <section anchor="sec.t140.send" title="Data Sending and Reporting">
-          <t>
-            Data sending and reporting procedures conform to <xref target="T140"/>.
           </t>
           <t>
             Each T140block is sent on the SCTP stream <xref target="RFC4960"/> used to
             realize the T.140 data channel using standard T.140 transmission procedures
             <xref target="T140"/>. One or more T140blocks can be sent in a single
-            SCTP user message <xref target="RFC4960"/>.
+            SCTP user message <xref target="RFC4960"/>. Unlike RTP based transport for
+            realtime text <xref target="RFC4103"/>, T.140 data channels do not use reduntant
+            transmission of text.
+          </t>
+          <t>
+            Data sending and reporting procedures conform to <xref target="T140"/>.
+          </t>
+          <t>
+            See Section 8 of <xref target="T140"/> for coding details.
           </t>
         </section>
         <section anchor="sec.t140.buff" title="Data Buffering">
@@ -279,6 +281,25 @@
       <t>
         [RFC EDITOR NOTE: Please replace all instances of RFCXXXX with the RFC number of this document.]
       </t>
+      <t>
+        This document adds the subprotocol identifier "t140" to the "WebSocket Subprotocol Name Registry" as follows:
+      </t>
+      <texttable title="">
+        <ttcol align='left' width='30%'/>
+        <ttcol align='left'/>
+
+        <c>Subprotocol Identifier:</c>
+        <c>t140</c>
+
+        <c>Subprotocol Common Name:</c>
+        <c>ITU-T T.140</c>
+
+        <c>Subprotocol Definition:</c>
+        <c>RFCXXXX</c>
+
+        <c>Reference:</c>
+        <c>RFCXXXX</c>
+     </texttable>
     </section>
 
     <section anchor="sec.acks" title="Acknowledgements" toc="default">
