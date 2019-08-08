@@ -198,18 +198,18 @@
             <list style="symbols">
               <t>Prepare session: An endpoint can indicate its support of T.140 data channels
                 using signalling specific means, or by indicating the support in an
-                offer or answer [<xref target="sec.sdp"/>]</t>
+                offer or answer (<xref target="sec.sdp"/>)</t>
               <t>Initiate session: An offer used to request the establishment of a
-                T.140 data channel [<xref target="sec.sdp"/>]</t>
+                T.140 data channel (<xref target="sec.sdp"/>)</t>
               <t>Accept session: An answer used to accept a request to establish a
-                T.140 data channel [<xref target="sec.sdp"/>]</t>
+                T.140 data channel (<xref target="sec.sdp"/>)</t>
               <t>Deny session: An answer used to reject a request the establishment
                 of a T.140 data channel, using the generic procedures for rejecting
                 a data channel <xref target="I-D.ietf-mmusic-data-channel-sdpneg"/></t>
               <t>Disconnect session: An offer or answer used to disable a previously
                 established T.140 data channel, using the generic procedures for closing
                 a data channel <xref target="I-D.ietf-mmusic-data-channel-sdpneg"/></t>
-              <t>Data: Data sent on an established T.140 data channel [<xref target="sec.t140.send"/>]</t>
+              <t>Data: Data sent on an established T.140 data channel (<xref target="sec.t140.send"/>)</t>
             </list>
           </t>
         </section>
@@ -236,7 +236,7 @@
           <t>
             As described in <xref target="T140"/>, buffering can be used to reduce
             overhead, with the maximum buffering time being 500 ms. It can also be used for
-            staying within the maximum character transmission rate [<xref target="sec.sdp.dcsa"/>],
+            staying within the maximum character transmission rate (<xref target="sec.sdp.dcsa"/>),
             if such has been provided by the peer.
           </t>
         </section>
@@ -306,6 +306,10 @@
       <t>
         This document is based on an earlier Internet draft edited by Keith Drage,
         Juergen Stoetzer-Bradler and Albrecht Schwarz.
+      </t>
+      <t>
+        Thomas Belling provided useful comments on the initial (pre-submission) version
+        of he draft.
       </t>
     </section>
   </middle>
