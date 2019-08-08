@@ -344,7 +344,7 @@ Internet-Draft             T.140 Data Channel                August 2019
    Drage, Juergen Stoetzer-Bradler and Albrecht Schwarz.
 
    Thomas Belling provided useful comments on the initial (pre-
-   submission) version of he draft.
+   submission) version of the draft.
 
 9.  References
 
