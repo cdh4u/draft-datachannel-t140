@@ -4,8 +4,8 @@
 
 MMUSIC Working Group                                         C. Holmberg
 Internet-Draft                                                  Ericsson
-Intended status: Standards Track                          August 7, 2019
-Expires: February 8, 2020
+Intended status: Standards Track                          August 8, 2019
+Expires: February 9, 2020
 
 
            T.140 Text Conversation over WebRTC Data Channels
@@ -34,7 +34,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on February 8, 2020.
+   This Internet-Draft will expire on February 9, 2020.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Holmberg                Expires February 8, 2020                [Page 1]
+Holmberg                Expires February 9, 2020                [Page 1]
 
 Internet-Draft             T.140 Data Channel                August 2019
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Holmberg                Expires February 8, 2020                [Page 2]
+Holmberg                Expires February 9, 2020                [Page 2]
 
 Internet-Draft             T.140 Data Channel                August 2019
 
@@ -165,7 +165,7 @@ Internet-Draft             T.140 Data Channel                August 2019
 
 
 
-Holmberg                Expires February 8, 2020                [Page 3]
+Holmberg                Expires February 9, 2020                [Page 3]
 
 Internet-Draft             T.140 Data Channel                August 2019
 
@@ -221,7 +221,7 @@ Internet-Draft             T.140 Data Channel                August 2019
 
 
 
-Holmberg                Expires February 8, 2020                [Page 4]
+Holmberg                Expires February 9, 2020                [Page 4]
 
 Internet-Draft             T.140 Data Channel                August 2019
 
@@ -237,11 +237,11 @@ Internet-Draft             T.140 Data Channel                August 2019
 
    o  Prepare session: An endpoint can indicate its support of T.140
       data channels using signalling specific means, or by indicating
-      the support in an offer or answer [Section 3]
+      the support in an offer or answer (Section 3)
    o  Initiate session: An offer used to request the establishment of a
-      T.140 data channel [Section 3]
+      T.140 data channel (Section 3)
    o  Accept session: An answer used to accept a request to establish a
-      T.140 data channel [Section 3]
+      T.140 data channel (Section 3)
    o  Deny session: An answer used to reject a request the establishment
       of a T.140 data channel, using the generic procedures for
       rejecting a data channel [I-D.ietf-mmusic-data-channel-sdpneg]
@@ -249,7 +249,7 @@ Internet-Draft             T.140 Data Channel                August 2019
       previously established T.140 data channel, using the generic
       procedures for closing a data channel
       [I-D.ietf-mmusic-data-channel-sdpneg]
-   o  Data: Data sent on an established T.140 data channel [Section 4.2]
+   o  Data: Data sent on an established T.140 data channel (Section 4.2)
 
 4.2.  Data Encoding and Sending
 
@@ -271,13 +271,13 @@ Internet-Draft             T.140 Data Channel                August 2019
    As described in [T140], buffering can be used to reduce overhead,
    with the maximum buffering time being 500 ms.  It can also be used
    for staying within the maximum character transmission rate
-   [Section 3.2], if such has been provided by the peer.
+   (Section 3.2), if such has been provided by the peer.
 
 
 
 
 
-Holmberg                Expires February 8, 2020                [Page 5]
+Holmberg                Expires February 9, 2020                [Page 5]
 
 Internet-Draft             T.140 Data Channel                August 2019
 
@@ -333,7 +333,7 @@ Internet-Draft             T.140 Data Channel                August 2019
 
 
 
-Holmberg                Expires February 8, 2020                [Page 6]
+Holmberg                Expires February 9, 2020                [Page 6]
 
 Internet-Draft             T.140 Data Channel                August 2019
 
@@ -342,6 +342,9 @@ Internet-Draft             T.140 Data Channel                August 2019
 
    This document is based on an earlier Internet draft edited by Keith
    Drage, Juergen Stoetzer-Bradler and Albrecht Schwarz.
+
+   Thomas Belling provided useful comments on the initial (pre-
+   submission) version of he draft.
 
 9.  References
 
@@ -386,10 +389,7 @@ Internet-Draft             T.140 Data Channel                August 2019
 
 
 
-
-
-
-Holmberg                Expires February 8, 2020                [Page 7]
+Holmberg                Expires February 9, 2020                [Page 7]
 
 Internet-Draft             T.140 Data Channel                August 2019
 
@@ -445,4 +445,4 @@ Author's Address
 
 
 
-Holmberg                Expires February 8, 2020                [Page 8]
+Holmberg                Expires February 9, 2020                [Page 8]
