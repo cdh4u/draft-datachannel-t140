@@ -197,7 +197,7 @@
             are realized when using a T.140 data channel.
             <list style="symbols">
               <t>Prepare session: An endpoint can indicate its support of T.140 data channels
-                using signalling specific means, or by indicating the support in an
+                using signalling specific means (e.g., using SIP OPTIONS <xref target="RFC3261"/>), or by indicating the support in an
                 offer or answer (<xref target="sec.sdp"/>)</t>
               <t>Initiate session: An offer used to request the establishment of a
                 T.140 data channel (<xref target="sec.sdp"/>)</t>
@@ -335,6 +335,7 @@
       </reference>
     </references>
     <references title="Informative References">
+      <?rfc include="reference.RFC.3261"?>
       <reference anchor="V151">
         <front>
           <title>Recommendation ITU-T V.151 (05/2006), "Procedures for the end-to-end connection of 
