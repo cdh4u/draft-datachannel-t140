@@ -150,7 +150,7 @@
           It does not mean that the default value of 30 applies <xref target="RFC4103"/>.
         </t>
         <t>
-          The offerer and answerer MAY modify the 'cpc' attribute parameter value in subsequent
+          The offerer and answerer MAY modify the 'cps' attribute parameter value in subsequent
           offers and answers.
         </t>
         <t>
