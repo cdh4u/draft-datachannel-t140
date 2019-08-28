@@ -304,7 +304,7 @@ Answer:
             the time of writing this document, this is true even in scenarios where each participants
             communicate via a centralized conference server. The reason is that, unlike RTP media,
             WebRTC data channels and the T.140 protocol do not support the indication of the source
-            of T.140 data. The SDP dcmap attribute label attribute parameter (<xref target="sec.sdp.dcmap"/>
+            of T.140 data. The SDP dcmap attribute label attribute parameter (<xref target="sec.sdp.dcmap"/>)
             can be used to provide additional information about each T.140 data channel, and help
             implementations to distinguish between them.
           </t>
@@ -318,24 +318,51 @@ Answer:
 
     <section anchor="sec.gw" title="Gateway Considerations">
       <t>
-        Multiple transport mechanisms have been defined for T.140 <xref target="T140"/>, due to 
-        the long history and usage of the service in legacy packet-switched and 
-        circuit-switched networks. Some examples are listed below:
+        A number of real-time text transports and protocols have been defined for
+        both packet switched and circuit switched networks. Many are based on the 
+        ITU-T T.140 protocol on application and presentation level <xref target="T140"/>. 
+        At the time of writing this document, some mechanisms are no longer used, as
+        the technologies they use have been obsoleted etc, while others are still in use.
+      </t>
+      <t>
+        When performing interworking between T.140 data channels and another real-time text
+        transports and protocols with real-time text in another, a number of factors 
+        need to be considered.
+        At the time of writing this document, the most common IP-based real-time text transport
+        is the RTP based mechanism defined in <xref target="RFC4103"/>. While this document
+        does not define a complete interworking solution, this list below provides some guidance
+        and considerations to take into account when designing an gateway for interworking
+        between T140 data channels and RTP-based T.140 transport:
         <list style="symbols">
-          <t>IP text telephony in text conversation mode <xref target="RFC4103"/></t>
-          <t>IP text telephony in text relay mode, also known as Text-over-IP (ToIP) <xref target="V151"/></t>
-          <t>IP text telephony in text pass-through mode, also known as Voiceband-over-IP (VBDoIP) <xref target="V152"/></t>
-          <t>PSTN text telephony</t>
+          <t>
+            For each T.140 data channel there is an RTP stream for real-time text <xref target="RFC4103"/> . 
+            Redundancy is by default declared and used on RTP stream. On the T.140 data channel
+            there is no redundancy, but the reliable property <xref target="I-D.ietf-mmusic-data-channel-sdpneg"/>
+            of T.140 the data channel is set.
+          </t>
+          <t>
+            During a normal text flow, T140blocks received from one network are forwarded towards the other network.
+            Keep-alive traffic is implicit on the T140 data channel. <xref target="RFC4103"/> does not define
+            keep-alive traffic for the RTP stream.
+          </t>
+          <t>
+            It is RECOMMENDED that the gateway uses the same transmission interval on both the T140 data channel and the RTP stream,
+            if possible. That will reduce the delay caused by buffering.
+          </t>
+          <t>
+            If the gateway detects or suspects loss of data on the RTP stream, the gateway gateway SHOULD insert the T.140 missing
+            text marker <xref target="T140ad1"/> in the data sent on the T.140 data channel. 
+          </t>
+          <t>
+            If the gateway detects that the T.140 data channel has failed, once the data channel has been reestablished
+            the gateway SHOULD insert the T.140 missing text marker <xref target="T140ad1"/> in the data sent on the RTP stream.
+          </t>
         </list>
       </t>
       <t>
-        In addition to simply moving text between two transport mechanisms, a gateway
-        might have to perform procedures related to events like inactivity of T.140 traffic,
-        RTP packets received out of order and loss of incoming RTP packets.
-      </t>
-      <t>
-        The detailed gateway procedures for interworking between T.140 over data channel and
-        other T.140 transport mechanisms are outside the scope of this document.
+        NOTE 4: In order for the gateway to insert a missing text marker, or to perform other actions that require that the
+        gateway has access to the T.140 data, the T.140 data cannot be encrypted end-to-end between the T.140 data channel endpoint
+        and the RTP endpoint. At the time of writing this document, a mechanism to provide such end-to-end encryption has not been defined.
       </t>
     </section>
     <section anchor="sec.8373" title="Update to RFC 8373">
