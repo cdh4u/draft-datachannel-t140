@@ -5,10 +5,10 @@
 <?rfc subcompact="yes" ?>
 <?rfc sortrefs="no" ?>
 <?rfc strict="yes" ?>
-<rfc ipr="trust200902" category="std" docName="draft-holmberg-mmusic-t140-usage-data-channel-latest" obsoletes="" updates="" submissionType="IETF" xml:lang="en">
+<rfc ipr="trust200902" category="std" docName="draft-holmberg-mmusic-t140-usage-data-channel-latest" obsoletes="" updates="RFC8373" submissionType="IETF" xml:lang="en">
   <front>
     <title abbrev="T.140 Data Channel">
-       T.140 Text Conversation over WebRTC Data Channels
+       T.140 Real-time Text Conversation over WebRTC Data Channels
     </title>
     <author initials="C.H." surname="Holmberg" fullname="Christer Holmberg">
       <organization>Ericsson</organization>
@@ -35,7 +35,7 @@
     <abstract>
       <t>
         This document specifies how a WebRTC data channel can be used as a
-        transport mechanism for the ITU-T Protocol for multimedia
+        transport mechanism for Real-time text using the ITU-T Protocol for multimedia
         application text conversation (Recommendation ITU-T T.140), and
         how the SDP offer/answer mechanism can be used to negotiate
         such data channel, referred to as T.140 data channel.
@@ -48,8 +48,8 @@
       <t>
         The ITU-T Protocol for multimedia application text conversation (Recommendation ITU-T T.140)
         <xref target="T140"/> defines a protocol for text conversation, also known as
-        realtime text or text telephony. The native transport for IP networks is based on the
-        Real-time Transport Protocol (RTP) <xref target="RFC4103"/>.
+        real-time text. The native transport for IP networks is the "RTP Payload for Text Conversation"
+        <xref target="RFC4103"/> mechanism, based on the Real-time Transport Protocol (RTP) <xref target="RFC4103"/>.
       </t>
       <t>
         This document specifies how a WebRTC data channel <xref target="I-D.ietf-rtcweb-data-channel"/>
@@ -62,13 +62,13 @@
         using the SDP-based external negotiation method <xref target="I-D.ietf-mmusic-data-channel-sdpneg"/>.
       </t>
       <t>
-        NOTE - This WebRTC term of a "T.140 data channel" is actually
+        NOTE 1: This WebRTC term of a "T.140 data channel" is actually
         synonym to the originally introduced concept of a "T.140 data
-        channel"] for the T.140 protocol back in 1998, see Section 4.3
+        channel" for the T.140 protocol, see Section 4.3
         of <xref target="T140"/>.
       </t>
       <t>
-        NOTE - The decision to transport realtime text over a data channel,
+        NOTE 2: The decision to transport realtime text over a data channel,
         instead of using RTP based transport <xref target="RFC4103"/>, in WebRTC
         is constituted by use-case "U-C 5: Realtime text chat during an audio
         and/or video call with an individual or with multiple people in a conference",
@@ -104,27 +104,31 @@
         <t>
            An offerer and answerer MUST, in each offer and answer, include an SDP 'dcmap' 
            attribute <xref target="I-D.ietf-mmusic-data-channel-sdpneg"/> in the SDP media
-           descripton (m= line) <xref target="RFC4566"/> describing the SCTP association
+           descripton (m= section) <xref target="RFC4566"/> describing the SCTP association
            <xref target="RFC4960"/> used to realize the T.140 data channel.
         </t>
         <t>
-          The offerer and answerer MUST include the following attribute parameters, and
-          parameter values in the dcmap attribute:
-          <list style="symbols">
-            <t>"label=" labelstring</t>
-            <t>"subprotocol=" "t140"</t>
-          </list>
+          The offerer and answerer MUST include the subprotocol attribute parameter,
+          with a "t140" parameter value, in the 'dcmap' attribute value.
+        </t>
+        <t>
+          The offerer and answerer MAY include the priority attribute parameter and
+          the label attribute parameter in the 'dcmap' attribute value. If the offerer
+          includes a label attribute parameter, the answerer MUST NOT change the value
+          in the answer.
+        </t>
+        <t>
+          NOTE: As specified in <xref target="I-D.ietf-rtcweb-data-channel"/>,
+          when a data channel is negotied using the mechanism defined in <xref target="I-D.ietf-rtcweb-data-protocol"/>,
+          the label attribute parameter value has to be the same in both directions. That rule also
+          applies also to data channels negotiated using the mechanism defined in this document.
         </t>
         <t>
           The offerer and answerer MUST NOT include the max-retr, max-time and ordered
-          attribute parameters in the dcmap attribute.
+          attribute parameters in the 'dcmap' attribute.
         </t>
         <t>
-          The offerer and answerer MAY, based on local policy, include the priority
-          attribute parameter in the dcmap attribute value.
-        </t>
-        <t>
-          Below is an example of the dcmap attribute for an T.140
+          Below is an example of the 'dcmap' attribute for an T.140
           data channel with stream=3 and without any label:
         </t>
         <t>
@@ -135,42 +139,48 @@
         <t>
            An offerer and answerer MAY, in each offer and answer, include an
            SDP 'dcsa' attribute <xref target="I-D.ietf-mmusic-data-channel-sdpneg"/>
-           in the SDP media descripton (m= line) describing the SCTP association used
+           in the m= section describing the SCTP association used
            to realize the T.140 data channel.
         </t>
-        <t>
-          If included, the 'dcsa' attribute contains the fmtp attribute used to indicate
-          a maximum character transmission rate <xref target="RFC4103"/>. The 'cps'
-          attribute parameter is used indicate the maximum character transmission rate
-          that the endpoint that includes the attribute is able to handle. The 'format' attribute
-          parameter is not used with T.140 data channels, and MUST be set to "-".
-        </t>
-        <t>
-          If not included, it indicates that no maximum character transmission rate is indicated. 
-          It does not mean that the default value of 30 applies <xref target="RFC4103"/>.
-        </t>
-        <t>
-          The offerer and answerer MAY modify the 'cpc' attribute parameter value in subsequent
-          offers and answers.
-        </t>
-        <t>
-          NOTE: The 'cps' attribute parameter is especially useful when a T.140 data channel
-          endpoint is acting as a gateway [<xref target="sec.gw"/>] and is interworking with
-          a T.140 transport mechanism that have restrictions on how many characters can be sent
-          per second.
-        </t>
-        <t>
-          Below is an example of the dcsa attribute for an T.140 data channel with a
-          'cps' attribute parameter with a attribute parameter value of 20:
-        </t>
-        <t>
-          a=dcsa:1 fmtp:- cps=20
-        </t>
-      </section>
-      <section anchor="sec.sdp.ex" title="Example">
+        <section anchor="sec.sdp.dcsa.trans" title="Maximum Character Transmission">
           <t>
-            Below is an example of an SDP media description (m= line) describing an
-            SCTP association used to realize a T.140 data channel.
+            A 'dcsa' attribute can contain the SDP fmtp attribute used to indicate
+            a maximum character transmission rate <xref target="RFC4103"/>. The 'cps'
+            attribute parameter is used indicate the maximum character transmission rate
+            that the endpoint that includes the attribute is able to receive. The 'format' attribute
+            parameter is not used with T.140 data channels, and MUST be set to "-".
+          </t>
+          <t>
+            If the fmtp attribute is not included, it indicates that no maximum character transmission
+            rate is indicated. It does not mean that the default value of 30 applies <xref target="RFC4103"/>.
+          </t>
+          <t>
+            The offerer and answerer MAY modify the 'cps' attribute parameter value in subsequent
+            offers and answers.
+          </t>
+          <t>
+            NOTE: The 'cps' attribute parameter is especially useful when a T.140 data channel
+            endpoint is acting as a gateway [<xref target="sec.gw"/>] and is interworking with
+            a T.140 transport mechanism that have restrictions on how many characters can be sent
+            per second.
+          </t>
+        </section>
+        <section anchor="sec.sdp.dcsa.lan" title="Real-time Text Conversation Languages">
+         <t>
+            'dcsa' attributes can contain the SDP hlang-send and hlang-recv attributes
+            <xref target="RFC8373"/> to negotiate the language to be used for the real-time
+            text conversation.
+        </t>
+        <t>
+            For a T.140 data channel, the modality is "written" <xref target="RFC8373"/>.
+        </t>
+        </section>
+      </section>
+      <section anchor="sec.sdp.ex" title="Examples">
+          <t>
+            Below is an example of an m= section describing a
+            T.140 data channel, where the maximum character
+            transmission rate is set to 20.
           </t>
           <figure>
             <preamble></preamble>
@@ -185,6 +195,41 @@
 
             ]]></artwork>
           </figure>
+          <t>
+            Below is an example of an m= section of an offer 
+            for a T.140 data channel offering real-time text
+            conversation in Spanish and Esperanto, and an m= section
+            in the associated answer accepting Esperanto.
+          </t>
+          <figure>
+            <preamble></preamble>
+            <artwork><![CDATA[
+
+Offer:
+
+    m=application 911 UDP/DTLS/SCTP webrtc-datachannel
+    c=IN IP6 2001:db8::3
+    a=max-message-size:1000
+    a=sctp-port 5000
+    a=dcmap:1 label="ACME customer service";subprotocol="t140"
+    a=dcsa:1 fmtp:- cps=30
+    a=dcsa:1 hlang-send:es eo
+    a=dcsa:1 hlang-recv:es eo
+
+Answer:
+
+    m=application 911 UDP/DTLS/SCTP webrtc-datachannel
+    c=IN IP6 2001:db8::1
+    a=max-message-size:1000
+    a=sctp-port 5000
+    a=dcmap:1 label="ACME customer service";subprotocol="t140"
+    a=dcsa:1 fmtp:- cps=30
+    a=dcsa:1 hlang-send:eo
+    a=dcsa:1 hlang-recv:eo
+
+            ]]></artwork>
+          </figure>
+
       </section>
     </section>
 
@@ -203,8 +248,8 @@
                 T.140 data channel (<xref target="sec.sdp"/>)</t>
               <t>Accept session: An answer used to accept a request to establish a
                 T.140 data channel (<xref target="sec.sdp"/>)</t>
-              <t>Deny session: An answer used to reject a request the establishment
-                of a T.140 data channel, using the generic procedures for rejecting
+              <t>Deny session: An answer used to reject a request to establish
+                a T.140 data channel, using the generic procedures for rejecting
                 a data channel <xref target="I-D.ietf-mmusic-data-channel-sdpneg"/></t>
               <t>Disconnect session: An offer or answer used to disable a previously
                 established T.140 data channel, using the generic procedures for closing
@@ -222,7 +267,7 @@
             realize the T.140 data channel using standard T.140 transmission procedures
             <xref target="T140"/>. One or more T140blocks can be sent in a single
             SCTP user message <xref target="RFC4960"/>. Unlike RTP based transport for
-            realtime text <xref target="RFC4103"/>, T.140 data channels do not use reduntant
+            realtime text <xref target="RFC4103"/>, T.140 data channels do not use redundant
             transmission of text.
           </t>
           <t>
@@ -239,32 +284,115 @@
             staying within the maximum character transmission rate (<xref target="sec.sdp.dcsa"/>),
             if such has been provided by the peer.
           </t>
+          <t>
+            An implementation needs to take the user requirements for smooth flow and low
+            latency in real-time text conversation into consideration when assigning a buffer time.
+            It is RECOMMENDED to use the default transmission interval of 300 milliseconds
+            <xref target="RFC4103"/>, or lower, also for T.140 data channels.
+          </t>
+        </section>
+        <section anchor="sec.t140.loss" title="Loss of T140blocks">
+          <t>
+            In case of network failure or congestion, T140 data channels might fail and get torn down.
+            If this happens but the session sustains, it is RECOMMENDED that a low number of 
+            retries are made to reestablish the T140 data channels. If reestablishment of
+            the T140 data channel is successful, an implementation MUST evaluate if any 
+            T140blocks were lost. Retransmission of already transmitted T140blocks MUST be
+            avoided, and missing text markers <xref target="T140ad1"/> SHOULD be inserted in the received 
+            data stream where loss is detected or suspected.
+          </t>
+          <t>
+            An implementation needs to take the user requirements for smooth flow and low
+            latency in real-time text conversation into consideration when assigning a buffer time.
+            It is RECOMMENDED to use the default transmission interval of 300 milliseconds
+            <xref target="RFC4103"/>, or lower, also for T.140 data channels.
+          </t>
+        </section>
+        <section anchor="sec.t140.mul" title="Multi-party Considerations">
+          <t>
+            If an implementation needs to support multi-party scenarios, the implementation needs
+            to support multiple simultaneous T.140 data channels, one for each remote party. At
+            the time of writing this document, this is true even in scenarios where each participants
+            communicate via a centralized conference server. The reason is that, unlike RTP media,
+            WebRTC data channels and the T.140 protocol do not support the indication of the source
+            of T.140 data. The SDP 'dcmap' attribute label attribute parameter (<xref target="sec.sdp.dcmap"/>)
+            can be used by the offerer to provide additional information about each T.140 data channel, and help
+            implementations to distinguish between them.
+          </t>
+          <t>
+            NOTE: Future extensions to T.140, or to the T140block, might allow indicating the source
+            of T.140 data, in which case it might be possible to use a single T.140 data channel to
+            transport data from multiple remote sources.
+          </t>
         </section>
     </section>
 
     <section anchor="sec.gw" title="Gateway Considerations">
       <t>
-        Multiple transport mechanisms have been defined for T.140 <xref target="T140"/>, due to 
-        the long history and usage of the service in legacy packet-switched and 
-        circuit-switched networks. Some examples are listed below:
+        A number of real-time text transports and protocols have been defined for
+        both packet switched and circuit switched networks. Many are based on the 
+        ITU-T T.140 protocol on application and presentation level <xref target="T140"/>. 
+        At the time of writing this document, some mechanisms are no longer used, as
+        the technologies they use have been obsoleted etc, while others are still in use.
+      </t>
+      <t>
+        When performing interworking between T.140 data channels and another real-time text
+        transports and protocols with real-time text in another, a number of factors 
+        need to be considered.
+        At the time of writing this document, the most common IP-based real-time text transport
+        is the RTP based mechanism defined in <xref target="RFC4103"/>. While this document
+        does not define a complete interworking solution, this list below provides some guidance
+        and considerations to take into account when designing an gateway for interworking
+        between T140 data channels and RTP-based T.140 transport:
         <list style="symbols">
-          <t>IP text telephony in text conversation mode <xref target="RFC4103"/></t>
-          <t>IP text telephony in text relay mode, also known as Text-over-IP (ToIP) <xref target="V151"/></t>
-          <t>IP text telephony in text pass-through mode, also known as Voiceband-over-IP (VBDoIP) <xref target="V152"/></t>
-          <t>PSTN text telephony</t>
+          <t>
+            For each T.140 data channel there is an RTP stream for real-time text <xref target="RFC4103"/> . 
+            Redundancy is by default declared and used on RTP stream. On the T.140 data channel
+            there is no redundancy, but the reliable property <xref target="I-D.ietf-mmusic-data-channel-sdpneg"/>
+            of T.140 the data channel is set.
+          </t>
+          <t>
+            During a normal text flow, T140blocks received from one network are forwarded towards the other network.
+            Keep-alive traffic is implicit on the T.140 data channel. A gateway might have to extract keep-alives from
+            incoming RTP streams, and MAY generate keep-alives on outgoing RTP streams.
+          </t>
+          <t>
+            It is RECOMMENDED that the gateway uses the same transmission interval on both the T140 data channel and the RTP stream,
+            if possible. That will reduce the delay caused by buffering.
+          </t>
+          <t>
+            If the gateway detects or suspects loss of data on the RTP stream, the gateway gateway SHOULD insert the T.140 missing
+            text marker <xref target="T140ad1"/> in the data sent on the outgoing T.140 data channel. 
+          </t>
+          <t>
+            If the gateway detects or suspects loss of data on the T.140 data channel, the gateway gateway SHOULD insert the T.140 missing
+            text marker <xref target="T140ad1"/> in the data sent on the outgoing RTP stream. 
+          </t>
+          <t>
+            If the gateway detects that the T.140 data channel has failed and got torn down, once the data channel has been reestablished
+            the gateway SHOULD insert the T.140 missing text marker <xref target="T140ad1"/> in the data sent on the outgoing RTP stream.
+          </t>
         </list>
       </t>
       <t>
-        In addition to simply moving text between two transport mechanisms, a gateway
-        might have to perform procedures related to events like inactivity of T.140 traffic,
-        RTP packets received out of order and loss of incoming RTP packets.
-      </t>
-      <t>
-        The detailed gateway procedures for interworking between T.140 over data channel and
-        other T.140 transport mechanisms are outside the scope of this document.
+        NOTE: In order for the gateway to insert a missing text marker, or to perform other actions that require that the
+        gateway has access to the T.140 data, the T.140 data cannot be encrypted end-to-end between the T.140 data channel endpoint
+        and the RTP endpoint. At the time of writing this document, a mechanism to provide such end-to-end encryption has not been defined.
       </t>
     </section>
-
+    <section anchor="sec.8373" title="Update to RFC 8373">
+        <t>
+          This document updates RFC 8373, by defining how the SDP hlang-send and hlang-recv attributes are used for
+          the "application/webrtc-datachannel" media type.
+        </t>
+        <t>
+          SDP offerers and answerers MUST NOT include the attributes directly in the m= section associated with the
+          'application/webrtc-datachannel' media type. Instead, the attributes MUST be associated with
+          individual data channels, using the SDP 'dcsa' attribute. A specification that defines a subprotocol
+          that uses the attributes MUST specify the modality for that subprotocol, or how to retreive the 
+          modality if the subprotocol supports multiple modalities.
+        </t>
+    </section>
     <section anchor="sec.sec" title="Security Considerations">
         <t>
           The generic security considerations for WebRTC data channels
@@ -309,7 +437,7 @@
       </t>
       <t>
         Thomas Belling provided useful comments on the initial (pre-submission) version
-        of the draft.
+        of the draft. Gunnar Hellstrom provided comments and text on the draft.
       </t>
     </section>
   </middle>
@@ -322,6 +450,7 @@
       <?rfc include="reference.RFC.4566"?>
       <?rfc include="reference.RFC.4960"?>
       <?rfc include="reference.RFC.8174"?>
+      <?rfc include="reference.RFC.8373"?>
       <?rfc include='reference.I-D.ietf-rtcweb-data-channel'?>
       <?rfc include='reference.I-D.ietf-mmusic-data-channel-sdpneg'?>
       <reference anchor="T140">
@@ -332,6 +461,15 @@
           <date year="1998" month="February"/>
         </front>
         <format type="HTML" target="https://www.itu.int/rec/T-REC-T.140-199802-I/en"/>
+      </reference>
+      <reference anchor="T140ad1">
+        <front>
+          <title>Recommendation ITU-T.140 – Addendum 1  (02/2000), "Protocol for
+             multimedia application text conversation"</title>
+          <author><organization>ITU-T</organization></author>
+          <date year="2000" month="February"/>
+        </front>
+        <format type="HTML" target="https://www.itu.int/rec/T-REC-T.140-200002-I!Add1/en"/>
       </reference>
     </references>
     <references title="Informative References">
@@ -354,6 +492,7 @@
         </front>
         <format type="HTML" target="https://www.itu.int/rec/T-REC-V.152/en"/>
       </reference>
+      <?rfc include='reference.I-D.ietf-rtcweb-data-protocol'?>
     </references>
   </back>
 </rfc>
