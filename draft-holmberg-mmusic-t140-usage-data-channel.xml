@@ -385,7 +385,8 @@ Answer:
           </t>
           <t>
             If the gateway detects that the T.140 data channel has failed and got torn down, once the data channel has been reestablished
-            the gateway SHOULD insert the T.140 missing text marker <xref target="T140ad1"/> in the data sent on the outgoing RTP stream.
+            the gateway SHOULD insert the T.140 missing text marker <xref target="T140ad1"/> in the data sent on the outgoing RTP stream
+            if it detects or suspects that data on the T.140 data channel was lost.
           </t>
           <t>
             The gateway MUST indicate the same text transmission direction (<xref target="sec.sdp.dcsa.dir"/>) on the T.140 data channel
@@ -487,12 +488,12 @@ Answer:
 
       <section title="SDP Language Attributes" anchor="sec.iana.dcsa.hlang">
         <t>
-          This document modifies the usage of the SDP 'hlang-send' and 'hland-recv' attributes, if these attributes are
+          This document modifies the usage of the SDP 'hlang-send' and 'hlang-recv' attributes, if these attributes are
           included in SDP 'dcsa' attributes associated with an T.140 data channel. 
           The modified usage is described in <xref target="sec.sdp.dcsa.lan"/>.
         </t>
         <t>
-          The usage level "dcsa(t140)" is added to the IANA registration of the SDP 'hland-send' attribute as follows:
+          The usage level "dcsa(t140)" is added to the IANA registration of the SDP 'hlang-send' attribute as follows:
         </t>
         <texttable title="">
           <ttcol align='left' width='35%'/>
@@ -519,7 +520,7 @@ Answer:
           <c>RFCXXXX</c>
         </texttable>
         <t>
-          The usage level "dcsa(t140)" is added to the IANA registration of the SDP 'hland-recv' attribute as follows:
+          The usage level "dcsa(t140)" is added to the IANA registration of the SDP 'hlang-recv' attribute as follows:
         </t>
         <texttable title="">
           <ttcol align='left' width='35%'/>
