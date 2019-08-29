@@ -109,18 +109,26 @@
         </t>
         <t>
           The offerer and answerer MUST include the subprotocol attribute parameter,
-          with a "t140" parameter value, in the dcmap attribute value.
+          with a "t140" parameter value, in the 'dcmap' attribute value.
         </t>
         <t>
-          The offerer and answerer MAY, based on local policy, include the priority
-          attribute parameter and the label attribute parameter in the dcmap attribute value.
+          The offerer and answerer MAY include the priority attribute parameter and
+          the label attribute parameter in the 'dcmap' attribute value. If the offerer
+          includes a label attribute parameter, the answerer MUST NOT change the value
+          in the answer.
+        </t>
+        <t>
+          NOTE: As specified in <xref target="I-D.ietf-rtcweb-data-channel"/>,
+          when a data channel is negotied using the mechanism defined in <xref target="I-D.ietf-rtcweb-data-protocol"/>,
+          the label attribute parameter value has to be the same in both directions. That rule also
+          applies also to data channels negotiated using the mechanism defined in this document.
         </t>
         <t>
           The offerer and answerer MUST NOT include the max-retr, max-time and ordered
-          attribute parameters in the dcmap attribute.
+          attribute parameters in the 'dcmap' attribute.
         </t>
         <t>
-          Below is an example of the dcmap attribute for an T.140
+          Below is an example of the 'dcmap' attribute for an T.140
           data channel with stream=3 and without any label:
         </t>
         <t>
@@ -139,7 +147,7 @@
             A 'dcsa' attribute can contain the SDP fmtp attribute used to indicate
             a maximum character transmission rate <xref target="RFC4103"/>. The 'cps'
             attribute parameter is used indicate the maximum character transmission rate
-            that the endpoint that includes the attribute is able to handle. The 'format' attribute
+            that the endpoint that includes the attribute is able to receive. The 'format' attribute
             parameter is not used with T.140 data channels, and MUST be set to "-".
           </t>
           <t>
@@ -157,11 +165,14 @@
             per second.
           </t>
         </section>
-        <section anchor="sec.sdp.dcsa.lan" title="Real-time Text Conversation Languates">
+        <section anchor="sec.sdp.dcsa.lan" title="Real-time Text Conversation Languages">
          <t>
-            A 'dcsa' attribute can contain the SDP hlang-send and hlang-recv attributes
+            'dcsa' attributes can contain the SDP hlang-send and hlang-recv attributes
             <xref target="RFC8373"/> to negotiate the language to be used for the real-time
             text conversation.
+        </t>
+        <t>
+            For a T.140 data channel, the modality is "written" <xref target="RFC8373"/>.
         </t>
         </section>
       </section>
@@ -201,20 +212,20 @@ Offer:
     a=max-message-size:1000
     a=sctp-port 5000
     a=dcmap:1 label="ACME customer service";subprotocol="t140"
-    a=dcsa:1 fmtp:-
-    a=dsca:1 hlang-send:es eo
-    a=dsca:1 hlang-recv:es eo
+    a=dcsa:1 fmtp:- cps=30
+    a=dcsa:1 hlang-send:es eo
+    a=dcsa:1 hlang-recv:es eo
 
 Answer:
 
     m=application 911 UDP/DTLS/SCTP webrtc-datachannel
-    c=IN IP6 2001:db8::3
+    c=IN IP6 2001:db8::1
     a=max-message-size:1000
     a=sctp-port 5000
     a=dcmap:1 label="ACME customer service";subprotocol="t140"
-    a=dcsa:1 fmtp:-
-    a=dsca:1 hlang-send:eo
-    a=dsca:1 hlang-recv:eo
+    a=dcsa:1 fmtp:- cps=30
+    a=dcsa:1 hlang-send:eo
+    a=dcsa:1 hlang-recv:eo
 
             ]]></artwork>
           </figure>
@@ -282,13 +293,13 @@ Answer:
         </section>
         <section anchor="sec.t140.loss" title="Loss of T140blocks">
           <t>
-            In case of network failure or congestion, T140 data channels might get lost.
+            In case of network failure or congestion, T140 data channels might fail and get torn down.
             If this happens but the session sustains, it is RECOMMENDED that a low number of 
             retries are made to reestablish the T140 data channels. If reestablishment of
             the T140 data channel is successful, an implementation MUST evaluate if any 
             T140blocks were lost. Retransmission of already transmitted T140blocks MUST be
             avoided, and missing text markers <xref target="T140ad1"/> SHOULD be inserted in the received 
-            data stream where loss is detected or suspected and presented to the user.
+            data stream where loss is detected or suspected.
           </t>
           <t>
             An implementation needs to take the user requirements for smooth flow and low
@@ -299,17 +310,17 @@ Answer:
         </section>
         <section anchor="sec.t140.mul" title="Multi-party Considerations">
           <t>
-            If an implementation needs to support multi-party scenarios, implementations need
+            If an implementation needs to support multi-party scenarios, the implementation needs
             to support multiple simultaneous T.140 data channels, one for each remote party. At
             the time of writing this document, this is true even in scenarios where each participants
             communicate via a centralized conference server. The reason is that, unlike RTP media,
             WebRTC data channels and the T.140 protocol do not support the indication of the source
-            of T.140 data. The SDP dcmap attribute label attribute parameter (<xref target="sec.sdp.dcmap"/>)
-            can be used to provide additional information about each T.140 data channel, and help
+            of T.140 data. The SDP 'dcmap' attribute label attribute parameter (<xref target="sec.sdp.dcmap"/>)
+            can be used by the offerer to provide additional information about each T.140 data channel, and help
             implementations to distinguish between them.
           </t>
           <t>
-            NOTE 3: Future extensions to T.140, or to the T140block, might allow indicating the source
+            NOTE: Future extensions to T.140, or to the T140block, might allow indicating the source
             of T.140 data, in which case it might be possible to use a single T.140 data channel to
             transport data from multiple remote sources.
           </t>
@@ -342,8 +353,8 @@ Answer:
           </t>
           <t>
             During a normal text flow, T140blocks received from one network are forwarded towards the other network.
-            Keep-alive traffic is implicit on the T140 data channel. <xref target="RFC4103"/> does not define
-            keep-alive traffic for the RTP stream.
+            Keep-alive traffic is implicit on the T.140 data channel. A gateway might have to extract keep-alives from
+            incoming RTP streams, and MAY generate keep-alives on outgoing RTP streams.
           </t>
           <t>
             It is RECOMMENDED that the gateway uses the same transmission interval on both the T140 data channel and the RTP stream,
@@ -351,16 +362,20 @@ Answer:
           </t>
           <t>
             If the gateway detects or suspects loss of data on the RTP stream, the gateway gateway SHOULD insert the T.140 missing
-            text marker <xref target="T140ad1"/> in the data sent on the T.140 data channel. 
+            text marker <xref target="T140ad1"/> in the data sent on the outgoing T.140 data channel. 
           </t>
           <t>
-            If the gateway detects that the T.140 data channel has failed, once the data channel has been reestablished
-            the gateway SHOULD insert the T.140 missing text marker <xref target="T140ad1"/> in the data sent on the RTP stream.
+            If the gateway detects or suspects loss of data on the T.140 data channel, the gateway gateway SHOULD insert the T.140 missing
+            text marker <xref target="T140ad1"/> in the data sent on the outgoing RTP stream. 
+          </t>
+          <t>
+            If the gateway detects that the T.140 data channel has failed and got torn down, once the data channel has been reestablished
+            the gateway SHOULD insert the T.140 missing text marker <xref target="T140ad1"/> in the data sent on the outgoing RTP stream.
           </t>
         </list>
       </t>
       <t>
-        NOTE 4: In order for the gateway to insert a missing text marker, or to perform other actions that require that the
+        NOTE: In order for the gateway to insert a missing text marker, or to perform other actions that require that the
         gateway has access to the T.140 data, the T.140 data cannot be encrypted end-to-end between the T.140 data channel endpoint
         and the RTP endpoint. At the time of writing this document, a mechanism to provide such end-to-end encryption has not been defined.
       </t>
@@ -375,7 +390,7 @@ Answer:
           'application/webrtc-datachannel' media type. Instead, the attributes MUST be associated with
           individual data channels, using the SDP 'dcsa' attribute. A specification that defines a subprotocol
           that uses the attributes MUST specify the modality for that subprotocol, or how to retreive the 
-          modality if the subprotocol supports multiple modalifies.
+          modality if the subprotocol supports multiple modalities.
         </t>
     </section>
     <section anchor="sec.sec" title="Security Considerations">
@@ -477,6 +492,7 @@ Answer:
         </front>
         <format type="HTML" target="https://www.itu.int/rec/T-REC-V.152/en"/>
       </reference>
+      <?rfc include='reference.I-D.ietf-rtcweb-data-protocol'?>
     </references>
   </back>
 </rfc>
