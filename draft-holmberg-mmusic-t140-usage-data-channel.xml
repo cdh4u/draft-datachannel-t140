@@ -206,7 +206,7 @@
             <section anchor="sec.sdp.dcsa.dir.neg.off" title="Generating an Offer">
               <t>
                 If the offerer wishes to both send or receive text on a T.140 data channel, it
-                MUST mark the data channel as sendrecv with a ‘sendrecv’ attribute inside a 
+                SHOULD mark the data channel as sendrecv with a ‘sendrecv’ attribute inside a 
                 ‘dcsa’ attribute. If the offerer does not explicitly mark the data channel, a
                 ‘sendrecv’ attribute inside a ‘dcsa’ attribute is implicitly applied.
               </t>
