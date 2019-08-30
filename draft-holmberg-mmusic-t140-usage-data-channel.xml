@@ -175,7 +175,7 @@
             For a T.140 data channel, the modality is "written" <xref target="RFC8373"/>.
         </t>
         </section>
-        <section anchor="sec.sdp.dcsa.dir" title="Real-time Text Transmission Direction">
+        <section anchor="sec.sdp.dcsa.dir" title="Real-time Text Direction">
           <t>
             'dcsa' attributes can contain the SDP 'sendonly', 'recvonly', 'sendrecv' and
             'inactive' attributes <xref target="RFC4566"/> to negotite the direction in 
@@ -187,6 +187,100 @@
             attribute only affects the direction in which implementations are allowed to
             transmit text on a T.140 data channel.
           </t>
+          <t>
+            The offer/answer rules for the direction attributes are based on the rules 
+            for unicast streams defined in <xref target="RFC3264"/>, as described below. 
+            Note that the rules only apply to the direction attributes.
+          </t>
+          <t>
+            NOTE: As for any other attribute included in a 'dcsa' attribute, the direction 
+            attributes only apply to the T.140 data channel for which the 'dcsa' attribute
+            is used. They have no impact on other data channels.
+          </t>
+          <t>
+            Session level direction attributes <xref target="RFC4566"/> have no impact
+            on a T.140 data channel. An offerer and answerer MUST mark the direction of
+            the text by sending a direction attribute inside ‘dcsa- attribute.
+          </t>
+          <section anchor="sec.sdp.dcsa.dir.neg" title="Negotiate Text Direction">
+            <section anchor="sec.sdp.dcsa.dir.neg.off" title="Generating an Offer">
+              <t>
+                If the offerer wishes to both send or receive text on a T.140 data channel, it
+                MUST mark the data channel as sendrecv with a ‘sendrecv’ attribute inside a 
+                ‘dcsa’ attribute. If the offerer does not explicitly mark the data channel, a
+                ‘sendrecv’ attribute inside a ‘dcsa’ attribute is implicitly applied.
+              </t>
+              <t>
+                If the offerer wishes to only send text on a T.140 data channel, it
+                MUST mark the data channel as sendonly with a ‘sendonly’ attribute inside a 
+                ‘dcsa’ attribute. 
+              </t>
+              <t>
+                If the offerer wishes to only receive text on a T.140 data channel, it
+                MUST mark the data channel as sendonly with a ‘sendonly’ attribute inside a 
+                ‘dcsa’ attribute. 
+              </t>
+              <t>
+                If the offerer wishes to neither send or receive text on a T.140 data channel, it
+                MUST mark the data channel as inactive with a ‘inactive’ attribute inside a 
+                ‘dcsa’ attribute. 
+              </t>
+              <t>
+                If the offerer has marked a data channel as sendrecv (implicit or explicit) or
+                recvonly, it MUST be prepared to receive T.140 data as soon as the state of
+                the T.140 data channel allows it. 
+              </t>
+              <t>
+                When the offerer receives an answer to the offer, if the answerer has marked a 
+                data channel as sendrecv (implicit or explicit) or recvonly in the answer, the offerer
+                can start to send T.140 data as soon as the state of the T.140 data channel allows it.
+                If the answerer has marked the data channel as inactive or sendonly, the offerer MUST NOT
+                send any T.140 data.
+              </t>
+            </section> 
+            <section anchor="sec.sdp.dcsa.dir.neg.ans" title="Generating an Answer">
+              <t>
+                When the answerer accepts an offer, and marks the direction of the text 
+                in the corresponding answer, the marking is based on the marking (explicit or implicit) 
+                in the offer.
+              </t>
+              <t>
+                If the offerer marked the data channel as sendrecv (implicitly or explicitly), 
+                the answerer MUST mark the data channel as sendrecv, sendonly, recvonly or inactive
+                with a ‘sendrecv’, ‘sendonly’, ‘recvonly’ respective ‘inactive’ attribute
+                inside a ‘dcsa’ attribute. If the answerer does not explicitly mark the data channel, a
+                ‘sendrecv’ attribute inside a ‘dcsa’ attribute is implicitly applied.
+              </t>
+              <t>
+                If the offerer marked the data channel as sendonly, the answerer MUST
+                mark the data channel as recvonly or inactive with a ‘recvonly’ respective
+                ‘inactive’ attribute inside a ‘dcsa’ attribute. 
+              </t>
+              <t>
+                If the offerer marked the data channel as recvonly, the answerer MUST
+                mark the data channel as sendonly or inactive with a ‘sendonly’ respective
+                ‘inactive’ attribute inside a ‘dcsa’ attribute. 
+              </t>
+              <t>
+                If the offerer marked the data channel as inactive, the answerer MUST
+                mark the data channel as inactive with a ‘inactive’ attribute inside a 
+                ‘dcsa’ attribute.
+              </t>
+              <t>
+                If the answerer has marked a data channel as sendrecv or recvonly, it MUST be
+                prepared to receive data as soon as the state of the T.140 data channel allows
+                transmission of data. 
+              </t>
+            </section>
+          </section> 
+          <section anchor="sec.sdp.dcsa.dir.mod" title="Modify Text Direction">
+            <t>
+              If an endpoint wants to modify a previously negotiated text direction 
+              in an ongoing session, itvwill initiate an offer, following the rules in 
+              <xref target="sec.sdp.dcsa.dir.neg.off"/>. If the answerer accepts the offer
+              it follows the procedures in <xref target="sec.sdp.dcsa.dir.neg.ans"/>.
+            </t>
+          </section> 
         </section>
       </section>
       <section anchor="sec.sdp.ex" title="Examples">
