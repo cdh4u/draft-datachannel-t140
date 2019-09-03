@@ -144,14 +144,14 @@
         </t>
         <section anchor="sec.sdp.dcsa.trans" title="Maximum Character Transmission">
           <t>
-            A 'dcsa' attribute can contain the SDP fmtp attribute used to indicate
+            A 'dcsa' attribute can contain the SDP 'fmtp' attribute used to indicate
             a maximum character transmission rate <xref target="RFC4103"/>. The 'cps'
             attribute parameter is used indicate the maximum character transmission rate
             that the endpoint that includes the attribute is able to receive. The 'format' attribute
             parameter is not used with T.140 data channels, and MUST be set to "-".
           </t>
           <t>
-            If the fmtp attribute is not included, it indicates that no maximum character transmission
+            If the 'fmtp' attribute is not included, it indicates that no maximum character transmission
             rate is indicated. It does not mean that the default value of 30 applies <xref target="RFC4103"/>.
           </t>
           <t>
@@ -167,7 +167,7 @@
         </section>
         <section anchor="sec.sdp.dcsa.lan" title="Real-time Text Conversation Languages">
          <t>
-            'dcsa' attributes can contain the SDP hlang-send and hlang-recv attributes
+            'dcsa' attributes can contain the SDP 'hlang-send' and 'hlang-recv' attributes
             <xref target="RFC8373"/> to negotiate the language to be used for the real-time
             text conversation.
         </t>
@@ -175,12 +175,121 @@
             For a T.140 data channel, the modality is "written" <xref target="RFC8373"/>.
         </t>
         </section>
+        <section anchor="sec.sdp.dcsa.dir" title="Real-time Text Direction">
+          <t>
+            'dcsa' attributes can contain the SDP 'sendonly', 'recvonly', 'sendrecv' and
+            'inactive' attributes <xref target="RFC4566"/> to negotite the direction in 
+            which text can be transmitted in a real-time text conversation, following
+            the procedures in <xref target="RFC3264"/>.
+          </t>
+          <t>
+            NOTE: A WebRTC data channel is always bi-directional. The usage of the 'dcsa'
+            attribute only affects the direction in which implementations are allowed to
+            transmit text on a T.140 data channel.
+          </t>
+          <t>
+            The offer/answer rules for the direction attributes are based on the rules 
+            for unicast streams defined in <xref target="RFC3264"/>, as described below. 
+            Note that the rules only apply to the direction attributes.
+          </t>
+          <t>
+            NOTE: As for any other attribute included in a 'dcsa' attribute, the direction 
+            attributes only apply to the T.140 data channel for which the 'dcsa' attribute
+            is used. They have no impact on other data channels.
+          </t>
+          <t>
+            Session level direction attributes <xref target="RFC4566"/> have no impact
+            on a T.140 data channel. An offerer and answerer MUST mark the direction of
+            the text by sending a direction attribute inside ‘dcsa- attribute.
+          </t>
+          <section anchor="sec.sdp.dcsa.dir.neg" title="Negotiate Text Direction">
+            <section anchor="sec.sdp.dcsa.dir.neg.off" title="Generating an Offer">
+              <t>
+                If the offerer wishes to both send or receive text on a T.140 data channel, it
+                SHOULD mark the data channel as sendrecv with a ‘sendrecv’ attribute inside a 
+                ‘dcsa’ attribute. If the offerer does not explicitly mark the data channel, a
+                ‘sendrecv’ attribute inside a ‘dcsa’ attribute is implicitly applied.
+              </t>
+              <t>
+                If the offerer wishes to only send text on a T.140 data channel, it
+                MUST mark the data channel as sendonly with a ‘sendonly’ attribute inside a 
+                ‘dcsa’ attribute. 
+              </t>
+              <t>
+                If the offerer wishes to only receive text on a T.140 data channel, it
+                MUST mark the data channel as recvonly with a ‘recvonly’ attribute inside a 
+                ‘dcsa’ attribute. 
+              </t>
+              <t>
+                If the offerer wishes to neither send or receive text on a T.140 data channel, it
+                MUST mark the data channel as inactive with a ‘inactive’ attribute inside a 
+                ‘dcsa’ attribute. 
+              </t>
+              <t>
+                If the offerer has marked a data channel as sendrecv (implicit or explicit) or
+                recvonly, it MUST be prepared to receive T.140 data as soon as the state of
+                the T.140 data channel allows it. 
+              </t>
+              <t>
+                When the offerer receives an answer to the offer, if the answerer has marked a 
+                data channel as sendrecv (implicit or explicit) or recvonly in the answer, the offerer
+                can start to send T.140 data as soon as the state of the T.140 data channel allows it.
+                If the answerer has marked the data channel as inactive or sendonly, the offerer MUST NOT
+                send any T.140 data.
+              </t>
+            </section> 
+            <section anchor="sec.sdp.dcsa.dir.neg.ans" title="Generating an Answer">
+              <t>
+                When the answerer accepts an offer, and marks the direction of the text 
+                in the corresponding answer, the marking is based on the marking (explicit or implicit) 
+                in the offer.
+              </t>
+              <t>
+                If the offerer marked the data channel as sendrecv (implicitly or explicitly), 
+                the answerer MUST mark the data channel as sendrecv, sendonly, recvonly or inactive
+                with a ‘sendrecv’, ‘sendonly’, ‘recvonly’ respective ‘inactive’ attribute
+                inside a ‘dcsa’ attribute. If the answerer does not explicitly mark the data channel, a
+                ‘sendrecv’ attribute inside a ‘dcsa’ attribute is implicitly applied.
+              </t>
+              <t>
+                If the offerer marked the data channel as sendonly, the answerer MUST
+                mark the data channel as recvonly or inactive with a ‘recvonly’ respective
+                ‘inactive’ attribute inside a ‘dcsa’ attribute. 
+              </t>
+              <t>
+                If the offerer marked the data channel as recvonly, the answerer MUST
+                mark the data channel as sendonly or inactive with a ‘sendonly’ respective
+                ‘inactive’ attribute inside a ‘dcsa’ attribute. 
+              </t>
+              <t>
+                If the offerer marked the data channel as inactive, the answerer MUST
+                mark the data channel as inactive with a ‘inactive’ attribute inside a 
+                ‘dcsa’ attribute.
+              </t>
+              <t>
+                If the answerer has marked a data channel as sendrecv or recvonly, it MUST be
+                prepared to receive data as soon as the state of the T.140 data channel allows
+                transmission of data. 
+              </t>
+            </section>
+          </section> 
+          <section anchor="sec.sdp.dcsa.dir.mod" title="Modify Text Direction">
+            <t>
+              If an endpoint wishes to modify a previously negotiated text direction 
+              in an ongoing session, it MUST initiate an offer that indicates the new 
+              direction, following the rules in <xref target="sec.sdp.dcsa.dir.neg.off"/>. 
+              If the answerer accepts the offer it follows the procedures in
+              <xref target="sec.sdp.dcsa.dir.neg.ans"/>.
+            </t>
+          </section> 
+        </section>
       </section>
       <section anchor="sec.sdp.ex" title="Examples">
           <t>
             Below is an example of an m= section describing a
             T.140 data channel, where the maximum character
-            transmission rate is set to 20.
+            transmission rate is set to 20, and the text
+            transmission direction is set to "sendrecv".
           </t>
           <figure>
             <preamble></preamble>
@@ -192,6 +301,7 @@
     a=sctp-port 5000
     a=dcmap:1 label="text conversation";subprotocol="t140"
     a=dcsa:1 fmtp:- cps=20
+    a=dcsa:1 sendrecv
 
             ]]></artwork>
           </figure>
@@ -293,10 +403,10 @@ Answer:
         </section>
         <section anchor="sec.t140.loss" title="Loss of T140blocks">
           <t>
-            In case of network failure or congestion, T140 data channels might fail and get torn down.
+            In case of network failure or congestion, T.140 data channels might fail and get torn down.
             If this happens but the session sustains, it is RECOMMENDED that a low number of 
-            retries are made to reestablish the T140 data channels. If reestablishment of
-            the T140 data channel is successful, an implementation MUST evaluate if any 
+            retries are made to reestablish the T.140 data channels. If reestablishment of
+            the T.140 data channel is successful, an implementation MUST evaluate if any 
             T140blocks were lost. Retransmission of already transmitted T140blocks MUST be
             avoided, and missing text markers <xref target="T140ad1"/> SHOULD be inserted in the received 
             data stream where loss is detected or suspected.
@@ -312,7 +422,7 @@ Answer:
           <t>
             If an implementation needs to support multi-party scenarios, the implementation needs
             to support multiple simultaneous T.140 data channels, one for each remote party. At
-            the time of writing this document, this is true even in scenarios where each participants
+            the time of writing this document, this is true even in scenarios where each participant
             communicate via a centralized conference server. The reason is that, unlike RTP media,
             WebRTC data channels and the T.140 protocol do not support the indication of the source
             of T.140 data. The SDP 'dcmap' attribute label attribute parameter (<xref target="sec.sdp.dcmap"/>)
@@ -343,7 +453,7 @@ Answer:
         is the RTP based mechanism defined in <xref target="RFC4103"/>. While this document
         does not define a complete interworking solution, this list below provides some guidance
         and considerations to take into account when designing an gateway for interworking
-        between T140 data channels and RTP-based T.140 transport:
+        between T.140 data channels and RTP-based T.140 transport:
         <list style="symbols">
           <t>
             For each T.140 data channel there is an RTP stream for real-time text <xref target="RFC4103"/> . 
@@ -357,7 +467,7 @@ Answer:
             incoming RTP streams, and MAY generate keep-alives on outgoing RTP streams.
           </t>
           <t>
-            It is RECOMMENDED that the gateway uses the same transmission interval on both the T140 data channel and the RTP stream,
+            It is RECOMMENDED that the gateway uses the same transmission interval on both the T.140 data channel and the RTP stream,
             if possible. That will reduce the delay caused by buffering.
           </t>
           <t>
@@ -370,7 +480,12 @@ Answer:
           </t>
           <t>
             If the gateway detects that the T.140 data channel has failed and got torn down, once the data channel has been reestablished
-            the gateway SHOULD insert the T.140 missing text marker <xref target="T140ad1"/> in the data sent on the outgoing RTP stream.
+            the gateway SHOULD insert the T.140 missing text marker <xref target="T140ad1"/> in the data sent on the outgoing RTP stream
+            if it detects or suspects that data on the T.140 data channel was lost.
+          </t>
+          <t>
+            The gateway MUST indicate the same text transmission direction (<xref target="sec.sdp.dcsa.dir"/>) on the T.140 data channel
+            and the RTP stream.
           </t>
         </list>
       </t>
@@ -409,25 +524,242 @@ Answer:
       <t>
         [RFC EDITOR NOTE: Please replace all instances of RFCXXXX with the RFC number of this document.]
       </t>
-      <t>
-        This document adds the subprotocol identifier "t140" to the "WebSocket Subprotocol Name Registry" as follows:
-      </t>
-      <texttable title="">
-        <ttcol align='left' width='30%'/>
-        <ttcol align='left'/>
+      <section anchor="sec.iana.sub" title="Subprotocol Identifier t140">
+        <t>
+          This document adds the subprotocol identifier "t140" to the "WebSocket Subprotocol Name Registry" as follows:
+        </t>
+        <texttable title="">
+          <ttcol align='left' width='30%'/>
+          <ttcol align='left'/>
 
-        <c>Subprotocol Identifier:</c>
-        <c>t140</c>
+          <c>Subprotocol Identifier:</c>
+          <c>t140</c>
 
-        <c>Subprotocol Common Name:</c>
-        <c>ITU-T T.140</c>
+          <c>Subprotocol Common Name:</c>
+          <c>ITU-T T.140</c>
 
-        <c>Subprotocol Definition:</c>
-        <c>RFCXXXX</c>
+          <c>Subprotocol Definition:</c>
+          <c>RFCXXXX</c>
 
-        <c>Reference:</c>
-        <c>RFCXXXX</c>
-     </texttable>
+          <c>Reference:</c>
+          <c>RFCXXXX</c>
+        </texttable>
+      </section>
+
+      <section title="SDP fmtp Attribute" anchor="sec.iana.dcsa.fmtp">
+        <t>
+          This document modifies the usage of the SDP 'fmtp' attribute, if this attribute is
+          included in an SDP 'dcsa' attribute and associated with an T.140 real-time text session
+          over a WebRTC data channel. The modified usage is described in <xref target="sec.sdp.dcsa.trans"/>.
+        </t>
+        <t>
+          The usage level "dcsa(t140)" is added to the IANA registration of the SDP 'fmtp' attribute as follows:
+        </t>
+        <texttable title="">
+          <ttcol align='left' width='35%'/>
+          <ttcol align='left' width='65%'/>
+
+          <c>Contact name:</c>
+          <c>MMUSIC Chairs</c>
+
+          <c>Contact email:</c>
+          <c>mmusic-chairs@ietf.org</c>
+
+          <c>Attribute name:</c>
+          <c>fmtp</c>
+
+          <c>Usage level:</c>
+          <c>dcsa(t140)</c>
+
+          <c>Purpose:</c>
+          <c>
+            Indicate the maximum transmission rate that an endpoint is willing to recive on a T.140 data channel. 
+          </c>
+       
+          <c>Reference:</c>
+          <c>RFCXXXX</c>
+        </texttable>
+      </section>
+
+      <section title="SDP Language Attributes" anchor="sec.iana.dcsa.hlang">
+        <t>
+          This document modifies the usage of the SDP 'hlang-send' and 'hlang-recv' attributes, if these attributes are
+          included in SDP 'dcsa' attributes associated with an T.140 data channel. 
+          The modified usage is described in <xref target="sec.sdp.dcsa.lan"/>.
+        </t>
+        <t>
+          The usage level "dcsa(t140)" is added to the IANA registration of the SDP 'hlang-send' attribute as follows:
+        </t>
+        <texttable title="">
+          <ttcol align='left' width='35%'/>
+          <ttcol align='left' width='65%'/>
+
+          <c>Contact name:</c>
+          <c>MMUSIC Chairs</c>
+
+          <c>Contact email:</c>
+          <c>mmusic-chairs@ietf.org</c>
+
+          <c>Attribute name:</c>
+          <c>hlang-send</c>
+
+          <c>Usage level:</c>
+          <c>dcsa(t140)</c>
+
+          <c>Purpose:</c>
+          <c>
+            Negotiate the language to be used on a T.140 data channel.
+          </c>
+       
+          <c>Reference:</c>
+          <c>RFCXXXX</c>
+        </texttable>
+        <t>
+          The usage level "dcsa(t140)" is added to the IANA registration of the SDP 'hlang-recv' attribute as follows:
+        </t>
+        <texttable title="">
+          <ttcol align='left' width='35%'/>
+          <ttcol align='left' width='65%'/>
+
+          <c>Contact name:</c>
+          <c>MMUSIC Chairs</c>
+
+          <c>Contact email:</c>
+          <c>mmusic-chairs@ietf.org</c>
+
+          <c>Attribute name:</c>
+          <c>hlang-recv</c>
+
+          <c>Usage level:</c>
+          <c>dcsa(t140)</c>
+
+          <c>Purpose:</c>
+          <c>
+            Negotiate the language to be used on a T.140 data channel.
+          </c>
+       
+          <c>Reference:</c>
+          <c>RFCXXXX</c>
+        </texttable>
+      </section>
+
+      <section title="SDP Media Direction Attributes" anchor="sec.iana.dcsa.direction">
+        <t>
+          This document modifies the usage of the SDP 'sendonly', 'recvonly', 'sendrecv' and 'inactive' attributes,
+          if these attributes are included in SDP 'dcsa' attributes associated T.140 data channel. The modified usage
+          is described in <xref target="sec.sdp.dcsa.dir"/>.
+        </t>
+        <t>
+          The usage level "dcsa(t140)" is added to the IANA registration of the SDP 'sendonly' attribute as follows:
+        </t>
+        <texttable title="">
+          <ttcol align='left' width='35%'/>
+          <ttcol align='left' width='65%'/>
+
+          <c>Contact name:</c>
+          <c>MMUSIC Chairs</c>
+
+          <c>Contact email:</c>
+          <c>mmusic-chairs@ietf.org</c>
+
+          <c>Attribute name:</c>
+          <c>sendonly</c>
+
+          <c>Usage level:</c>
+          <c>dcsa(t140)</c>
+
+          <c>Purpose:</c>
+          <c>
+            Negotiate the direction in which real-time text can be sent on a T.140 data channel.
+          </c>
+       
+          <c>Reference:</c>
+          <c>RFCXXXX</c>
+        </texttable>
+
+        <t>
+          The usage level "dcsa(t140)" is added to the IANA registration of the SDP 'recvonly' attribute as follows:
+        </t>
+        <texttable title="">
+          <ttcol align='left' width='35%'/>
+          <ttcol align='left' width='65%'/>
+
+          <c>Contact name:</c>
+          <c>MMUSIC Chairs</c>
+
+          <c>Contact email:</c>
+          <c>mmusic-chairs@ietf.org</c>
+
+          <c>Attribute name:</c>
+          <c>recvonly</c>
+
+          <c>Usage level:</c>
+          <c>dcsa(t140)</c>
+
+          <c>Purpose:</c>
+          <c>
+            Negotiate the direction in which real-time text can be sent on a T.140 data channel.
+          </c>
+       
+          <c>Reference:</c>
+          <c>RFCXXXX</c>
+        </texttable>
+        <t>
+          The usage level "dcsa(t140)" is added to the IANA registration of the SDP 'sendrecv' attribute as follows:
+        </t>
+        <texttable title="">
+          <ttcol align='left' width='35%'/>
+          <ttcol align='left' width='65%'/>
+
+          <c>Contact name:</c>
+          <c>MMUSIC Chairs</c>
+
+          <c>Contact email:</c>
+          <c>mmusic-chairs@ietf.org</c>
+
+          <c>Attribute name:</c>
+          <c>sendrecv</c>
+
+          <c>Usage level:</c>
+          <c>dcsa(t140)</c>
+
+          <c>Purpose:</c>
+          <c>
+            Negotiate the direction in which real-time text can be sent on a T.140 data channel.
+          </c>
+       
+          <c>Reference:</c>
+          <c>RFCXXXX</c>
+        </texttable>
+        <t>
+          The usage level "dcsa(t140)" is added to the IANA registration of the SDP 'inactive' attribute as follows:
+        </t>
+        <texttable title="">
+          <ttcol align='left' width='35%'/>
+          <ttcol align='left' width='65%'/>
+
+          <c>Contact name:</c>
+          <c>MMUSIC Chairs</c>
+
+          <c>Contact email:</c>
+          <c>mmusic-chairs@ietf.org</c>
+
+          <c>Attribute name:</c>
+          <c>inactive</c>
+
+          <c>Usage level:</c>
+          <c>dcsa(t140)</c>
+
+          <c>Purpose:</c>
+          <c>
+            Negotiate the direction in which real-time text can be sent on a T.140 data channel.
+          </c>
+       
+          <c>Reference:</c>
+          <c>RFCXXXX</c>
+        </texttable>
+
+      </section>
     </section>
 
     <section anchor="sec.acks" title="Acknowledgements" toc="default">
