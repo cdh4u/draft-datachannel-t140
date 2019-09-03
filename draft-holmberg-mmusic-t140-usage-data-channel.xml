@@ -217,7 +217,7 @@
               </t>
               <t>
                 If the offerer wishes to only receive text on a T.140 data channel, it
-                MUST mark the data channel as sendonly with a ‘sendonly’ attribute inside a 
+                MUST mark the data channel as recvonly with a ‘recvonly’ attribute inside a 
                 ‘dcsa’ attribute. 
               </t>
               <t>
@@ -275,10 +275,11 @@
           </section> 
           <section anchor="sec.sdp.dcsa.dir.mod" title="Modify Text Direction">
             <t>
-              If an endpoint wants to modify a previously negotiated text direction 
-              in an ongoing session, itvwill initiate an offer, following the rules in 
-              <xref target="sec.sdp.dcsa.dir.neg.off"/>. If the answerer accepts the offer
-              it follows the procedures in <xref target="sec.sdp.dcsa.dir.neg.ans"/>.
+              If an endpoint wishes to modify a previously negotiated text direction 
+              in an ongoing session, it MUST initiate an offer that indicates the new 
+              direction, following the rules in <xref target="sec.sdp.dcsa.dir.neg.off"/>. 
+              If the answerer accepts the offer it follows the procedures in
+              <xref target="sec.sdp.dcsa.dir.neg.ans"/>.
             </t>
           </section> 
         </section>
