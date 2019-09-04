@@ -407,15 +407,9 @@ Answer:
             If this happens but the session sustains, it is RECOMMENDED that a low number of 
             retries are made to reestablish the T.140 data channels. If reestablishment of
             the T.140 data channel is successful, an implementation MUST evaluate if any 
-            T140blocks were lost. Retransmission of already transmitted T140blocks MUST be
+            T140blocks were lost. Retransmission of already successfully transmitted T140blocks MUST be
             avoided, and missing text markers <xref target="T140ad1"/> SHOULD be inserted in the received 
             data stream where loss is detected or suspected.
-          </t>
-          <t>
-            An implementation needs to take the user requirements for smooth flow and low
-            latency in real-time text conversation into consideration when assigning a buffer time.
-            It is RECOMMENDED to use the default transmission interval of 300 milliseconds
-            <xref target="RFC4103"/>, or lower, also for T.140 data channels.
           </t>
         </section>
         <section anchor="sec.t140.mul" title="Multi-party Considerations">
