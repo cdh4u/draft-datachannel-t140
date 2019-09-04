@@ -179,18 +179,12 @@
           <t>
             'dcsa' attributes can contain the SDP 'sendonly', 'recvonly', 'sendrecv' and
             'inactive' attributes <xref target="RFC4566"/> to negotite the direction in 
-            which text can be transmitted in a real-time text conversation, following
-            the procedures in <xref target="RFC3264"/>.
+            which text can be transmitted in a real-time text conversation.
           </t>
           <t>
             NOTE: A WebRTC data channel is always bi-directional. The usage of the 'dcsa'
             attribute only affects the direction in which implementations are allowed to
             transmit text on a T.140 data channel.
-          </t>
-          <t>
-            The offer/answer rules for the direction attributes are based on the rules 
-            for unicast streams defined in <xref target="RFC3264"/>, as described below. 
-            Note that the rules only apply to the direction attributes.
           </t>
           <t>
             NOTE: As for any other attribute included in a 'dcsa' attribute, the direction 
