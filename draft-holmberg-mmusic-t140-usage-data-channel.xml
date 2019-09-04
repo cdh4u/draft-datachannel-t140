@@ -198,9 +198,9 @@
             is used. They have no impact on other data channels.
           </t>
           <t>
-            Session level direction attributes <xref target="RFC4566"/> have no impact
-            on a T.140 data channel. An offerer and answerer MUST mark the direction of
-            the text by sending a direction attribute inside ‘dcsa- attribute.
+            Session level direction attributes <xref target="RFC4566"/> have impact
+            on a T.140 data channel only when no direction attribute has been declared 
+            as a direction attribute inside a ‘dcsa- attribute for the T.140 data channel.
           </t>
           <section anchor="sec.sdp.dcsa.dir.neg" title="Negotiate Text Direction">
             <section anchor="sec.sdp.dcsa.dir.neg.off" title="Generating an Offer">
