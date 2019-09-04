@@ -124,14 +124,16 @@
           applies also to data channels negotiated using the mechanism defined in this document.
         </t>
         <t>
-          The offerer and answerer MUST NOT include the max-retr and max-time
+          The offerer and answerer MUST NOT include the 'max-retr' and 'max-time'
           attribute parameters in the 'dcmap' attribute.
         </t>
         <t>
-          If the offerer or answerer includes the ordered attribute parameter in the 'dcmap' attribute, its value MUST be set to 'true'.
+          If the offerer or answerer includes the 'ordered' attribute parameter in the 'dcmap' 
+          attribute, its value MUST be set to 'true'.
+        </t>
         <t>
           Below is an example of the 'dcmap' attribute for an T.140
-          data channel with stream=3 and without any label:
+          data channel with stream id=3 and without any label:
         </t>
         <t>
           a=dcmap:3 subprotocol="t140"
