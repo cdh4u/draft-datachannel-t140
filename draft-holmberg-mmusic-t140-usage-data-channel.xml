@@ -806,25 +806,7 @@ Answer:
     </references>
     <references title="Informative References">
       <?rfc include="reference.RFC.3261"?>
-      <reference anchor="V151">
-        <front>
-          <title>Recommendation ITU-T V.151 (05/2006), "Procedures for the end-to-end connection of 
-            analogue PSTN text telephones over an IP network utilizing text relay"</title>
-          <author><organization>ITU-T</organization></author>
-          <date year="2006" month="May"/>
-        </front>
-        <format type="HTML" target="https://www.itu.int/rec/T-REC-V.151/en"/>
-      </reference>
-      <reference anchor="V152">
-        <front>
-          <title>Recommendation ITU-T V.152 (09/2010), "Procedures for supporting voice-band data over 
-            IP networks"</title>
-          <author><organization>ITU-T</organization></author>
-          <date year="2010" month="September"/>
-        </front>
-        <format type="HTML" target="https://www.itu.int/rec/T-REC-V.152/en"/>
-      </reference>
-      <?rfc include='reference.I-D.ietf-rtcweb-data-protocol'?>
+           <?rfc include='reference.I-D.ietf-rtcweb-data-protocol'?>
     </references>
   </back>
 </rfc>
