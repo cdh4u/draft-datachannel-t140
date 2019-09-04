@@ -206,24 +206,24 @@
             <section anchor="sec.sdp.dcsa.dir.neg.off" title="Generating an Offer">
               <t>
                 If the offerer wishes to both send or receive text on a T.140 data channel, it
-                SHOULD mark the data channel as sendrecv with a ‘sendrecv’ attribute inside a 
-                ‘dcsa’ attribute. If the offerer does not explicitly mark the data channel, a
-                ‘sendrecv’ attribute inside a ‘dcsa’ attribute is implicitly applied.
+                SHOULD mark the data channel as sendrecv with a 'sendrecv' attribute inside a 
+                'dcsa' attribute. If the offerer does not explicitly mark the data channel, a
+                'sendrecv' attribute inside a 'dcsa' attribute is implicitly applied.
               </t>
               <t>
                 If the offerer wishes to only send text on a T.140 data channel, it
-                MUST mark the data channel as sendonly with a ‘sendonly’ attribute inside a 
-                ‘dcsa’ attribute. 
+                MUST mark the data channel as sendonly with a 'sendonly' attribute inside a 
+                'dcsa' attribute. 
               </t>
               <t>
                 If the offerer wishes to only receive text on a T.140 data channel, it
-                MUST mark the data channel as recvonly with a ‘recvonly’ attribute inside a 
-                ‘dcsa’ attribute. 
+                MUST mark the data channel as recvonly with a 'recvonly' attribute inside a 
+                'dcsa' attribute. 
               </t>
               <t>
                 If the offerer wishes to neither send or receive text on a T.140 data channel, it
-                MUST mark the data channel as inactive with a ‘inactive’ attribute inside a 
-                ‘dcsa’ attribute. 
+                MUST mark the data channel as inactive with a 'inactive' attribute inside a 
+                'dcsa' attribute. 
               </t>
               <t>
                 If the offerer has marked a data channel as sendrecv (implicit or explicit) or
@@ -247,24 +247,24 @@
               <t>
                 If the offerer marked the data channel as sendrecv (implicitly or explicitly), 
                 the answerer MUST mark the data channel as sendrecv, sendonly, recvonly or inactive
-                with a ‘sendrecv’, ‘sendonly’, ‘recvonly’ respective ‘inactive’ attribute
-                inside a ‘dcsa’ attribute. If the answerer does not explicitly mark the data channel, a
-                ‘sendrecv’ attribute inside a ‘dcsa’ attribute is implicitly applied.
+                with a 'sendrecv', 'sendonly', 'recvonly' respective 'inactive' attribute
+                inside a 'dcsa' attribute. If the answerer does not explicitly mark the data channel, a
+                'sendrecv' attribute inside a 'dcsa' attribute is implicitly applied.
               </t>
               <t>
                 If the offerer marked the data channel as sendonly, the answerer MUST
-                mark the data channel as recvonly or inactive with a ‘recvonly’ respective
-                ‘inactive’ attribute inside a ‘dcsa’ attribute. 
+                mark the data channel as recvonly or inactive with a 'recvonly' respective
+                'inactive' attribute inside a 'dcsa' attribute. 
               </t>
               <t>
                 If the offerer marked the data channel as recvonly, the answerer MUST
-                mark the data channel as sendonly or inactive with a ‘sendonly’ respective
-                ‘inactive’ attribute inside a ‘dcsa’ attribute. 
+                mark the data channel as sendonly or inactive with a 'sendonly' respective
+                'inactive' attribute inside a 'dcsa' attribute. 
               </t>
               <t>
                 If the offerer marked the data channel as inactive, the answerer MUST
-                mark the data channel as inactive with a ‘inactive’ attribute inside a 
-                ‘dcsa’ attribute.
+                mark the data channel as inactive with a 'inactive' attribute inside a 
+                'dcsa' attribute.
               </t>
               <t>
                 If the answerer has marked a data channel as sendrecv or recvonly, it MUST be
