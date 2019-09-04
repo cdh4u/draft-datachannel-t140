@@ -398,7 +398,7 @@ Answer:
             An implementation needs to take the user requirements for smooth flow and low
             latency in real-time text conversation into consideration when assigning a buffer time.
             It is RECOMMENDED to use the default transmission interval of 300 milliseconds
-            <xref target="RFC4103"/>, or lower, also for T.140 data channels.
+            <xref target="RFC4103"/>, or lower, for T.140 data channels.
           </t>
         </section>
         <section anchor="sec.t140.loss" title="Loss of T140blocks">
@@ -465,10 +465,6 @@ Answer:
             During a normal text flow, T140blocks received from one network are forwarded towards the other network.
             Keep-alive traffic is implicit on the T.140 data channel. A gateway might have to extract keep-alives from
             incoming RTP streams, and MAY generate keep-alives on outgoing RTP streams.
-          </t>
-          <t>
-            It is RECOMMENDED that the gateway uses the same transmission interval on both the T.140 data channel and the RTP stream,
-            if possible. That will reduce the delay caused by buffering.
           </t>
           <t>
             If the gateway detects or suspects loss of data on the RTP stream, the gateway gateway SHOULD insert the T.140 missing
