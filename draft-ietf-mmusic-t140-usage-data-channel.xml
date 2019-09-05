@@ -200,7 +200,7 @@
           <t>
             Session level direction attributes <xref target="RFC4566"/> have no impact
             on a T.140 data channel. An offerer and answerer MUST mark the direction of
-            the text by sending a direction attribute inside ‘dcsa- attribute.
+            the text by sending a direction attribute inside 'dcsa' attribute.
           </t>
           <section anchor="sec.sdp.dcsa.dir.neg" title="Negotiate Text Direction">
             <section anchor="sec.sdp.dcsa.dir.neg.off" title="Generating an Offer">
