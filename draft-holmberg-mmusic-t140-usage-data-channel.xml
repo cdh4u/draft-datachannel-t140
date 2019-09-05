@@ -128,7 +128,7 @@
           attribute parameters in the 'dcmap' attribute.
         </t>
         <t>
-          Below is an example of the 'dcmap' attribute for an T.140
+          Below is an example of the 'dcmap' attribute for a T.140
           data channel with stream=3 and without any label:
         </t>
         <t>
