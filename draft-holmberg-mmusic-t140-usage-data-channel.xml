@@ -425,16 +425,14 @@ Answer:
             implementations to distinguish between them.
           </t>
           <t>
-            NOTE1: Future extensions to T.140, or to the T140block, might allow indicating the source
+            NOTE: Future extensions to T.140, or to the T140block, might allow indicating the source
             of T.140 data, in which case it might be possible to use a single T.140 data channel to
-            transport data from multiple remote sources.
-          </t>
-          <t>
-            NOTE2: The information above is for multi-party aware clients which can present the conference
-            in a way that is adapted to user expectations regarding presentation style and real-time performance.
-            Mixers with single channel transmission may without any protocol extensions produce a multi-party
-            presentation completely within the text stream, and with limitations in real-time performance and 
-            presentation style.
+            transport data from multiple remote sources. That is useful for multi-party aware clients
+            that are able present the conference in a way that is adapted to user expectations regarding
+            presentation style and real-time performance. Conference mixers that use a single T.140 data channel
+            to transmit real-time text towards clients might, without any protocol extensions, produce 
+            a multi-party presentation completely within the text stream, and with limitations in real-time
+            performance and presentation style.
           </t>
      
         </section>
