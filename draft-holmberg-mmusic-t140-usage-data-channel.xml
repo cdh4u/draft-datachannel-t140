@@ -121,7 +121,7 @@
           NOTE: As specified in <xref target="I-D.ietf-rtcweb-data-channel"/>,
           when a data channel is negotied using the mechanism defined in <xref target="I-D.ietf-rtcweb-data-protocol"/>,
           the label attribute parameter value has to be the same in both directions. That rule also
-          applies also to data channels negotiated using the mechanism defined in this document.
+          applies to data channels negotiated using the mechanism defined in this document.
         </t>
         <t>
           The offerer and answerer MUST NOT include the max-retr, max-time and ordered
