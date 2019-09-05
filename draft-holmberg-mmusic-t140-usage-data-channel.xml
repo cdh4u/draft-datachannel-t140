@@ -441,13 +441,12 @@ Answer:
         the technologies they use have been obsoleted etc, while others are still in use.
       </t>
       <t>
-        When performing interworking between T.140 data channels and another real-time text
-        transports and protocols with real-time text in another, a number of factors 
-        need to be considered.
+        When performing interworking between T.140 data channels and real-time text
+        in other transports and protocols, a number of factors need to be considered.
         At the time of writing this document, the most common IP-based real-time text transport
         is the RTP based mechanism defined in <xref target="RFC4103"/>. While this document
         does not define a complete interworking solution, this list below provides some guidance
-        and considerations to take into account when designing an gateway for interworking
+        and considerations to take into account when designing a gateway for interworking
         between T.140 data channels and RTP-based T.140 transport:
         <list style="symbols">
           <t>
