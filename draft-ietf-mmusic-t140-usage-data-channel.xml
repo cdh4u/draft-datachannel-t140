@@ -146,13 +146,20 @@
            in the m= section describing the SCTP association used
            to realize the T.140 data channel.
         </t>
+        <t>
+            NOTE: At the time of writing this specification, the latest verion of 
+            the API defined in <xref target="W3C.webrtc"/> does not support the use
+            of the SDP attributes defined in this section.
+        </t>
         <section anchor="sec.sdp.dcsa.trans" title="Maximum Character Transmission">
           <t>
             A 'dcsa' attribute can contain the SDP 'fmtp' attribute used to indicate
             a maximum character transmission rate <xref target="RFC4103"/>. The 'cps'
             attribute parameter is used indicate the maximum character transmission rate
-            that the endpoint that includes the attribute is able to receive. The 'format' attribute
-            parameter is not used with T.140 data channels, and MUST be set to "-".
+            that the endpoint that includes the attribute is able to receive.
+          </t>
+          <t>
+            If the 'fmtp' attribute is included, the 'format' attribute parameter MUST be set to "-".
           </t>
           <t>
             If the 'fmtp' attribute is not included, it indicates that no maximum character transmission
@@ -183,8 +190,7 @@
           <t>
             'dcsa' attributes can contain the SDP 'sendonly', 'recvonly', 'sendrecv' and
             'inactive' attributes <xref target="RFC4566"/> to negotite the direction in 
-            which text can be transmitted in a real-time text conversation, following
-            the procedures in <xref target="RFC3264"/>.
+            which text can be transmitted in a real-time text conversation.
           </t>
           <t>
             NOTE: A WebRTC data channel is always bi-directional. The usage of the 'dcsa'
@@ -195,11 +201,6 @@
             The offer/answer rules for the direction attributes are based on the rules 
             for unicast streams defined in <xref target="RFC3264"/>, as described below. 
             Note that the rules only apply to the direction attributes.
-          </t>
-          <t>
-            NOTE: As for any other attribute included in a 'dcsa' attribute, the direction 
-            attributes only apply to the T.140 data channel for which the 'dcsa' attribute
-            is used. They have no impact on other data channels.
           </t>
           <t>
             Session level direction attributes <xref target="RFC4566"/> have no impact
@@ -802,7 +803,23 @@ Answer:
     </references>
     <references title="Informative References">
       <?rfc include="reference.RFC.3261"?>
-           <?rfc include='reference.I-D.ietf-rtcweb-data-protocol'?>
+      <?rfc include='reference.I-D.ietf-rtcweb-data-protocol'?>
+      <reference anchor="W3C.webrtc" target="https://www.w3.org/TR/2018/CR-webrtc-20180927">
+        <front>
+          <title>
+            WebRTC 1.0: Real-time Communication Between Browsers
+          </title>
+          <author fullname="Adam Bergkvist" initials="A." surname="Bergkvist"/>
+          <author fullname="Daniel C. Burnett" initials="D." surname="Burnett"/>
+          <author fullname="Cullen Jennings" initials="C." surname="Jennings"/>
+          <author fullname="Anant Narayanan" initials="A." surname="Narayanan"/>
+          <author fullname="Bernard Aboba" initials="B." surname="Aboba"/>
+          <author fullname="Taylor Brandstetter" initials="T." surname="Brandstetter"/>
+          <date day="27" month="September" year="2018"/>
+        </front>
+        <seriesInfo name="World Wide Web Consortium WD" value="CR-webrtc-20180927"/>
+        <format target="https://www.w3.org/TR/2018/CR-webrtc-20180927" type="HTML"/>
+      </reference>
     </references>
   </back>
 </rfc>
