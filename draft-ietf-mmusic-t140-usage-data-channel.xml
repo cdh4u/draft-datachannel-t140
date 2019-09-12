@@ -283,11 +283,6 @@
                 prepared to receive data as soon as the state of the T.140 data channel allows
                 transmission of data. 
               </t>
-              <t>
-                NOTE: If an answer does not contain a direction attribute in accordance with
-                the procedures above, the offerer must assume that the answerer might both send
-                and receive text on the T.140 data channel.
-              </t>
             </section>
           </section> 
           <section anchor="sec.sdp.dcsa.dir.mod" title="Modify Text Direction">
