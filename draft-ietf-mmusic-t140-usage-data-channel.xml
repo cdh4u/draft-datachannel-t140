@@ -299,6 +299,24 @@
       <section anchor="sec.sdp.ex" title="Examples">
           <t>
             Below is an example of an m= section describing a
+            T.140 data channel, without any dcsa attributes.
+            The default maximum character transmission rate
+            30, and the default text transmission direction "sendrecv",
+            apply.
+          </t>
+          <figure>
+            <preamble></preamble>
+            <artwork><![CDATA[
+
+    m=application 911 UDP/DTLS/SCTP webrtc-datachannel
+    c=IN IP6 2001:db8::3
+    a=max-message-size:1000
+    a=sctp-port 5000
+    a=dcmap:1 label="text conversation";subprotocol="t140"
+            ]]></artwork>
+          </figure>
+          <t>
+            Below is an example of an m= section describing a
             T.140 data channel, where the maximum character
             transmission rate is set to 20, and the text
             transmission direction is set to "sendrecv".
