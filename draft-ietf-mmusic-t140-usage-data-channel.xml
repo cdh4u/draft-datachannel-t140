@@ -300,9 +300,8 @@
           <t>
             Below is an example of an m= section describing a
             T.140 data channel, without any dcsa attributes.
-            The default maximum character transmission rate
-            30, and the default text transmission direction "sendrecv",
-            apply.
+            The default text transmission direction "sendrecv",
+            applies.
           </t>
           <figure>
             <preamble></preamble>
