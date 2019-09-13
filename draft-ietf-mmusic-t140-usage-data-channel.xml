@@ -133,7 +133,7 @@
         </t>
         <t>
           Below is an example of the 'dcmap' attribute for a T.140
-          data channel with stream=3 and without any label:
+          data channel with stream id=3 and without any label:
         </t>
         <t>
           a=dcmap:3 subprotocol="t140"
