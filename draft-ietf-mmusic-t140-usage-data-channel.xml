@@ -242,6 +242,13 @@
                 If the answerer has marked the data channel as inactive or sendonly, the offerer MUST NOT
                 send any T.140 data.
               </t>
+              <t>
+                As the answerer implementation might not support the procedures in this section, if 
+                the answerer has not marked the direction of a T.140 data channel in accordance 
+                with the procedures above, it is RECOMMENDED that the offerer does not process that
+                as an error situation, but rather assume that the answerer might both send and
+                receive T.140 data on the data channel.
+              </t>
             </section> 
             <section anchor="sec.sdp.dcsa.dir.neg.ans" title="Generating an Answer">
               <t>
@@ -290,6 +297,23 @@
         </section>
       </section>
       <section anchor="sec.sdp.ex" title="Examples">
+          <t>
+            Below is an example of an m= section describing a
+            T.140 data channel, without any dcsa attributes.
+            The default text transmission direction "sendrecv",
+            applies.
+          </t>
+          <figure>
+            <preamble></preamble>
+            <artwork><![CDATA[
+
+    m=application 911 UDP/DTLS/SCTP webrtc-datachannel
+    c=IN IP6 2001:db8::3
+    a=max-message-size:1000
+    a=sctp-port 5000
+    a=dcmap:1 label="text conversation";subprotocol="t140"
+            ]]></artwork>
+          </figure>
           <t>
             Below is an example of an m= section describing a
             T.140 data channel, where the maximum character
