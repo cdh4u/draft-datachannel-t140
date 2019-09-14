@@ -368,6 +368,37 @@ Answer:
 
             ]]></artwork>
           </figure>
+          <t>
+            Below is an example of an m= section of an offer 
+            for a T.140 data channel where the offerer wishes to
+            only receive real-time text, and an m= section
+            in the associated answer indicating that the answerer
+            will only send real-time text.
+          </t>
+          <figure>
+            <preamble></preamble>
+            <artwork><![CDATA[
+
+Offer:
+
+    m=application 911 UDP/DTLS/SCTP webrtc-datachannel
+    c=IN IP6 2001:db8::3
+    a=max-message-size:1000
+    a=sctp-port 5000
+    a=dcmap:1 label="ACME customer service";subprotocol="t140"
+    a=dcsa:1 recvonly
+
+Answer:
+
+    m=application 911 UDP/DTLS/SCTP webrtc-datachannel
+    c=IN IP6 2001:db8::1
+    a=max-message-size:1000
+    a=sctp-port 5000
+    a=dcmap:1 label="ACME customer service";subprotocol="t140"
+    a=dcsa:1 sendonly
+
+            ]]></artwork>
+          </figure>
 
       </section>
     </section>
