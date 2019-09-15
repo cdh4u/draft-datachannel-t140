@@ -84,12 +84,13 @@
         in an SDP dcmap attribute. While this document defines how to establish a 
         T.140 data channel using the SDP-based external negotiation method 
         <xref target="I-D.ietf-mmusic-data-channel-sdpneg"/>, the generic T.140 and gateway
-        considerations defined in <xref target="sec.t140"/> and <xref target="sec.gw"/>
-        of this document can also be applied when a T.140 data channel is established
-        using another mechanism (e.g., the mechanism defined in <xref target="I-D.ietf-rtcweb-data-protocol"/>).
-        Section 5 of <xref target="I-D.ietf-mmusic-data-channel-sdpneg"/> defines the
-        mapping between the SDP dcmap attribute parameters and the protocol parameters
-        used in <xref target="I-D.ietf-rtcweb-data-protocol"/>.
+        considerations defined in <xref target="sec.webrtc.cons"/>, <xref target="sec.t140"/>
+        and <xref target="sec.gw"/> of this document can also be applied when a T.140 data channel
+        is established using another mechanism (e.g., the mechanism defined in
+        <xref target="I-D.ietf-rtcweb-data-protocol"/>). Section 5 of
+        <xref target="I-D.ietf-mmusic-data-channel-sdpneg"/> defines the mapping between the
+        SDP dcmap attribute parameters and the protocol parameters used in
+        <xref target="I-D.ietf-rtcweb-data-protocol"/>.
       </t>
       <t>
         This document is based on an earlier Internet draft edited by Keith Drage,
