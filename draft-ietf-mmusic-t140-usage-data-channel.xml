@@ -79,6 +79,20 @@
         conversation protocol according to <xref target="T140"/>.
       </t>
       <t>
+        <xref target="sec.webrtc.cons"/> defines the generic data channel properties for 
+        a T.140 data channel, and <xref target="sec.sdp"/> defines how they are conveyed 
+        in an SDP dcmap attribute. While this document defines how to establish a 
+        T.140 data channel using the SDP-based external negotiation method 
+        <xref target="I-D.ietf-mmusic-data-channel-sdpneg"/>, the generic T.140 and gateway
+        considerations defined in <xref target="sec.webrtc.cons"/>, <xref target="sec.t140"/>
+        and <xref target="sec.gw"/> of this document can also be applied when a T.140 data channel
+        is established using another mechanism (e.g., the mechanism defined in
+        <xref target="I-D.ietf-rtcweb-data-protocol"/>). Section 5 of
+        <xref target="I-D.ietf-mmusic-data-channel-sdpneg"/> defines the mapping between the
+        SDP dcmap attribute parameters and the protocol parameters used in
+        <xref target="I-D.ietf-rtcweb-data-protocol"/>.
+      </t>
+      <t>
         This document is based on an earlier Internet draft edited by Keith Drage,
         Juergen Stoetzer-Bradler and Albrecht Schwarz.
       </t>
@@ -94,6 +108,29 @@
       </t>
     </section>
 
+    <section anchor="sec.webrtc.cons" title="WebRTC Data Channel Considerations">
+      <t>
+        The following WebRTC data channel property values <xref target="I-D.ietf-rtcweb-data-channel"/>
+        apply to a T.140 data channel:
+      </t>
+      <texttable title="">
+        <ttcol align='left' width='30%'/>
+        <ttcol align='left'/>
+
+        <c>Subprotocol Identifier</c>
+        <c>t140</c>
+
+        <c>Transmission reliability</c>
+        <c>reliable</c>
+
+        <c>Transmission order</c>
+        <c>in-order</c>
+
+        <c>Label</c>
+        <c>See <xref target="sec.sdp.dcmap"/> and <xref target="sec.gw"/></c>
+      </texttable>
+    </section>
+    
     <section anchor="sec.sdp" title="SDP Considerations">
       <t>
         The generic SDP considerations, including the SDP Offer/Answer proceudres, for
