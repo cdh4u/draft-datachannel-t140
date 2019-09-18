@@ -141,7 +141,7 @@
         <t>
            An offerer and answerer MUST, in each offer and answer, include an SDP 'dcmap' 
            attribute <xref target="I-D.ietf-mmusic-data-channel-sdpneg"/> in the SDP media
-           descripton (m= section) <xref target="RFC4566"/> describing the SCTP association
+           descripton (m= section) <xref target="I-D.ietf-mmusic-rfc4566bis"/> describing the SCTP association
            <xref target="RFC4960"/> used to realize the T.140 data channel.
         </t>
         <t>
@@ -226,7 +226,7 @@
         <section anchor="sec.sdp.dcsa.dir" title="Real-time Text Direction">
           <t>
             'dcsa' attributes can contain the SDP 'sendonly', 'recvonly', 'sendrecv' and
-            'inactive' attributes <xref target="RFC4566"/> to negotite the direction in 
+            'inactive' attributes <xref target="I-D.ietf-mmusic-rfc4566bis"/> to negotite the direction in 
             which text can be transmitted in a real-time text conversation.
           </t>
           <t>
@@ -240,7 +240,7 @@
             Note that the rules only apply to the direction attributes.
           </t>
           <t>
-            Session level direction attributes <xref target="RFC4566"/> have no impact
+            Session level direction attributes <xref target="I-D.ietf-mmusic-rfc4566bis"/> have no impact
             on a T.140 data channel. An offerer and answerer MUST mark the direction of
             the text by sending a direction attribute inside 'dcsa' attribute.
           </t>
@@ -868,10 +868,10 @@ Answer:
       <?rfc include="reference.RFC.2119"?>
       <?rfc include="reference.RFC.3264"?>
       <?rfc include="reference.RFC.4103"?>
-      <?rfc include="reference.RFC.4566"?>
       <?rfc include="reference.RFC.4960"?>
       <?rfc include="reference.RFC.8174"?>
       <?rfc include="reference.RFC.8373"?>
+      <?rfc include='reference.I-D.ietf-mmusic-rfc4566bis'?>
       <?rfc include='reference.I-D.ietf-rtcweb-data-channel'?>
       <?rfc include='reference.I-D.ietf-mmusic-data-channel-sdpneg'?>
       <reference anchor="T140">
