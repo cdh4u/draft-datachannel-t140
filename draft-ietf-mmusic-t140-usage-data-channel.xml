@@ -133,7 +133,7 @@
     
     <section anchor="sec.sdp" title="SDP Considerations">
       <t>
-        The generic SDP considerations, including the SDP Offer/Answer proceudres, for
+        The generic SDP considerations, including the SDP Offer/Answer procedures, for
         negotiating a WebRTC data channel are defined in <xref target="I-D.ietf-mmusic-data-channel-sdpneg"/>.
         This section defines the SDP considerations that are specific to a T.140 data channel.
       </t>
@@ -182,6 +182,12 @@
            SDP 'dcsa' attribute <xref target="I-D.ietf-mmusic-data-channel-sdpneg"/>
            in the m= section describing the SCTP association used
            to realize the T.140 data channel.
+        </t>
+        <t>
+          If an offerer or answere receives a 'dcsa' attribute that contains an
+          SDP attribute which usage has not been defined for a T.140 data channel,
+          the offerer or answerer should ignore the 'dcsa' attribute, following
+          the rules in <xref target="I-D.ietf-mmusic-data-channel-sdpneg"/>.
         </t>
         <t>
             NOTE: At the time of writing this specification, the latest verion of 
@@ -508,6 +514,13 @@ Answer:
             T140blocks were lost. Retransmission of already successfully transmitted T140blocks MUST be
             avoided, and missing text markers <xref target="T140ad1"/> SHOULD be inserted in the received 
             data stream where loss is detected or suspected.
+          </t>
+          <t>
+            NOTE: If the the SCTP association <xref target="RFC4960"/> used to realize the T.140 data channel
+            fails and get torn down, it needs to be re-established before the T.140 data channel can be
+            reestablished. The procedure after the reestablishment of the T.140 data channel defined in
+            this section apply no matter if only the T.140 data channel, or the whole SCTP association,
+            got torn down.
           </t>
         </section>
         <section anchor="sec.t140.mul" title="Multi-party Considerations">
