@@ -341,47 +341,12 @@
       </section>
       <section anchor="sec.sdp.ex" title="Examples">
           <t>
-            Below is an example of an m= section describing a
-            T.140 data channel, without any dcsa attributes.
-            The default text transmission direction "sendrecv",
-            applies.
-          </t>
-          <figure>
-            <preamble></preamble>
-            <artwork><![CDATA[
-
-    m=application 911 UDP/DTLS/SCTP webrtc-datachannel
-    c=IN IP6 2001:db8::3
-    a=max-message-size:1000
-    a=sctp-port 5000
-    a=dcmap:1 label="text conversation";subprotocol="t140"
-            ]]></artwork>
-          </figure>
-          <t>
-            Below is an example of an m= section describing a
-            T.140 data channel, where the maximum character
-            transmission rate is set to 20, and the text
-            transmission direction is set to "sendrecv".
-          </t>
-          <figure>
-            <preamble></preamble>
-            <artwork><![CDATA[
-
-    m=application 911 UDP/DTLS/SCTP webrtc-datachannel
-    c=IN IP6 2001:db8::3
-    a=max-message-size:1000
-    a=sctp-port 5000
-    a=dcmap:1 label="text conversation";subprotocol="t140"
-    a=dcsa:1 fmtp:- cps=20
-    a=dcsa:1 sendrecv
-
-            ]]></artwork>
-          </figure>
-          <t>
             Below is an example of an m= section of an offer 
             for a T.140 data channel offering real-time text
             conversation in Spanish and Esperanto, and an m= section
-            in the associated answer accepting Esperanto.
+            in the associated answer accepting Esperanto. The maximum
+            character transmission rate is set to 20, and the default
+            text transmission direction "sendrecv", apply.
           </t>
           <figure>
             <preamble></preamble>
@@ -394,7 +359,7 @@ Offer:
     a=max-message-size:1000
     a=sctp-port 5000
     a=dcmap:1 label="ACME customer service";subprotocol="t140"
-    a=dcsa:1 fmtp:- cps=30
+    a=dcsa:1 fmtp:- cps=20
     a=dcsa:1 hlang-send:es eo
     a=dcsa:1 hlang-recv:es eo
 
@@ -405,7 +370,7 @@ Answer:
     a=max-message-size:1000
     a=sctp-port 5000
     a=dcmap:1 label="ACME customer service";subprotocol="t140"
-    a=dcsa:1 fmtp:- cps=30
+    a=dcsa:1 fmtp:- cps=20
     a=dcsa:1 hlang-send:eo
     a=dcsa:1 hlang-recv:eo
 
@@ -416,7 +381,10 @@ Answer:
             for a T.140 data channel where the offerer wishes to
             only receive real-time text, and an m= section
             in the associated answer indicating that the answerer
-            will only send real-time text.
+            will only send real-time text. The default maximum
+            character transmission rate 30 applies. No language
+            to be used for the real-time text conversation is
+            indicated.
           </t>
           <figure>
             <preamble></preamble>
