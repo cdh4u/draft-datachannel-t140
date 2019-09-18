@@ -213,6 +213,12 @@
             offers and answers.
           </t>
           <t>
+            This document does not define any other usage of the 'fmtp' attribute for a T.140 channel.
+            If an offerer or answerer receives a 'dcsa' attribute that contains 'fmtp' attribute that
+            is not according to the procedure above the offerer or answerer MUST discard the 'dcsa'
+            attribute. 
+          </t>
+          <t>
             NOTE: The 'cps' attribute parameter is especially useful when a T.140 data channel
             endpoint is acting as a gateway [<xref target="sec.gw"/>] and is interworking with
             a T.140 transport mechanism that have restrictions on how many characters can be sent
