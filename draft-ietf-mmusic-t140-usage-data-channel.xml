@@ -199,7 +199,8 @@
             A 'dcsa' attribute can contain the SDP 'fmtp' attribute used to indicate
             a maximum character transmission rate <xref target="RFC4103"/>. The 'cps'
             attribute parameter is used indicate the maximum character transmission rate
-            that the endpoint that includes the attribute is able to receive.
+            that the endpoint that includes the attribute is able to receive, and the value
+            is used as a mean value over any 10-second interval.
           </t>
           <t>
             If the 'fmtp' attribute is included, the 'format' attribute parameter MUST be set to "-".
