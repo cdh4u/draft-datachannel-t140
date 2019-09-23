@@ -133,7 +133,7 @@
     
     <section anchor="sec.sdp" title="SDP Considerations">
       <t>
-        The generic SDP considerations, including the SDP Offer/Answer proceudres, for
+        The generic SDP considerations, including the SDP Offer/Answer procedures, for
         negotiating a WebRTC data channel are defined in <xref target="I-D.ietf-mmusic-data-channel-sdpneg"/>.
         This section defines the SDP considerations that are specific to a T.140 data channel.
       </t>
@@ -141,7 +141,7 @@
         <t>
            An offerer and answerer MUST, in each offer and answer, include an SDP 'dcmap' 
            attribute <xref target="I-D.ietf-mmusic-data-channel-sdpneg"/> in the SDP media
-           descripton (m= section) <xref target="RFC4566"/> describing the SCTP association
+           descripton (m= section) <xref target="I-D.ietf-mmusic-rfc4566bis"/> describing the SCTP association
            <xref target="RFC4960"/> used to realize the T.140 data channel.
         </t>
         <t>
@@ -184,6 +184,12 @@
            to realize the T.140 data channel.
         </t>
         <t>
+          If an offerer or answere receives a 'dcsa' attribute that contains an
+          SDP attribute which usage has not been defined for a T.140 data channel,
+          the offerer or answerer should ignore the 'dcsa' attribute, following
+          the rules in <xref target="I-D.ietf-mmusic-data-channel-sdpneg"/>.
+        </t>
+        <t>
             NOTE: At the time of writing this specification, the latest verion of 
             the API defined in <xref target="W3C.webrtc"/> does not support the use
             of the SDP attributes defined in this section.
@@ -192,8 +198,9 @@
           <t>
             A 'dcsa' attribute can contain the SDP 'fmtp' attribute used to indicate
             a maximum character transmission rate <xref target="RFC4103"/>. The 'cps'
-            attribute parameter is used indicate the maximum character transmission rate
-            that the endpoint that includes the attribute is able to receive.
+            attribute parameter is used to indicate the maximum character transmission rate
+            that the endpoint that includes the attribute is able to receive, and the value
+            is used as a mean value in characters per second over any 10-second interval.
           </t>
           <t>
             If the 'fmtp' attribute is included, the 'format' attribute parameter MUST be set to "-".
@@ -205,6 +212,12 @@
           <t>
             The offerer and answerer MAY modify the 'cps' attribute parameter value in subsequent
             offers and answers.
+          </t>
+          <t>
+            This document does not define any other usage of the 'fmtp' attribute for a T.140 channel.
+            If an offerer or answerer receives a 'dcsa' attribute that contains 'fmtp' attribute that
+            is not according to the procedure above the offerer or answerer MUST discard the 'dcsa'
+            attribute. 
           </t>
           <t>
             NOTE: The 'cps' attribute parameter is especially useful when a T.140 data channel
@@ -226,7 +239,7 @@
         <section anchor="sec.sdp.dcsa.dir" title="Real-time Text Direction">
           <t>
             'dcsa' attributes can contain the SDP 'sendonly', 'recvonly', 'sendrecv' and
-            'inactive' attributes <xref target="RFC4566"/> to negotite the direction in 
+            'inactive' attributes <xref target="I-D.ietf-mmusic-rfc4566bis"/> to negotite the direction in 
             which text can be transmitted in a real-time text conversation.
           </t>
           <t>
@@ -240,7 +253,7 @@
             Note that the rules only apply to the direction attributes.
           </t>
           <t>
-            Session level direction attributes <xref target="RFC4566"/> have no impact
+            Session level direction attributes <xref target="I-D.ietf-mmusic-rfc4566bis"/> have no impact
             on a T.140 data channel. An offerer and answerer MUST mark the direction of
             the text by sending a direction attribute inside 'dcsa' attribute.
           </t>
@@ -335,47 +348,12 @@
       </section>
       <section anchor="sec.sdp.ex" title="Examples">
           <t>
-            Below is an example of an m= section describing a
-            T.140 data channel, without any dcsa attributes.
-            The default text transmission direction "sendrecv",
-            applies.
-          </t>
-          <figure>
-            <preamble></preamble>
-            <artwork><![CDATA[
-
-    m=application 911 UDP/DTLS/SCTP webrtc-datachannel
-    c=IN IP6 2001:db8::3
-    a=max-message-size:1000
-    a=sctp-port 5000
-    a=dcmap:1 label="text conversation";subprotocol="t140"
-            ]]></artwork>
-          </figure>
-          <t>
-            Below is an example of an m= section describing a
-            T.140 data channel, where the maximum character
-            transmission rate is set to 20, and the text
-            transmission direction is set to "sendrecv".
-          </t>
-          <figure>
-            <preamble></preamble>
-            <artwork><![CDATA[
-
-    m=application 911 UDP/DTLS/SCTP webrtc-datachannel
-    c=IN IP6 2001:db8::3
-    a=max-message-size:1000
-    a=sctp-port 5000
-    a=dcmap:1 label="text conversation";subprotocol="t140"
-    a=dcsa:1 fmtp:- cps=20
-    a=dcsa:1 sendrecv
-
-            ]]></artwork>
-          </figure>
-          <t>
             Below is an example of an m= section of an offer 
             for a T.140 data channel offering real-time text
             conversation in Spanish and Esperanto, and an m= section
-            in the associated answer accepting Esperanto.
+            in the associated answer accepting Esperanto. The maximum
+            character transmission rate is set to 20, and the default
+            text transmission direction "sendrecv", apply.
           </t>
           <figure>
             <preamble></preamble>
@@ -388,7 +366,7 @@ Offer:
     a=max-message-size:1000
     a=sctp-port 5000
     a=dcmap:1 label="ACME customer service";subprotocol="t140"
-    a=dcsa:1 fmtp:- cps=30
+    a=dcsa:1 fmtp:- cps=20
     a=dcsa:1 hlang-send:es eo
     a=dcsa:1 hlang-recv:es eo
 
@@ -399,7 +377,7 @@ Answer:
     a=max-message-size:1000
     a=sctp-port 5000
     a=dcmap:1 label="ACME customer service";subprotocol="t140"
-    a=dcsa:1 fmtp:- cps=30
+    a=dcsa:1 fmtp:- cps=20
     a=dcsa:1 hlang-send:eo
     a=dcsa:1 hlang-recv:eo
 
@@ -410,7 +388,10 @@ Answer:
             for a T.140 data channel where the offerer wishes to
             only receive real-time text, and an m= section
             in the associated answer indicating that the answerer
-            will only send real-time text.
+            will only send real-time text. The default maximum
+            character transmission rate 30 applies. No language
+            to be used for the real-time text conversation is
+            indicated.
           </t>
           <figure>
             <preamble></preamble>
@@ -508,6 +489,13 @@ Answer:
             T140blocks were lost. Retransmission of already successfully transmitted T140blocks MUST be
             avoided, and missing text markers <xref target="T140ad1"/> SHOULD be inserted in the received 
             data stream where loss is detected or suspected.
+          </t>
+          <t>
+            NOTE: If the the SCTP association <xref target="RFC4960"/> used to realize the T.140 data channel
+            fails and get torn down, it needs to be re-established before the T.140 data channel can be
+            reestablished. The procedure after the reestablishment of the T.140 data channel defined in
+            this section apply no matter if only the T.140 data channel, or the whole SCTP association,
+            got torn down.
           </t>
         </section>
         <section anchor="sec.t140.mul" title="Multi-party Considerations">
@@ -868,10 +856,10 @@ Answer:
       <?rfc include="reference.RFC.2119"?>
       <?rfc include="reference.RFC.3264"?>
       <?rfc include="reference.RFC.4103"?>
-      <?rfc include="reference.RFC.4566"?>
       <?rfc include="reference.RFC.4960"?>
       <?rfc include="reference.RFC.8174"?>
       <?rfc include="reference.RFC.8373"?>
+      <?rfc include='reference.I-D.ietf-mmusic-rfc4566bis'?>
       <?rfc include='reference.I-D.ietf-rtcweb-data-channel'?>
       <?rfc include='reference.I-D.ietf-mmusic-data-channel-sdpneg'?>
       <reference anchor="T140">
