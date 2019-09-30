@@ -200,6 +200,7 @@
           the offerer or answerer should ignore the 'dcsa' attribute, following
           the rules in <xref target="I-D.ietf-mmusic-data-channel-sdpneg"/>.
         </t>
+        <section anchor="sec.sdp.dcsa.trans" title="Maximum Character Transmission Rate">
           <t>
             A 'dcsa' attribute can contain the SDP 'fmtp' attribute used to indicate
             a maximum character transmission rate <xref target="RFC4103"/>. The 'cps'
