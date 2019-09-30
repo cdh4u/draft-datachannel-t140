@@ -189,11 +189,6 @@
           the offerer or answerer should ignore the 'dcsa' attribute, following
           the rules in <xref target="I-D.ietf-mmusic-data-channel-sdpneg"/>.
         </t>
-        <t>
-            NOTE: At the time of writing this specification, the latest verion of 
-            the API defined in <xref target="W3C.webrtc"/> does not support the use
-            of the SDP attributes defined in this section.
-        </t>
         <section anchor="sec.sdp.dcsa.trans" title="Maximum Character Transmission Rate">
           <t>
             A 'dcsa' attribute can contain the SDP 'fmtp' attribute used to indicate
@@ -885,22 +880,6 @@ Answer:
     <references title="Informative References">
       <?rfc include="reference.RFC.3261"?>
       <?rfc include='reference.I-D.ietf-rtcweb-data-protocol'?>
-      <reference anchor="W3C.webrtc" target="https://www.w3.org/TR/2018/CR-webrtc-20180927">
-        <front>
-          <title>
-            WebRTC 1.0: Real-time Communication Between Browsers
-          </title>
-          <author fullname="Adam Bergkvist" initials="A." surname="Bergkvist"/>
-          <author fullname="Daniel C. Burnett" initials="D." surname="Burnett"/>
-          <author fullname="Cullen Jennings" initials="C." surname="Jennings"/>
-          <author fullname="Anant Narayanan" initials="A." surname="Narayanan"/>
-          <author fullname="Bernard Aboba" initials="B." surname="Aboba"/>
-          <author fullname="Taylor Brandstetter" initials="T." surname="Brandstetter"/>
-          <date day="27" month="September" year="2018"/>
-        </front>
-        <seriesInfo name="World Wide Web Consortium WD" value="CR-webrtc-20180927"/>
-        <format target="https://www.w3.org/TR/2018/CR-webrtc-20180927" type="HTML"/>
-      </reference>
     </references>
   </back>
 </rfc>
