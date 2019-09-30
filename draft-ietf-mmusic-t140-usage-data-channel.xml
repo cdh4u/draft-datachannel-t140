@@ -552,7 +552,7 @@ Answer:
             incoming RTP streams, and MAY generate keep-alives on outgoing RTP streams.
           </t>
           <t>
-            If the gateway detects or suspects loss of data on the RTP stream, the gateway gateway SHOULD insert the T.140 missing
+            If the gateway detects or suspects loss of data on the RTP stream, the gateway SHOULD insert the T.140 missing
             text marker <xref target="T140ad1"/> in the data sent on the outgoing T.140 data channel. 
           </t>
           <t>
