@@ -184,12 +184,11 @@
            to realize the T.140 data channel.
         </t>
         <t>
-          If an offerer or answere receives a 'dcsa' attribute that contains an
+          If an offerer or answerer receives a 'dcsa' attribute that contains an
           SDP attribute which usage has not been defined for a T.140 data channel,
           the offerer or answerer should ignore the 'dcsa' attribute, following
           the rules in <xref target="I-D.ietf-mmusic-data-channel-sdpneg"/>.
         </t>
-        <section anchor="sec.sdp.dcsa.trans" title="Maximum Character Transmission">
           <t>
             A 'dcsa' attribute can contain the SDP 'fmtp' attribute used to indicate
             a maximum character transmission rate <xref target="RFC4103"/>. The 'cps'
@@ -547,7 +546,7 @@ Answer:
             incoming RTP streams, and MAY generate keep-alives on outgoing RTP streams.
           </t>
           <t>
-            If the gateway detects or suspects loss of data on the RTP stream, the gateway gateway SHOULD insert the T.140 missing
+            If the gateway detects or suspects loss of data on the RTP stream, the gateway SHOULD insert the T.140 missing
             text marker <xref target="T140ad1"/> in the data sent on the outgoing T.140 data channel. 
           </t>
           <t>
