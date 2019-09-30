@@ -184,7 +184,7 @@
            to realize the T.140 data channel.
         </t>
         <t>
-          If an offerer or answere receives a 'dcsa' attribute that contains an
+          If an offerer or answerer receives a 'dcsa' attribute that contains an
           SDP attribute which usage has not been defined for a T.140 data channel,
           the offerer or answerer should ignore the 'dcsa' attribute, following
           the rules in <xref target="I-D.ietf-mmusic-data-channel-sdpneg"/>.
@@ -194,7 +194,7 @@
             the API defined in <xref target="W3C.webrtc"/> does not support the use
             of the SDP attributes defined in this section.
         </t>
-        <section anchor="sec.sdp.dcsa.trans" title="Maximum Character Transmission">
+        <section anchor="sec.sdp.dcsa.trans" title="Maximum Character Transmission Rate">
           <t>
             A 'dcsa' attribute can contain the SDP 'fmtp' attribute used to indicate
             a maximum character transmission rate <xref target="RFC4103"/>. The 'cps'
