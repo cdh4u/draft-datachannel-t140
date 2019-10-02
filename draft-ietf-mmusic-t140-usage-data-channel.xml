@@ -152,7 +152,7 @@
         <t>
            An offerer and answerer MUST, in each offer and answer, include an SDP 'dcmap' 
            attribute <xref target="I-D.ietf-mmusic-data-channel-sdpneg"/> in the SDP media
-           descripton (m= section) <xref target="I-D.ietf-mmusic-rfc4566bis"/> describing the SCTP association
+           description (m= section) <xref target="I-D.ietf-mmusic-rfc4566bis"/> describing the SCTP association
            <xref target="RFC4960"/> used to realize the T.140 data channel.
         </t>
         <t>
@@ -167,7 +167,7 @@
         </t>
         <t>
           NOTE: As specified in <xref target="I-D.ietf-rtcweb-data-channel"/>,
-          when a data channel is negotied using the mechanism defined in <xref target="I-D.ietf-rtcweb-data-protocol"/>,
+          when a data channel is negotiated using the mechanism defined in <xref target="I-D.ietf-rtcweb-data-protocol"/>,
           the label attribute parameter value has to be the same in both directions. That rule also
           applies to data channels negotiated using the mechanism defined in this document.
         </t>
