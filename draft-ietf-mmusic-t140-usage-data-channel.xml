@@ -189,8 +189,8 @@
       </section>
       <section anchor="sec.sdp.dcsa" title="Use of dcsa Attribute">
         <t>
-           An offerer and answerer MAY, in each offer and answer, include an
-           SDP 'dcsa' attribute <xref target="I-D.ietf-mmusic-data-channel-sdpneg"/>
+           An offerer and answerer MAY, in each offer and answer, include one or more
+           SDP 'dcsa' attributes <xref target="I-D.ietf-mmusic-data-channel-sdpneg"/>
            in the m= section describing the SCTP association used
            to realize the T.140 data channel.
         </t>
