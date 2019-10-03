@@ -49,7 +49,7 @@
         The ITU-T Protocol for multimedia application text conversation (Recommendation ITU-T T.140)
         <xref target="T140"/> defines a protocol for text conversation, also known as
         real-time text. The native transport for IP networks is the "RTP Payload for Text Conversation"
-        <xref target="RFC4103"/> mechanism, based on the Real-time Transport Protocol (RTP) <xref target="RFC4103"/>.
+        <xref target="RFC4103"/> mechanism, based on the Real-time Transport Protocol (RTP) <xref target="RFC3550"/>.
       </t>
       <t>
         This document specifies how a WebRTC data channel <xref target="I-D.ietf-rtcweb-data-channel"/>
@@ -890,6 +890,7 @@ Answer:
     </references>
     <references title="Informative References">
       <?rfc include="reference.RFC.3261"?>
+      <?rfc include="reference.RFC.3550"?>
       <?rfc include='reference.I-D.ietf-rtcweb-data-protocol'?>
     </references>
   </back>
