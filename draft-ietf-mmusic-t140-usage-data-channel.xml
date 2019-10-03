@@ -134,7 +134,7 @@
         duplication and in original order. Therefore, T.140 does not specify reliable and ordered
         transmission of T.140 data on the application layer. Instead, when RTP based transport is used,
         the RTP sequence number is used to detect packet loss and out-of-order packets, and a redundancy
-        mechanism using the RTP timestamp is used to achieve reliable delivery of T.140 data. By using
+        mechanism is used to achieve reliable delivery of T.140 data. By using
         the WebRTC data channel reliable and in-order transmission features <xref target="I-D.ietf-rtcweb-data-channel"/>
         for the T.140 data channel, there is no need for a redundancy mechanism or a mechanism to detect
         data loss and out-of-order delivery on the application level. The latency characteristics of the
