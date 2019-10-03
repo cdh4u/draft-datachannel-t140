@@ -314,10 +314,9 @@
               </t>
               <t>
                 If the offerer marked the data channel as sendrecv (implicitly or explicitly), 
-                the answerer MUST mark the data channel as sendrecv, sendonly, recvonly or inactive
+                the answerer MUST mark the data channel as sendrecv (implicitly or explicitly), sendonly, recvonly or inactive
                 with a 'sendrecv', 'sendonly', 'recvonly' respective 'inactive' attribute
-                inside a 'dcsa' attribute. If the answerer does not explicitly mark the data channel, a
-                'sendrecv' attribute inside a 'dcsa' attribute is implicitly applied.
+                inside a 'dcsa' attribute.
               </t>
               <t>
                 If the offerer marked the data channel as sendonly, the answerer MUST
