@@ -580,7 +580,7 @@ Answer:
     </section>
     <section anchor="sec.8373" title="Update to RFC 8373">
         <t>
-          This document updates RFC 8373, by defining how the SDP hlang-send and hlang-recv attributes are used for
+          This document updates RFC 8373 <xref target="RFC8373"/>, by defining how the SDP hlang-send and hlang-recv attributes are used for
           the "application/webrtc-datachannel" media type.
         </t>
         <t>
