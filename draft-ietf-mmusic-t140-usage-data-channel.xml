@@ -294,7 +294,7 @@
               <t>
                 When the offerer receives an answer to the offer, if the answerer has marked a 
                 data channel as sendrecv (implicit or explicit) or recvonly in the answer, the offerer
-                can start to send T.140 data as soon as the state of the T.140 data channel allows it.
+                can start sending T.140 data as soon as the state of the T.140 data channel allows it.
                 If the answerer has marked the data channel as inactive or sendonly, the offerer MUST NOT
                 send any T.140 data.
               </t>
@@ -395,9 +395,9 @@ Answer:
             only receive real-time text, and an m= section
             in the associated answer indicating that the answerer
             will only send real-time text. No maximum
-            character transmission rate is indicated. No language
-            to be used for the real-time text conversation is
-            indicated.
+            character transmission rate is indicated. No preference for
+            the language to be used for the real-time text conversation
+            is indicated.
           </t>
           <figure>
             <preamble></preamble>
