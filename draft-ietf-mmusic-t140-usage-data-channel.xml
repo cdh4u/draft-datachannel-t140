@@ -568,7 +568,7 @@ Answer:
           </t>
           <t>
             If the gateway detects that the T.140 data channel has failed and got torn down, once the data channel
-            has been reestablished the gateway SHOULD insert the T.140 missing text marker [T140ad1] in the data 
+            has been reestablished the gateway SHOULD insert the T.140 missing text marker <xref target="T140ad1"/> in the data 
             sent on the outgoing T.140 data channel if it detects or suspects that data sent or to be sent on the 
             T.140 data channel was lost during the failure.
           </t>
