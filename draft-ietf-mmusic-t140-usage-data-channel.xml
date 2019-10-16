@@ -371,21 +371,21 @@ Offer:
     c=IN IP6 2001:db8::3
     a=max-message-size:1000
     a=sctp-port 5000
-    a=dcmap:1 label="ACME customer service";subprotocol="t140"
-    a=dcsa:1 fmtp:- cps=20
-    a=dcsa:1 hlang-send:es eo
-    a=dcsa:1 hlang-recv:es eo
+    a=dcmap:2 label="ACME customer service";subprotocol="t140"
+    a=dcsa:2 fmtp:- cps=20
+    a=dcsa:2 hlang-send:es eo
+    a=dcsa:2 hlang-recv:es eo
 
 Answer:
 
-    m=application 911 UDP/DTLS/SCTP webrtc-datachannel
+    m=application 2004 UDP/DTLS/SCTP webrtc-datachannel
     c=IN IP6 2001:db8::1
     a=max-message-size:1000
-    a=sctp-port 5000
-    a=dcmap:1 label="ACME customer service";subprotocol="t140"
-    a=dcsa:1 fmtp:- cps=20
-    a=dcsa:1 hlang-send:eo
-    a=dcsa:1 hlang-recv:eo
+    a=sctp-port 6000
+    a=dcmap:2 label="ACME customer service";subprotocol="t140"
+    a=dcsa:2 fmtp:- cps=20
+    a=dcsa:2 hlang-send:eo
+    a=dcsa:2 hlang-recv:eo
 
             ]]></artwork>
           </figure>
@@ -405,21 +405,21 @@ Answer:
 
 Offer:
 
-    m=application 911 UDP/DTLS/SCTP webrtc-datachannel
+    m=application 1400 UDP/DTLS/SCTP webrtc-datachannel
     c=IN IP6 2001:db8::3
     a=max-message-size:1000
     a=sctp-port 5000
-    a=dcmap:1 label="ACME customer service";subprotocol="t140"
-    a=dcsa:1 recvonly
+    a=dcmap:2 label="ACME customer service";subprotocol="t140"
+    a=dcsa:2 recvonly
 
 Answer:
 
-    m=application 911 UDP/DTLS/SCTP webrtc-datachannel
+    m=application 2400 UDP/DTLS/SCTP webrtc-datachannel
     c=IN IP6 2001:db8::1
     a=max-message-size:1000
-    a=sctp-port 5000
-    a=dcmap:1 label="ACME customer service";subprotocol="t140"
-    a=dcsa:1 sendonly
+    a=sctp-port 6000
+    a=dcmap:2 label="ACME customer service";subprotocol="t140"
+    a=dcsa:2 sendonly
 
             ]]></artwork>
           </figure>
