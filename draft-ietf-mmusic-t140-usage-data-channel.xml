@@ -471,6 +471,13 @@ Answer:
           <t>
             See Section 8 of <xref target="T140"/> for coding details.
           </t>
+          <t>
+            NOTE: The T.140 coding details contain information on optional control
+            codes for controlling the presentation which may not be supported by the 
+            presentation level of the receiving application. The receiving application
+            is expected to handle reception of such T.140 control codes appropriately 
+            (e.g. ignore and skip them) even if their effect on the presentation is not supported.
+          </t>
         </section>
         <section anchor="sec.t140.buff" title="Data Buffering">
           <t>
