@@ -569,7 +569,7 @@ Answer:
           <t>
             If the gateway detects that the T.140 data channel has failed and got torn down, once the data channel has been reestablished
             the gateway SHOULD insert the T.140 missing text marker <xref target="T140ad1"/> in the data sent on the outgoing RTP stream
-            if it detects or suspects that data on the T.140 data channel was lost.
+            if it detects or suspects that data sent by the remote T.140 data channel endpoint was lost due to the data channel failure.
           </t>
           <t>
             If the gateway detects that the T.140 data channel has failed and got torn down, once the data channel
