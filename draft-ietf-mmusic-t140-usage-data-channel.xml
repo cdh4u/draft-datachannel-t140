@@ -198,7 +198,7 @@
           If an offerer or answerer receives a 'dcsa' attribute that contains an
           SDP attribute which usage has not been defined for a T.140 data channel,
           the offerer or answerer should ignore the 'dcsa' attribute, following
-          the rules in <xref target="I-D.ietf-mmusic-data-channel-sdpneg"/> section 6.7.
+          the rules in Section 6.7 of <xref target="I-D.ietf-mmusic-data-channel-sdpneg"/>.
         </t>
         <section anchor="sec.sdp.dcsa.trans" title="Maximum Character Transmission Rate">
           <t>
