@@ -68,9 +68,9 @@
         of <xref target="T140"/>.
       </t>
       <t>
-        NOTE 2: The decision to transport realtime text over a data channel,
+        NOTE 2: The decision to transport real-time text over a data channel,
         instead of using RTP based transport <xref target="RFC4103"/>, in WebRTC
-        is constituted by use-case "U-C 5: Realtime text chat during an audio
+        is constituted by use-case "U-C 5: Real-time text chat during an audio
         and/or video call with an individual or with multiple people in a conference",
         see Section 3.2 of <xref target="I-D.ietf-rtcweb-data-channel"/>.
       </t>
@@ -459,7 +459,7 @@ Answer:
             realize the T.140 data channel using standard T.140 transmission procedures
             <xref target="T140"/>. One or more T140blocks can be sent in a single
             SCTP user message <xref target="RFC4960"/>. Unlike RTP based transport for
-            realtime text <xref target="RFC4103"/>, T.140 data channels do not use redundant
+            real-time text <xref target="RFC4103"/>, T.140 data channels do not use redundant
             transmission of text. The reason for this is that the T.140 data channel achieves
             robust transmission by using the "reliable" mode of the data channel.
           </t>
