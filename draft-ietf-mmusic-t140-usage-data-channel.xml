@@ -62,7 +62,7 @@
         using the SDP-based external negotiation method <xref target="I-D.ietf-mmusic-data-channel-sdpneg"/>.
       </t>
       <t>
-        NOTE 2: The decision to transport real-time text using a WebRTC data channel,
+        NOTE: The decision to transport real-time text using a WebRTC data channel,
         instead of using RTP based transport <xref target="RFC4103"/>,
         is motivated by use-case "U-C 5: Real-time text chat during an audio
         and/or video call with an individual or with multiple people in a conference",
