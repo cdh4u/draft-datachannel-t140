@@ -518,9 +518,10 @@ Answer:
             of T.140 data, in which case it might be possible to use a single T.140 data channel to
             transport data from multiple remote sources. The usage of a single T.140 data channel,
             without any protocol extensions, would require the conference server to only forward
-            real-time text from one source at any given time, and e.g., include IRC style text labels
-            in the real-time text in order for the receiver to present real-time text from different
-            sources. The procedures of such mechanism is outside the scope of this document.
+            real-time text from one source at any given time, and e.g., include human readable text 
+            labels in the real-time text stream that indicates the source whenever the conference server
+            switches the source. This would allow the receiver to present real-time text from different
+            sources separated. The procedures of such mechanism is outside the scope of this document.
           </t>     
         </section>
     </section>
