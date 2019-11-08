@@ -5,7 +5,7 @@
 <?rfc subcompact="yes" ?>
 <?rfc sortrefs="no" ?>
 <?rfc strict="yes" ?>
-<rfc ipr="trust200902" category="std" docName="draft-ietf-mmusic-t140-usage-data-channel-latest" obsoletes="" updates="RFC8373" submissionType="IETF" xml:lang="en">
+<rfc ipr="trust200902" category="std" docName="draft-ietf-mmusic-t140-usage-data-channel-latest" obsoletes="" updates="8373" submissionType="IETF" xml:lang="en">
   <front>
     <title abbrev="T.140 Data Channel">
        T.140 Real-time Text Conversation over WebRTC Data Channels
@@ -62,15 +62,9 @@
         using the SDP-based external negotiation method <xref target="I-D.ietf-mmusic-data-channel-sdpneg"/>.
       </t>
       <t>
-        NOTE 1: This WebRTC term of a "T.140 data channel" is actually
-        synonym to the originally introduced concept of a "T.140 data
-        channel" for the T.140 protocol, see Section 4.3
-        of <xref target="T140"/>.
-      </t>
-      <t>
-        NOTE 2: The decision to transport real-time text over a data channel,
-        instead of using RTP based transport <xref target="RFC4103"/>, in WebRTC
-        is constituted by use-case "U-C 5: Real-time text chat during an audio
+        NOTE: The decision to transport real-time text using a WebRTC data channel,
+        instead of using RTP based transport <xref target="RFC4103"/>,
+        is motivated by use-case "U-C 5: Real-time text chat during an audio
         and/or video call with an individual or with multiple people in a conference",
         see Section 3.2 of <xref target="I-D.ietf-rtcweb-data-channel"/>.
       </t>
@@ -212,8 +206,7 @@
             If the 'fmtp' attribute is included, the 'format' attribute parameter MUST be set to "-".
           </t>
           <t>
-            If the 'fmtp' attribute is not included, it indicates that no maximum character transmission
-            rate is indicated. It does not mean that the default value of 30 applies <xref target="RFC4103"/>.
+            If the 'fmtp' attribute is not included, the default value of 30 applies <xref target="RFC4103"/>.
           </t>
           <t>
             The offerer and answerer MAY modify the 'cps' attribute parameter value in subsequent
@@ -227,7 +220,7 @@
           </t>
           <t>
             NOTE: The 'cps' attribute parameter is especially useful when a T.140 data channel
-            endpoint is acting as a gateway [<xref target="sec.gw"/>] and is interworking with
+            endpoint is acting as a gateway (<xref target="sec.gw"/>) and is interworking with
             a T.140 transport mechanism that have restrictions on how many characters can be sent
             per second.
           </t>
@@ -245,7 +238,7 @@
         <section anchor="sec.sdp.dcsa.dir" title="Real-time Text Direction">
           <t>
             'dcsa' attributes can contain the SDP 'sendonly', 'recvonly', 'sendrecv' and
-            'inactive' attributes <xref target="I-D.ietf-mmusic-rfc4566bis"/> to negotite the direction in 
+            'inactive' attributes <xref target="I-D.ietf-mmusic-rfc4566bis"/> to negotiate the direction in 
             which text can be transmitted in a real-time text conversation.
           </t>
           <t>
@@ -262,8 +255,7 @@
             Session level direction attributes <xref target="I-D.ietf-mmusic-rfc4566bis"/> have no impact
             on a T.140 data channel.
           </t>
-          <section anchor="sec.sdp.dcsa.dir.neg" title="Negotiate Text Direction">
-            <section anchor="sec.sdp.dcsa.dir.neg.off" title="Generating an Offer">
+          <section anchor="sec.sdp.dcsa.dir.neg.off" title="Generating an Offer">
               <t>
                 If the offerer wishes to both send and receive text on a T.140 data channel, it
                 SHOULD mark the data channel as sendrecv with a 'sendrecv' attribute inside a 
@@ -281,8 +273,8 @@
                 'dcsa' attribute. 
               </t>
               <t>
-                If the offerer wishes to neither send or receive text on a T.140 data channel, it
-                MUST mark the data channel as inactive with a 'inactive' attribute inside a 
+                If the offerer wishes to neither send nor receive text on a T.140 data channel, it
+                MUST mark the data channel as inactive with an 'inactive' attribute inside a 
                 'dcsa' attribute. 
               </t>
               <t>
@@ -290,22 +282,8 @@
                 recvonly, it MUST be prepared to receive T.140 data as soon as the state of
                 the T.140 data channel allows it. 
               </t>
-              <t>
-                When the offerer receives an answer to the offer, if the answerer has marked a 
-                data channel as sendrecv (implicit or explicit) or recvonly in the answer, the offerer
-                can start sending T.140 data as soon as the state of the T.140 data channel allows it.
-                If the answerer has marked the data channel as inactive or sendonly, the offerer MUST NOT
-                send any T.140 data.
-              </t>
-              <t>
-                As the answerer implementation might not support the procedures in this section, if 
-                the answerer has not marked the direction of a T.140 data channel in accordance 
-                with the procedures above, it is RECOMMENDED that the offerer does not process that
-                as an error situation, but rather assume that the answerer might both send and
-                receive T.140 data on the data channel.
-              </t>
-            </section> 
-            <section anchor="sec.sdp.dcsa.dir.neg.ans" title="Generating an Answer">
+          </section> 
+          <section anchor="sec.sdp.dcsa.dir.neg.ans" title="Generating an Answer">
               <t>
                 When the answerer accepts an offer, and marks the direction of the text 
                 in the corresponding answer, the marking is based on the marking (explicit or implicit) 
@@ -329,7 +307,7 @@
               </t>
               <t>
                 If the offerer marked the data channel as inactive, the answerer MUST
-                mark the data channel as inactive with a 'inactive' attribute inside a 
+                mark the data channel as inactive with an 'inactive' attribute inside a 
                 'dcsa' attribute.
               </t>
               <t>
@@ -337,7 +315,22 @@
                 prepared to receive data as soon as the state of the T.140 data channel allows
                 transmission of data. 
               </t>
-            </section>
+          </section>
+          <section anchor="sec.sdp.dcsa.dir.neg.rec" title="Offerer Receiving an Answer">
+              <t>
+                When the offerer receives an answer to the offer, if the answerer has marked a 
+                data channel as sendrecv (implicit or explicit) or recvonly in the answer, the offerer
+                can start sending T.140 data as soon as the state of the T.140 data channel allows it.
+                If the answerer has marked the data channel as inactive or sendonly, the offerer MUST NOT
+                send any T.140 data.
+              </t>
+              <t>
+                As the answerer implementation might not support the direction procedures in this section, if 
+                the answerer has not marked the direction of a T.140 data channel in accordance 
+                with the procedures above, it is RECOMMENDED that the offerer does not process that
+                as an error situation, but rather assume that the answerer might both send and
+                receive T.140 data on the data channel.
+              </t>
           </section> 
           <section anchor="sec.sdp.dcsa.dir.mod" title="Modify Text Direction">
             <t>
@@ -356,8 +349,8 @@
             for a T.140 data channel offering real-time text
             conversation in Spanish and Esperanto, and an m= section
             in the associated answer accepting Esperanto. The maximum
-            character transmission rate is set to 20, and the default
-            text transmission direction "sendrecv", apply.
+            character transmission rate is set to 20 and the default
+            text transmission direction "sendrecv" applies.
           </t>
           <figure>
             <preamble></preamble>
@@ -502,7 +495,7 @@ Answer:
             data stream where loss is detected or suspected.
           </t>
           <t>
-            NOTE: If the the SCTP association <xref target="RFC4960"/> used to realize the T.140 data channel
+            NOTE: If the SCTP association <xref target="RFC4960"/> used to realize the T.140 data channel
             fails and get torn down, it needs to be re-established before the T.140 data channel can be
             reestablished. The procedure after the reestablishment of the T.140 data channel defined in
             this section apply no matter if only the T.140 data channel, or the whole SCTP association,
@@ -523,24 +516,23 @@ Answer:
           <t>
             NOTE: Future extensions to T.140, or to the T140block, might allow indicating the source
             of T.140 data, in which case it might be possible to use a single T.140 data channel to
-            transport data from multiple remote sources. That is useful for multi-party aware clients
-            that are able present the conference in a way that is adapted to user expectations regarding
-            presentation style and real-time performance. Conference mixers that use a single T.140 data channel
-            to transmit real-time text towards clients might, without any protocol extensions, produce 
-            a multi-party presentation completely within the text stream, and with limitations in real-time
-            performance and presentation style.
-          </t>
-     
+            transport data from multiple remote sources. The usage of a single T.140 data channel,
+            without any protocol extensions, would require the conference server to only forward
+            real-time text from one source at any given time, and e.g., include human readable text 
+            labels in the real-time text stream that indicates the source whenever the conference server
+            switches the source. This would allow the receiver to present real-time text from different
+            sources separated. The procedures of such mechanism is outside the scope of this document.
+          </t>     
         </section>
     </section>
 
     <section anchor="sec.gw" title="Gateway Considerations">
       <t>
         A number of real-time text transports and protocols have been defined for
-        both packet switched and circuit switched networks. Many are based on the 
+        both packet-switched and circuit-switched networks. Many are based on the 
         ITU-T T.140 protocol on application and presentation level <xref target="T140"/>. 
         At the time of writing this document, some mechanisms are no longer used, as
-        the technologies they use have been obsoleted etc, while others are still in use.
+        the technologies they use have been obsoleted, while others are still in use.
       </t>
       <t>
         When performing interworking between T.140 data channels and real-time text
@@ -563,8 +555,9 @@ Answer:
             incoming RTP streams, and MAY generate keep-alives on outgoing RTP streams.
           </t>
           <t>
-            If the gateway detects or suspects loss of data on the RTP stream, the gateway SHOULD insert the T.140 missing
-            text marker <xref target="T140ad1"/> in the data sent on the outgoing T.140 data channel. 
+            If the gateway detects or suspects loss of data on the RTP stream, and the lost data has not been
+            retrieved using a redundancy mechanism, the gateway SHOULD insert the T.140 missing text 
+            marker <xref target="T140ad1"/> in the data sent on the outgoing T.140 data channel. 
           </t>
           <t>
             If the gateway detects that the T.140 data channel has failed and got torn down, once the data channel has been reestablished
@@ -586,7 +579,7 @@ Answer:
       <t>
         NOTE: In order for the gateway to insert a missing text marker, or to perform other actions that require that the
         gateway has access to the T.140 data, the T.140 data cannot be encrypted end-to-end between the T.140 data channel endpoint
-        and the RTP endpoint. At the time of writing this document, a mechanism to provide such end-to-end encryption has not been defined.
+        and the RTP endpoint. At the time of writing this document, no mechanism to provide such end-to-end encryption is defined.
       </t>
     </section>
     <section anchor="sec.8373" title="Update to RFC 8373">
@@ -598,8 +591,9 @@ Answer:
           SDP offerers and answerers MUST NOT include the attributes directly in the m= section associated with the
           'application/webrtc-datachannel' media type. Instead, the attributes MUST be associated with
           individual data channels, using the SDP 'dcsa' attribute. A specification that defines a subprotocol
-          that uses the attributes MUST specify the modality for that subprotocol, or how to retreive the 
-          modality if the subprotocol supports multiple modalities.
+          that uses the attributes MUST specify the modality for that subprotocol, or how to retrieve the 
+          modality if the subprotocol supports multiple modalities. The subprotocol is indicated using the SDP
+          'dcmap' attribute.
         </t>
     </section>
     <section anchor="sec.sec" title="Security Considerations">
@@ -612,6 +606,7 @@ Answer:
         <t>
           The generic security considerations for the SDP-based external 
           negotiation method are defined in <xref target="I-D.ietf-mmusic-data-channel-sdpneg"/>.
+          There are no additional T.140 data channel specific security considerations.
         </t>
     </section>
     <section anchor="sec.iana" title="IANA considerations">
@@ -654,10 +649,10 @@ Answer:
           <ttcol align='left' width='65%'/>
 
           <c>Contact name:</c>
-          <c>MMUSIC Chairs</c>
+          <c>IESG</c>
 
           <c>Contact email:</c>
-          <c>mmusic-chairs@ietf.org</c>
+          <c>iesg@ietf.org</c>
 
           <c>Attribute name:</c>
           <c>fmtp</c>
@@ -689,10 +684,10 @@ Answer:
           <ttcol align='left' width='65%'/>
 
           <c>Contact name:</c>
-          <c>MMUSIC Chairs</c>
+          <c>IESG</c>
 
           <c>Contact email:</c>
-          <c>mmusic-chairs@ietf.org</c>
+          <c>iesg@ietf.org</c>
 
           <c>Attribute name:</c>
           <c>hlang-send</c>
@@ -716,10 +711,10 @@ Answer:
           <ttcol align='left' width='65%'/>
 
           <c>Contact name:</c>
-          <c>MMUSIC Chairs</c>
+          <c>IESG</c>
 
           <c>Contact email:</c>
-          <c>mmusic-chairs@ietf.org</c>
+          <c>iesg@ietf.org</c>
 
           <c>Attribute name:</c>
           <c>hlang-recv</c>
@@ -751,10 +746,10 @@ Answer:
           <ttcol align='left' width='65%'/>
 
           <c>Contact name:</c>
-          <c>MMUSIC Chairs</c>
+          <c>IESG</c>
 
           <c>Contact email:</c>
-          <c>mmusic-chairs@ietf.org</c>
+          <c>iesg@ietf.org</c>
 
           <c>Attribute name:</c>
           <c>sendonly</c>
@@ -779,10 +774,10 @@ Answer:
           <ttcol align='left' width='65%'/>
 
           <c>Contact name:</c>
-          <c>MMUSIC Chairs</c>
+          <c>IESG</c>
 
           <c>Contact email:</c>
-          <c>mmusic-chairs@ietf.org</c>
+          <c>iesg@ietf.org</c>
 
           <c>Attribute name:</c>
           <c>recvonly</c>
@@ -806,10 +801,10 @@ Answer:
           <ttcol align='left' width='65%'/>
 
           <c>Contact name:</c>
-          <c>MMUSIC Chairs</c>
+          <c>IESG</c>
 
           <c>Contact email:</c>
-          <c>mmusic-chairs@ietf.org</c>
+          <c>iesg@ietf.org</c>
 
           <c>Attribute name:</c>
           <c>sendrecv</c>
@@ -833,10 +828,10 @@ Answer:
           <ttcol align='left' width='65%'/>
 
           <c>Contact name:</c>
-          <c>MMUSIC Chairs</c>
+          <c>IESG</c>
 
           <c>Contact email:</c>
-          <c>mmusic-chairs@ietf.org</c>
+          <c>iesg@ietf.org</c>
 
           <c>Attribute name:</c>
           <c>inactive</c>
@@ -882,8 +877,8 @@ Answer:
       <?rfc include='reference.I-D.ietf-mmusic-data-channel-sdpneg'?>
       <reference anchor="T140">
         <front>
-          <title>Recommendation ITU-T T.140 (02/1998), "Protocol for
-             multimedia application text conversation"</title>
+          <title>Recommendation ITU-T T.140 (02/1998), Protocol for
+             multimedia application text conversation</title>
           <author><organization>ITU-T</organization></author>
           <date year="1998" month="February"/>
         </front>
@@ -891,8 +886,8 @@ Answer:
       </reference>
       <reference anchor="T140ad1">
         <front>
-          <title>Recommendation ITU-T.140 – Addendum 1  (02/2000), "Protocol for
-             multimedia application text conversation"</title>
+          <title>Recommendation ITU-T.140 Addendum 1 - (02/2000), Protocol for
+             multimedia application text conversation</title>
           <author><organization>ITU-T</organization></author>
           <date year="2000" month="February"/>
         </front>
