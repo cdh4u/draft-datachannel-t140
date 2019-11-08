@@ -662,7 +662,7 @@ Answer:
 
           <c>Purpose:</c>
           <c>
-            Indicate the maximum transmission rate that an endpoint is willing to recive on a T.140 data channel. 
+            Indicate the maximum transmission rate that an endpoint is willing to receive on a T.140 data channel. 
           </c>
        
           <c>Reference:</c>
