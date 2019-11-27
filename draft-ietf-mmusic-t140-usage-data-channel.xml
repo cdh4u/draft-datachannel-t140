@@ -489,12 +489,11 @@ Answer:
         <section anchor="sec.t140.loss" title="Loss of T140blocks">
           <t>
             In case of network failure or congestion, T.140 data channels might fail and get torn down.
-            If this happens but the session sustains, it is RECOMMENDED that a low number of 
-            retries are made to reestablish the T.140 data channels. If reestablishment of
-            the T.140 data channel is successful, an implementation MUST evaluate if any 
-            T140blocks were lost. Retransmission of already successfully transmitted T140blocks MUST be
-            avoided, and missing text markers <xref target="T140ad1"/> SHOULD be inserted in the received 
-            data stream where loss is detected or suspected.
+            If this happens but the session sustains, it is RECOMMENDED that implementations tries to 
+            reestablish the T.140 data channels. If reestablishment of the T.140 data channel is successful,
+            an implementation MUST evaluate if any T140blocks were lost. Retransmission of already successfully
+            transmitted T140blocks MUST be avoided, and missing text markers <xref target="T140ad1"/> SHOULD
+            be inserted in the received data stream where loss is detected or suspected.
           </t>
           <t>
             NOTE: If the SCTP association <xref target="RFC4960"/> used to realize the T.140 data channel
