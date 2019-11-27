@@ -287,7 +287,7 @@
           <section anchor="sec.sdp.dcsa.dir.neg.ans" title="Generating an Answer">
               <t>
                 When the answerer accepts an offer, and marks the direction of the text 
-                in the corresponding answer, the marking is based on the marking (or the lack 
+                in the corresponding answer, the direction is based on the marking (or the lack 
                 of explicit marking) in the offer.
               </t>
               <t>
@@ -351,7 +351,7 @@
             conversation in Spanish and Esperanto, and an m= section
             in the associated answer accepting Esperanto. The maximum
             character transmission rate is set to 20. As the offerer and
-            answerer has not explicitly indicated the real-time text
+            answerer have not explicitly indicated the real-time text
             direction, the default direction "sendrecv" applies.
           </t>
           <figure>
