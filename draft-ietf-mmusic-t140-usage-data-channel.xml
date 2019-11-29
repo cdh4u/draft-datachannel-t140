@@ -49,7 +49,7 @@
       <t>
         The ITU-T Protocol for multimedia application text conversation (Recommendation ITU-T T.140)
         <xref target="T140"/> defines a protocol for text conversation, also known as
-        real-time text. The native transport for IP networks is the "RTP Payload for Text Conversation"
+        real-time text. The transport used for IP networks is the "RTP Payload for Text Conversation"
         <xref target="RFC4103"/> mechanism, based on the Real-time Transport Protocol (RTP) <xref target="RFC3550"/>.
       </t>
       <t>
@@ -70,7 +70,7 @@
         see Section 3.2 of <xref target="I-D.ietf-rtcweb-data-channel"/>.
       </t>
       <t>
-        The brief notation "T.140" is used as a synonym for the text
+        The brief notation "T.140" is used as a name for the text
         conversation protocol according to <xref target="T140"/>.
       </t>
       <t>
@@ -132,7 +132,7 @@
         mechanism is used to achieve reliable delivery of T.140 data. By using
         the WebRTC data channel reliable and in-order transmission features <xref target="I-D.ietf-rtcweb-data-channel"/>
         for the T.140 data channel, there is no need for a redundancy mechanism or a mechanism to detect
-        data loss and out-of-order delivery on the application level. The latency characteristics of the
+        data loss and out-of-order delivery at the application level. The latency characteristics of the
         T.140 data channel is also regarded to be sufficient to meet the application requirements of T.140.
       </t>
     </section>
@@ -215,8 +215,8 @@
           </t>
           <t>
             This document does not define any other usage of the 'fmtp' attribute for a T.140 channel.
-            If an offerer or answerer receives a 'dcsa' attribute that contains 'fmtp' attribute that
-            is not according to the procedure above the offerer or answerer MUST discard the 'dcsa'
+            If an offerer or answerer receives a 'dcsa' attribute that contains an 'fmtp' attribute that
+            is not according to the procedure above, the offerer or answerer MUST ignore the 'dcsa'
             attribute. 
           </t>
           <t>
@@ -260,8 +260,8 @@
               <t>
                 If the offerer wishes to both send and receive text on a T.140 data channel, it
                 SHOULD mark the data channel as sendrecv with a 'sendrecv' attribute inside a 
-                'dcsa' attribute. If the offerer does not explicitly mark the data channel, a
-                'sendrecv' attribute inside a 'dcsa' attribute is implicitly applied.
+                'dcsa' attribute. If the offerer does not explicitly mark the data channel, an
+                implicit 'sendrecv' attribute inside a 'dcsa' attribute is applied by default.
               </t>
               <t>
                 If the offerer wishes to only send text on a T.140 data channel, it
@@ -279,32 +279,33 @@
                 'dcsa' attribute. 
               </t>
               <t>
-                If the offerer has marked a data channel as sendrecv (implicit or explicit) or
-                recvonly, it MUST be prepared to receive T.140 data as soon as the state of
-                the T.140 data channel allows it. 
+                If the offerer has marked a data channel as sendrecv (or if the offerer did not
+                explicitly mark the data channel) or recvonly, it MUST be prepared to receive
+                T.140 data as soon as the state of the T.140 data channel allows it. 
               </t>
           </section> 
           <section anchor="sec.sdp.dcsa.dir.neg.ans" title="Generating an Answer">
               <t>
                 When the answerer accepts an offer, and marks the direction of the text 
-                in the corresponding answer, the marking is based on the marking (explicit or implicit) 
-                in the offer.
+                in the corresponding answer, the direction is based on the marking (or the lack 
+                of explicit marking) in the offer.
               </t>
               <t>
-                If the offerer marked the data channel as sendrecv (implicitly or explicitly), 
-                the answerer MUST mark the data channel as sendrecv (implicitly or explicitly), sendonly, recvonly or inactive
-                with a 'sendrecv', 'sendonly', 'recvonly' respective 'inactive' attribute
-                inside a 'dcsa' attribute.
+                If the offerer explicitly marked the data channel as sendrecv, or if the offerer did not mark
+                the data channel, the answerer SHOULD mark the data channel as sendrecv, sendonly, recvonly or inactive
+                with a 'sendrecv', 'sendonly', 'recvonly' or 'inactive' attribute respectively
+                inside a 'dcsa' attribute. If the answerer does not explicitly mark the data channel, an
+                implicit 'sendrecv' attribute inside a 'dcsa' attribute is applied by default.
               </t>
               <t>
                 If the offerer marked the data channel as sendonly, the answerer MUST
-                mark the data channel as recvonly or inactive with a 'recvonly' respective
-                'inactive' attribute inside a 'dcsa' attribute. 
+                mark the data channel as recvonly or inactive with a 'recvonly' or
+                'inactive' attribute respectively inside a 'dcsa' attribute. 
               </t>
               <t>
                 If the offerer marked the data channel as recvonly, the answerer MUST
-                mark the data channel as sendonly or inactive with a 'sendonly' respective
-                'inactive' attribute inside a 'dcsa' attribute. 
+                mark the data channel as sendonly or inactive with a 'sendonly' or
+                'inactive' attribute respectively inside a 'dcsa' attribute. 
               </t>
               <t>
                 If the offerer marked the data channel as inactive, the answerer MUST
@@ -319,15 +320,14 @@
           </section>
           <section anchor="sec.sdp.dcsa.dir.neg.rec" title="Offerer Receiving an Answer">
               <t>
-                When the offerer receives an answer to the offer, if the answerer has marked a 
-                data channel as sendrecv (implicit or explicit) or recvonly in the answer, the offerer
-                can start sending T.140 data as soon as the state of the T.140 data channel allows it.
-                If the answerer has marked the data channel as inactive or sendonly, the offerer MUST NOT
-                send any T.140 data.
+                When the offerer receives an answer to the offer and the answerer has marked a 
+                data channel as sendrecv (or the answerer did not mark the data channel) 
+                or recvonly in the answer, the offerer can start sending T.140 data as soon as
+                the state of the T.140 data channel allows it. If the answerer has marked the
+                data channel as inactive or sendonly, the offerer MUST NOT send any T.140 data.
               </t>
               <t>
-                As the answerer implementation might not support the direction procedures in this section, if 
-                the answerer has not marked the direction of a T.140 data channel in accordance 
+                If the answerer has not marked the direction of a T.140 data channel in accordance 
                 with the procedures above, it is RECOMMENDED that the offerer does not process that
                 as an error situation, but rather assume that the answerer might both send and
                 receive T.140 data on the data channel.
@@ -350,8 +350,9 @@
             for a T.140 data channel offering real-time text
             conversation in Spanish and Esperanto, and an m= section
             in the associated answer accepting Esperanto. The maximum
-            character transmission rate is set to 20 and the default
-            text transmission direction "sendrecv" applies.
+            character transmission rate is set to 20. As the offerer and
+            answerer have not explicitly indicated the real-time text
+            direction, the default direction "sendrecv" applies.
           </t>
           <figure>
             <preamble></preamble>
@@ -423,7 +424,7 @@ Answer:
         <section anchor="sec.t140.slf" title="Session Layer Functions">
           <t>
             Section 6.1 of <xref target="T140"/> describes the generic T.140 session
-            control functions at high-level and a signalling protocol
+            control functions at a high-level in a signalling protocol
             independent manner. The list below describes how the functions
             are realized when using a T.140 data channel.
             <list style="symbols">
@@ -488,16 +489,15 @@ Answer:
         <section anchor="sec.t140.loss" title="Loss of T140blocks">
           <t>
             In case of network failure or congestion, T.140 data channels might fail and get torn down.
-            If this happens but the session sustains, it is RECOMMENDED that a low number of 
-            retries are made to reestablish the T.140 data channels. If reestablishment of
-            the T.140 data channel is successful, an implementation MUST evaluate if any 
-            T140blocks were lost. Retransmission of already successfully transmitted T140blocks MUST be
-            avoided, and missing text markers <xref target="T140ad1"/> SHOULD be inserted in the received 
-            data stream where loss is detected or suspected.
+            If this happens but the session sustains, it is RECOMMENDED that implementations tries to 
+            reestablish the T.140 data channels. If reestablishment of the T.140 data channel is successful,
+            an implementation MUST evaluate if any T140blocks were lost. Retransmission of already successfully
+            transmitted T140blocks MUST be avoided, and missing text markers <xref target="T140ad1"/> SHOULD
+            be inserted in the received data stream where loss is detected or suspected.
           </t>
           <t>
             NOTE: If the SCTP association <xref target="RFC4960"/> used to realize the T.140 data channel
-            fails and get torn down, it needs to be re-established before the T.140 data channel can be
+            fails and gets torn down, it needs to be re-established before the T.140 data channel can be
             reestablished. The procedure after the reestablishment of the T.140 data channel defined in
             this section apply no matter if only the T.140 data channel, or the whole SCTP association,
             got torn down.
@@ -508,7 +508,7 @@ Answer:
             If an implementation needs to support multi-party scenarios, the implementation needs
             to support multiple simultaneous T.140 data channels, one for each remote party. At
             the time of writing this document, this is true even in scenarios where each participant
-            communicate via a centralized conference server. The reason is that, unlike RTP media,
+            communicates via a centralized conference server. The reason is that, unlike RTP media,
             WebRTC data channels and the T.140 protocol do not support the indication of the source
             of T.140 data. The SDP 'dcmap' attribute label attribute parameter (<xref target="sec.sdp.dcmap"/>)
             can be used by the offerer to provide additional information about each T.140 data channel, and help
@@ -545,10 +545,10 @@ Answer:
         between T.140 data channels and RTP-based T.140 transport:
         <list style="symbols">
           <t>
-            For each T.140 data channel there is an RTP stream for real-time text <xref target="RFC4103"/> . 
-            Redundancy is by default declared and used on RTP stream. On the T.140 data channel
-            there is no redundancy, but the reliable property <xref target="I-D.ietf-mmusic-data-channel-sdpneg"/>
-            of T.140 the data channel is set.
+            For each T.140 data channel there is an RTP stream for real-time text <xref target="RFC4103"/>. 
+            Redundancy is by default declared and used on the RTP stream. There is no redundancy on the
+            T.140 data channel, but the reliable property <xref target="I-D.ietf-mmusic-data-channel-sdpneg"/>
+            is set on it.
           </t>
           <t>
             During a normal text flow, T140blocks received from one network are forwarded towards the other network.
@@ -563,7 +563,7 @@ Answer:
           <t>
             If the gateway detects that the T.140 data channel has failed and got torn down, once the data channel has been reestablished
             the gateway SHOULD insert the T.140 missing text marker <xref target="T140ad1"/> in the data sent on the outgoing RTP stream
-            if it detects or suspects that data sent by the remote T.140 data channel endpoint was lost due to the data channel failure.
+            if it detects or suspects that data sent by the remote T.140 data channel endpoint was lost.
           </t>
           <t>
             If the gateway detects that the T.140 data channel has failed and got torn down, once the data channel
