@@ -638,9 +638,9 @@ Answer:
 
       <section title="SDP fmtp Attribute" anchor="sec.iana.dcsa.fmtp">
         <t>
-          This document modifies the usage of the SDP 'fmtp' attribute, if this attribute is
+          This document defines the usage of the SDP 'fmtp' attribute, if this attribute is
           included in an SDP 'dcsa' attribute and associated with an T.140 real-time text session
-          over a WebRTC data channel. The modified usage is described in <xref target="sec.sdp.dcsa.trans"/>.
+          over a WebRTC data channel. The usage is defined in <xref target="sec.sdp.dcsa.trans"/>.
         </t>
         <t>
           The usage level "dcsa(t140)" is added to the IANA registration of the SDP 'fmtp' attribute as follows:
