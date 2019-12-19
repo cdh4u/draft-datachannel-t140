@@ -88,6 +88,11 @@
         <xref target="I-D.ietf-rtcweb-data-protocol"/>.
       </t>
       <t>
+        This document updates <xref target="RFC8373"/>, by defining how the SDP
+        hlang-send and hlang-recv attributes are used for the "application/webrtc-datachannel"
+        media type.
+      </t>
+      <t>
         This document is based on an earlier Internet draft edited by Keith Drage,
         Juergen Stoetzer-Bradler and Albrecht Schwarz.
       </t>
@@ -204,7 +209,7 @@
             is used as a mean value in characters per second over any 10-second interval.
           </t>
           <t>
-            If the 'fmtp' attribute is included, the 'format' attribute parameter MUST be set to "-".
+            If the 'fmtp' attribute is included, the 'format' attribute parameter MUST be set to "t140".
           </t>
           <t>
             If the 'fmtp' attribute is not included, the default value of 30 applies <xref target="RFC4103"/>.
@@ -365,7 +370,7 @@ Offer:
     a=max-message-size:1000
     a=sctp-port 5000
     a=dcmap:2 label="ACME customer service";subprotocol="t140"
-    a=dcsa:2 fmtp:- cps=20
+    a=dcsa:2 fmtp:t140 cps=20
     a=dcsa:2 hlang-send:es eo
     a=dcsa:2 hlang-recv:es eo
 
@@ -376,7 +381,7 @@ Answer:
     a=max-message-size:1000
     a=sctp-port 6000
     a=dcmap:2 label="ACME customer service";subprotocol="t140"
-    a=dcsa:2 fmtp:- cps=20
+    a=dcsa:2 fmtp:t140 cps=20
     a=dcsa:2 hlang-send:eo
     a=dcsa:2 hlang-recv:eo
 
