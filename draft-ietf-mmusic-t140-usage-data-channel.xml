@@ -157,11 +157,9 @@
         </t>
         <t>
           The offerer and answerer MAY include the priority attribute parameter
-          and the label attribute parameter in the 'dcmap' attribute value. As
-          defined in <xref target="I-D.ietf-mmusic-data-channel-sdpneg"/>, in absence
-          of the attribute parameter an attribute parameter value of 256 is assumed.
-          The answerer MUST not change the value in the answer.
-        </tZ
+          and the label attribute parameter in the 'dcmap' attribute value, as
+          specified in <xref target="I-D.ietf-mmusic-data-channel-sdpneg"/>.
+        </t>
         <t>
           NOTE: As specified in <xref target="I-D.ietf-rtcweb-data-channel"/>,
           when a data channel is negotiated using the mechanism defined in <xref target="I-D.ietf-rtcweb-data-protocol"/>,
@@ -169,10 +167,12 @@
           applies to data channels negotiated using the mechanism defined in this document.
         </t>
         <t>
-          The offerer and answerer MUST NOT include the max-retr and max-time
+          The offerer and answerer MUST NOT include the max-retr or the max-time
           attribute parameters in the 'dcmap' attribute. If any of the
-          attribute parameters are included in an offer or answer, the receiver
-          MUST take the proper actions to reject the SDP.
+          attribute parameters is received in an offer, the answerer
+          MUST reject the offer. If any of the attribute parameters is
+          received in an answer, the offerer MUST treat the offer/answer
+          transaction as failed.
         </t>
         <t>
           If the ordered attribute parameter is included in the 'dcmap' attribute, it MUST
