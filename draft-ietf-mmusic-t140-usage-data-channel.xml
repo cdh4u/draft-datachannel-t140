@@ -23,7 +23,7 @@
       </address>
     </author>
   
-    <date year="2019"/>
+    <date year="2020"/>
     <area>Transport</area>
     <workgroup>MMUSIC Working Group</workgroup>
     <keyword>SDP</keyword>
@@ -72,6 +72,12 @@
       <t>
         The brief notation "T.140" is used as a name for the text
         conversation protocol according to <xref target="T140"/>.
+      </t>
+      <t>
+        Real-time text is intended to be entered by human users from a keyboard,
+        handwriting recognition, voice recognition or any other input method.
+        The rate of character entry is usually at a level of a few characters
+        per second or less.
       </t>
       <t>
         <xref target="sec.webrtc.cons"/> defines the generic data channel properties for 
@@ -230,6 +236,17 @@
             endpoint is acting as a gateway (<xref target="sec.gw"/>) and is interworking with
             a T.140 transport mechanism that have restrictions on how many characters can be sent
             per second.
+          </t>
+          <t>
+            If an endpoint receives text at a higher rate than it can handle, e.g., because the
+            sender does not support the 'cps' attribute parameter, the receiver
+            can indicate to the sender that it is not willing to receive more text at the moment,
+            using the direction attributes (<xref target="sec.sdp.dcsa.dir"/>).
+          </t>
+          <t>
+            NOTE: At the time of writing this specification, the standardized API for WebRTC data channels
+            does not support flow control. Should such be available at some point, a receiving endpoint
+            might use it in order to slow down the rate of text received from the sending endpoint.
           </t>
         </section>
         <section anchor="sec.sdp.dcsa.lan" title="Real-time Text Conversation Languages">
@@ -485,25 +502,37 @@ Answer:
         <section anchor="sec.t140.buff" title="Data Buffering">
           <t>
             As described in <xref target="T140"/>, buffering can be used to reduce
-            overhead, with the maximum buffering time being 500 ms. It can also be used for
-            staying within the maximum character transmission rate (<xref target="sec.sdp.dcsa"/>),
-            if such has been provided by the peer.
+            overhead, with the maximum assigned transmission interval of T140blocks
+            from the buffer being 500 ms as long as there is text to send.
           </t>
           <t>
-            An implementation needs to take the user requirements for smooth flow and low
-            latency in real-time text conversation into consideration when assigning a buffer time.
-            It is RECOMMENDED to use the default transmission interval of 300 milliseconds
-            <xref target="RFC4103"/>, or lower, for T.140 data channels.
+            Buffering can also be used for staying within the maximum character
+            transmission rate (<xref target="sec.sdp.dcsa"/>).
+          </t>
+          <t>
+            An implementation needs to take the user requirements for smooth
+            flow and low latency in real-time text conversation into consideration when
+            assigning a transmission interval. It is RECOMMENDED to use the default transmission
+            interval of 300 milliseconds <xref target="RFC4103"/>, for T.140 data channels.
+            Implementers MAY also use lower values, for specific applications requiring low latency,
+            taking the increased overhead in consideration.
           </t>
         </section>
         <section anchor="sec.t140.loss" title="Loss of T140blocks">
           <t>
-            In case of network failure or congestion, T.140 data channels might fail and get torn down.
-            If this happens but the session sustains, it is RECOMMENDED that the implementation tries to 
-            reestablish the T.140 data channels. If reestablishment of the T.140 data channel is successful,
-            an implementation MUST evaluate if any T140blocks were lost. Retransmission of already successfully
-            transmitted T140blocks MUST be avoided, and missing text markers <xref target="T140ad1"/> SHOULD
-            be inserted in the received data stream where loss is detected or suspected.
+            In case of network failure or congestion, T.140 data channels might
+            fail and get torn down.  If this happens but the session sustains, it
+            is RECOMMENDED that implementations try to reestablish the T.140
+            data channels. As a T.140 data channel does not provide a mechanism
+            for the receiver to identify retransmitted T140blocks after channel
+            reestablishment, the sender MUST NOT retransmit T140blocks unless
+            it has strong indications that a T140block has been lost. Similarly,
+            as a T.140 data channel does not provide a mechanism for a receiver to
+            detect lost T140blocks during channel reestablishment, it MUST NOT insert
+            missing text markers <xref target="T140ad1"/> unless it has reasons to
+            suspect that a T140block might have been lost. Different mechanisms used
+            by senders and receivers to detect or suspect packet loss are outside the
+            scope of this specification.
           </t>
           <t>
             NOTE: If the SCTP association <xref target="RFC4960"/> used to realize the T.140 data channel
