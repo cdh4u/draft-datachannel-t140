@@ -239,8 +239,8 @@
           </t>
           <t>
             If an endpoint receives text at a higher rate than it can handle, e.g., because the
-            sender does not support the 'cps' attribute parameter, the receiver
-            can indicate to the sender that it is not willing to receive more text at the moment,
+            sending endpoint does not support the 'cps' attribute parameter, the receiving endpoint
+            can indicate to the sending endpoint that it is not willing to receive more text at the moment,
             using the direction attributes (<xref target="sec.sdp.dcsa.dir"/>).
           </t>
           <t>
@@ -525,13 +525,13 @@ Answer:
             is RECOMMENDED that implementations try to reestablish the T.140
             data channels. As a T.140 data channel does not provide a mechanism
             for the receiver to identify retransmitted T140blocks after channel
-            reestablishment, the sender MUST NOT retransmit T140blocks unless
-            it has strong indications that a T140block has been lost. Similarly,
-            as a T.140 data channel does not provide a mechanism for a receiver to
+            reestablishment, the sending endpoint MUST NOT retransmit T140blocks unless
+            it has strong indications that a T140block has been lost during the data channel
+            failure. Similarly, as a T.140 data channel does not provide a mechanism for a receiver to
             detect lost T140blocks during channel reestablishment, it MUST NOT insert
             missing text markers <xref target="T140ad1"/> unless it has reasons to
             suspect that a T140block might have been lost. Different mechanisms used
-            by senders and receivers to detect or suspect packet loss are outside the
+            by sending and receiving endpoints to detect or suspect text loss are outside the
             scope of this specification.
           </t>
           <t>
