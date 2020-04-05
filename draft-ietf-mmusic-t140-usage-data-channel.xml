@@ -561,7 +561,7 @@ Answer:
             real-time text from one source at any given time, and e.g., include human readable text 
             labels in the real-time text stream that indicate the source whenever the conference server
             switches the source. This would allow the receiver to present real-time text from different
-            sources separated. The procedures of such mechanism is outside the scope of this document.
+            sources separately. The procedures of such mechanism are outside the scope of this document.
           </t>     
         </section>
     </section>
@@ -682,7 +682,8 @@ Answer:
           over a WebRTC data channel. The usage is defined in <xref target="sec.sdp.dcsa.trans"/>.
         </t>
         <t>
-          The usage level "dcsa(t140)" is added to the IANA registration of the SDP 'fmtp' attribute as follows:
+          The usage level "dcsa(t140)" is added to the registration of the SDP 'fmtp' attribute in the Session Description
+          Protocol (SDP) Parameters registry as follows:
         </t>
         <texttable title="">
           <ttcol align='left' width='35%'/>
@@ -717,7 +718,8 @@ Answer:
           The modified usage is described in <xref target="sec.sdp.dcsa.lan"/>.
         </t>
         <t>
-          The usage level "dcsa(t140)" is added to the IANA registration of the SDP 'hlang-send' attribute as follows:
+          The usage level "dcsa(t140)" is added to the registration of the SDP 'hland-send' attribute in the Session Description
+          Protocol (SDP) Parameters registry as follows:
         </t>
         <texttable title="">
           <ttcol align='left' width='35%'/>
@@ -744,7 +746,8 @@ Answer:
           <c>RFCXXXX</c>
         </texttable>
         <t>
-          The usage level "dcsa(t140)" is added to the IANA registration of the SDP 'hlang-recv' attribute as follows:
+          The usage level "dcsa(t140)" is added to the registration of the SDP 'hland-recv' attribute in the Session Description
+          Protocol (SDP) Parameters registry as follows:
         </t>
         <texttable title="">
           <ttcol align='left' width='35%'/>
@@ -779,7 +782,8 @@ Answer:
           is described in <xref target="sec.sdp.dcsa.dir"/>.
         </t>
         <t>
-          The usage level "dcsa(t140)" is added to the IANA registration of the SDP 'sendonly' attribute as follows:
+          The usage level "dcsa(t140)" is added to the registration of the SDP 'sendonly' attribute in the Session Description
+          Protocol (SDP) Parameters registry as follows:
         </t>
         <texttable title="">
           <ttcol align='left' width='35%'/>
@@ -807,7 +811,8 @@ Answer:
         </texttable>
 
         <t>
-          The usage level "dcsa(t140)" is added to the IANA registration of the SDP 'recvonly' attribute as follows:
+          The usage level "dcsa(t140)" is added to the registration of the SDP 'recvonly' attribute in the Session Description
+          Protocol (SDP) Parameters registry as follows:
         </t>
         <texttable title="">
           <ttcol align='left' width='35%'/>
@@ -834,7 +839,8 @@ Answer:
           <c>RFCXXXX</c>
         </texttable>
         <t>
-          The usage level "dcsa(t140)" is added to the IANA registration of the SDP 'sendrecv' attribute as follows:
+          The usage level "dcsa(t140)" is added to the registration of the SDP 'sendrecv' attribute in the Session Description
+          Protocol (SDP) Parameters registry as follows:
         </t>
         <texttable title="">
           <ttcol align='left' width='35%'/>
@@ -861,7 +867,8 @@ Answer:
           <c>RFCXXXX</c>
         </texttable>
         <t>
-          The usage level "dcsa(t140)" is added to the IANA registration of the SDP 'inactive' attribute as follows:
+          The usage level "dcsa(t140)" is added to the registration of the SDP 'inactive' attribute in the Session Description
+          Protocol (SDP) Parameters registry as follows:
         </t>
         <texttable title="">
           <ttcol align='left' width='35%'/>
