@@ -514,7 +514,7 @@ Answer:
             flow and low latency in real-time text conversation into consideration when
             assigning a transmission interval. It is RECOMMENDED to use the default transmission
             interval of 300 milliseconds <xref target="RFC4103"/>, for T.140 data channels.
-            Implementers MAY also use lower values, for specific applications requiring low latency,
+            Implementers might also use lower values for specific applications requiring low latency,
             taking the increased overhead in consideration.
           </t>
         </section>
