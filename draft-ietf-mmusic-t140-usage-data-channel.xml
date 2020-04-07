@@ -523,16 +523,13 @@ Answer:
             In case of network failure or congestion, T.140 data channels might
             fail and get torn down.  If this happens but the session sustains, it
             is RECOMMENDED that implementations try to reestablish the T.140
-            data channels. As a T.140 data channel does not provide a mechanism
-            for the receiver to identify retransmitted T140blocks after channel
-            reestablishment, the sending endpoint MUST NOT retransmit T140blocks unless
-            it has strong indications that a T140block has been lost during the data channel
-            failure. Similarly, as a T.140 data channel does not provide a mechanism for a receiver to
-            detect lost T140blocks during channel reestablishment, it MUST NOT insert
-            missing text markers <xref target="T140ad1"/> unless it has reasons to
-            suspect that a T140block might have been lost. Different mechanisms used
-            by sending and receiving endpoints to detect or suspect text loss are outside the
-            scope of this specification.
+            data channels.As a T.140 data channel does not provide a mechanism for
+            the receiver to identify retransmitted T140blocks after channel
+            reestablishment, the sending endpoint MUST NOT retransmit T140blocks.
+            Similarly, a receiver SHOULD indicate to the user that there has 
+            been a channel reestablishment, and that text might have been lost. 
+            This MAY be done by inserting the missing text markers <xref target="T140ad1"/>
+            or in any other way evident to the user.
           </t>
           <t>
             NOTE: If the SCTP association <xref target="RFC4960"/> used to realize the T.140 data channel
