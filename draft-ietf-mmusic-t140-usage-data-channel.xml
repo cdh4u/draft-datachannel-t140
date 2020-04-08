@@ -22,7 +22,19 @@
         <email>christer.holmberg@ericsson.com</email>
       </address>
     </author>
-  
+    <author initials="G.H." surname="Hellstrom" fullname="Gunnar Hellstrom">
+      <organization>Gunnar Hellstrom Accessible Communication</organization>
+      <address>
+        <postal>
+          <street>Esplanaden 30</street>
+          <code>136 70</code>
+          <city>Vendelso</city>
+          <country>Sweden</country>
+        </postal>
+        <email>gunnar.hellstrom@ghaccess.se</email>
+      </address>
+    </author>
+
     <date year="2020"/>
     <area>Transport</area>
     <workgroup>MMUSIC Working Group</workgroup>
@@ -907,8 +919,7 @@ Answer:
       </t>
       <t>
         Thomas Belling provided useful comments on the initial (pre-submission) version
-        of the draft. Gunnar Hellstrom provided comments and text on the draft. Paul
-        Kyzivat and Bernard Aboba provided comments on the draft.
+        of the draft. Paul Kyzivat and Bernard Aboba provided comments on the draft.
       </t>
     </section>
   </middle>
