@@ -239,9 +239,14 @@
           </t>
           <t>
             If an endpoint receives text at a higher rate than it can handle, e.g., because the
-            sending endpoint does not support the 'cps' attribute parameter, the receiving endpoint
-            can indicate to the sending endpoint that it is not willing to receive more text at the moment,
-            using the direction attributes (<xref target="sec.sdp.dcsa.dir"/>).
+            sending endpoint does not support the 'cps' attribute parameter, it SHOULD either
+            indicate to the sending endpoint that it is not willing to receive more text, using
+            the direction attributes (<xref target="sec.sdp.dcsa.dir"/>), or use a flow control
+            mechanism to reduce the rate. However, in certain applications, e.g. emergency services,
+            it is important to regain human interaction as soon as possible, and it might
+            therefor be more appropriate to simply discard the received overflow, insert a
+            mark for loss <xref target="T140ad1"/>, and continue to process the received text as
+            soon as possible.
           </t>
           <t>
             NOTE: At the time of writing this specification, the standardized API for WebRTC data channels
