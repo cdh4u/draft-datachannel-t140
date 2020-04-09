@@ -503,7 +503,7 @@ Answer:
             robust transmission by using the "reliable" mode of the data channel.
           </t>
           <t>
-            Data sending and reporting procedures conform to <xref target="T140"/>.
+            Data sending procedures conform to <xref target="T140"/>.
           </t>
           <t>
             See Section 8 of <xref target="T140"/> for coding details.
