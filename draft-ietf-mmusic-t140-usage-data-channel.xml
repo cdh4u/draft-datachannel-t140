@@ -22,7 +22,19 @@
         <email>christer.holmberg@ericsson.com</email>
       </address>
     </author>
-  
+    <author initials="G.H." surname="Hellstrom" fullname="Gunnar Hellstrom">
+      <organization>Gunnar Hellstrom Accessible Communication</organization>
+      <address>
+        <postal>
+          <street>Esplanaden 30</street>
+          <code>136 70</code>
+          <city>Vendelso</city>
+          <country>Sweden</country>
+        </postal>
+        <email>gunnar.hellstrom@ghaccess.se</email>
+      </address>
+    </author>
+
     <date year="2020"/>
     <area>Transport</area>
     <workgroup>MMUSIC Working Group</workgroup>
@@ -146,9 +158,11 @@
     
     <section anchor="sec.sdp" title="SDP Considerations">
       <t>
-        The generic SDP considerations, including the SDP Offer/Answer procedures, for
+        The generic SDP considerations, including the SDP Offer/Answer procedures <xref target="RFC3264"/>, for
         negotiating a WebRTC data channel are defined in <xref target="I-D.ietf-mmusic-data-channel-sdpneg"/>.
-        This section defines the SDP considerations that are specific to a T.140 data channel.
+        This section, and its subsections, define the SDP considerations that are specific to a T.140 data channel,
+        identified by an SDP 'dcmap' attribute <xref target="I-D.ietf-mmusic-data-channel-sdpneg"/>  with a "t140"
+        attribute parameter value.
       </t>
       <section anchor="sec.sdp.dcmap" title="Use of dcmap Attribute">
         <t>
@@ -174,9 +188,9 @@
         </t>
         <t>
           The offerer and answerer MUST NOT include the max-retr or the max-time
-          attribute parameters in the 'dcmap' attribute. If any of the
+          attribute parameters in the 'dcmap' attribute. If either of those
           attribute parameters is received in an offer, the answerer
-          MUST reject the offer. If any of the attribute parameters is received
+          MUST reject the offer. If either of those attribute parameters is received
           in an answer the offerer MUST NOT accept the answer. Instead, the answerer
           MUST take appropriate actions, e.g., by sending a new offer without a 
           T.140 data channel, or by terminating the session.
@@ -239,9 +253,14 @@
           </t>
           <t>
             If an endpoint receives text at a higher rate than it can handle, e.g., because the
-            sending endpoint does not support the 'cps' attribute parameter, the receiving endpoint
-            can indicate to the sending endpoint that it is not willing to receive more text at the moment,
-            using the direction attributes (<xref target="sec.sdp.dcsa.dir"/>).
+            sending endpoint does not support the 'cps' attribute parameter, it SHOULD either
+            indicate to the sending endpoint that it is not willing to receive more text, using
+            the direction attributes (<xref target="sec.sdp.dcsa.dir"/>), or use a flow control
+            mechanism to reduce the rate. However, in certain applications, e.g. emergency services,
+            it is important to regain human interaction as soon as possible, and it might
+            therefore be more appropriate to simply discard the received overflow, insert a
+            mark for loss <xref target="T140ad1"/>, and continue to process the received text as
+            soon as possible.
           </t>
           <t>
             NOTE: At the time of writing this specification, the standardized API for WebRTC data channels
@@ -486,7 +505,7 @@ Answer:
             robust transmission by using the "reliable" mode of the data channel.
           </t>
           <t>
-            Data sending and reporting procedures conform to <xref target="T140"/>.
+            Data sending procedures conform to <xref target="T140"/>.
           </t>
           <t>
             See Section 8 of <xref target="T140"/> for coding details.
@@ -501,7 +520,7 @@ Answer:
         </section>
         <section anchor="sec.t140.buff" title="Data Buffering">
           <t>
-            As described in <xref target="T140"/>, buffering can be used to reduce
+            As described in <xref target="T140"/>, buffering MAY be used to reduce
             overhead, with the maximum assigned transmission interval of T140blocks
             from the buffer being 500 ms as long as there is text to send.
           </t>
@@ -514,7 +533,7 @@ Answer:
             flow and low latency in real-time text conversation into consideration when
             assigning a transmission interval. It is RECOMMENDED to use the default transmission
             interval of 300 milliseconds <xref target="RFC4103"/>, for T.140 data channels.
-            Implementers MAY also use lower values, for specific applications requiring low latency,
+            Implementers might also use lower values for specific applications requiring low latency,
             taking the increased overhead in consideration.
           </t>
         </section>
@@ -523,16 +542,13 @@ Answer:
             In case of network failure or congestion, T.140 data channels might
             fail and get torn down.  If this happens but the session sustains, it
             is RECOMMENDED that implementations try to reestablish the T.140
-            data channels. As a T.140 data channel does not provide a mechanism
-            for the receiver to identify retransmitted T140blocks after channel
-            reestablishment, the sending endpoint MUST NOT retransmit T140blocks unless
-            it has strong indications that a T140block has been lost during the data channel
-            failure. Similarly, as a T.140 data channel does not provide a mechanism for a receiver to
-            detect lost T140blocks during channel reestablishment, it MUST NOT insert
-            missing text markers <xref target="T140ad1"/> unless it has reasons to
-            suspect that a T140block might have been lost. Different mechanisms used
-            by sending and receiving endpoints to detect or suspect text loss are outside the
-            scope of this specification.
+            data channels.As a T.140 data channel does not provide a mechanism for
+            the receiver to identify retransmitted T140blocks after channel
+            reestablishment, the sending endpoint MUST NOT retransmit T140blocks.
+            Similarly, a receiver SHOULD indicate to the user that there has 
+            been a channel reestablishment, and that text might have been lost. 
+            This MAY be done by inserting the missing text markers <xref target="T140ad1"/>
+            or in any other way evident to the user.
           </t>
           <t>
             NOTE: If the SCTP association <xref target="RFC4960"/> used to realize the T.140 data channel
@@ -561,7 +577,7 @@ Answer:
             real-time text from one source at any given time, and e.g., include human readable text 
             labels in the real-time text stream that indicate the source whenever the conference server
             switches the source. This would allow the receiver to present real-time text from different
-            sources separated. The procedures of such mechanism is outside the scope of this document.
+            sources separately. The procedures of such mechanism are outside the scope of this document.
           </t>     
         </section>
     </section>
@@ -591,7 +607,7 @@ Answer:
           </t>
           <t>
             During a normal text flow, T140blocks received from one network are forwarded towards the other network.
-            Keep-alive traffic is implicit on the T.140 data channel. A gateway might have to extract keep-alives from
+            Keep-alive traffic is handled by lower layers on the T.140 data channel. A gateway might have to extract keep-alives from
             incoming RTP streams, and MAY generate keep-alives on outgoing RTP streams.
           </t>
           <t>
@@ -638,6 +654,11 @@ Answer:
     </section>
     <section anchor="sec.sec" title="Security Considerations">
         <t>
+          The generic WebRTC security considerations are defined in
+          <xref target="I-D.ietf-rtcweb-security-arch"/> and
+          <xref target="I-D.ietf-rtcweb-security"/>.
+        </t>
+        <t>
           The generic security considerations for WebRTC data channels
           are defined in <xref target="I-D.ietf-rtcweb-data-channel"/>. As data channels
           are always encrypted by design, the T.140 data channels will
@@ -648,6 +669,13 @@ Answer:
           negotiation method are defined in <xref target="I-D.ietf-mmusic-data-channel-sdpneg"/>.
           There are no additional T.140 data channel specific security considerations.
         </t>
+        <t>
+          When performing interworking between T.140 data channels and real-time text and
+          the RTP based mechanism defined in <xref target="RFC4103"/>, in order for a gateway to
+          insert a missing text marker, or to perform other actions that require that the
+          gateway has access to the T.140 data, the T.140 data cannot be encrypted end-to-end
+          between the T.140 data channel endpoint and the RTP endpoint.
+      </t>
     </section>
     <section anchor="sec.iana" title="IANA considerations">
       <t>
@@ -682,7 +710,8 @@ Answer:
           over a WebRTC data channel. The usage is defined in <xref target="sec.sdp.dcsa.trans"/>.
         </t>
         <t>
-          The usage level "dcsa(t140)" is added to the IANA registration of the SDP 'fmtp' attribute as follows:
+          The usage level "dcsa(t140)" is added to the registration of the SDP 'fmtp' attribute in the Session Description
+          Protocol (SDP) Parameters registry as follows:
         </t>
         <texttable title="">
           <ttcol align='left' width='35%'/>
@@ -717,7 +746,8 @@ Answer:
           The modified usage is described in <xref target="sec.sdp.dcsa.lan"/>.
         </t>
         <t>
-          The usage level "dcsa(t140)" is added to the IANA registration of the SDP 'hlang-send' attribute as follows:
+          The usage level "dcsa(t140)" is added to the registration of the SDP 'hland-send' attribute in the Session Description
+          Protocol (SDP) Parameters registry as follows:
         </t>
         <texttable title="">
           <ttcol align='left' width='35%'/>
@@ -744,7 +774,8 @@ Answer:
           <c>RFCXXXX</c>
         </texttable>
         <t>
-          The usage level "dcsa(t140)" is added to the IANA registration of the SDP 'hlang-recv' attribute as follows:
+          The usage level "dcsa(t140)" is added to the registration of the SDP 'hland-recv' attribute in the Session Description
+          Protocol (SDP) Parameters registry as follows:
         </t>
         <texttable title="">
           <ttcol align='left' width='35%'/>
@@ -779,7 +810,8 @@ Answer:
           is described in <xref target="sec.sdp.dcsa.dir"/>.
         </t>
         <t>
-          The usage level "dcsa(t140)" is added to the IANA registration of the SDP 'sendonly' attribute as follows:
+          The usage level "dcsa(t140)" is added to the registration of the SDP 'sendonly' attribute in the Session Description
+          Protocol (SDP) Parameters registry as follows:
         </t>
         <texttable title="">
           <ttcol align='left' width='35%'/>
@@ -807,7 +839,8 @@ Answer:
         </texttable>
 
         <t>
-          The usage level "dcsa(t140)" is added to the IANA registration of the SDP 'recvonly' attribute as follows:
+          The usage level "dcsa(t140)" is added to the registration of the SDP 'recvonly' attribute in the Session Description
+          Protocol (SDP) Parameters registry as follows:
         </t>
         <texttable title="">
           <ttcol align='left' width='35%'/>
@@ -834,7 +867,8 @@ Answer:
           <c>RFCXXXX</c>
         </texttable>
         <t>
-          The usage level "dcsa(t140)" is added to the IANA registration of the SDP 'sendrecv' attribute as follows:
+          The usage level "dcsa(t140)" is added to the registration of the SDP 'sendrecv' attribute in the Session Description
+          Protocol (SDP) Parameters registry as follows:
         </t>
         <texttable title="">
           <ttcol align='left' width='35%'/>
@@ -861,7 +895,8 @@ Answer:
           <c>RFCXXXX</c>
         </texttable>
         <t>
-          The usage level "dcsa(t140)" is added to the IANA registration of the SDP 'inactive' attribute as follows:
+          The usage level "dcsa(t140)" is added to the registration of the SDP 'inactive' attribute in the Session Description
+          Protocol (SDP) Parameters registry as follows:
         </t>
         <texttable title="">
           <ttcol align='left' width='35%'/>
@@ -898,8 +933,7 @@ Answer:
       </t>
       <t>
         Thomas Belling provided useful comments on the initial (pre-submission) version
-        of the draft. Gunnar Hellstrom provided comments and text on the draft. Paul
-        Kyzivat and Bernard Aboba provided comments on the draft.
+        of the draft. Paul Kyzivat and Bernard Aboba provided comments on the draft.
       </t>
     </section>
   </middle>
@@ -915,6 +949,8 @@ Answer:
       <?rfc include='reference.I-D.ietf-mmusic-rfc4566bis'?>
       <?rfc include='reference.I-D.ietf-rtcweb-data-channel'?>
       <?rfc include='reference.I-D.ietf-mmusic-data-channel-sdpneg'?>
+      <?rfc include='reference.I-D.ietf-rtcweb-security-arch'?>
+      <?rfc include='reference.I-D.ietf-rtcweb-security'?>
       <reference anchor="T140">
         <front>
           <title>Recommendation ITU-T T.140 (02/1998), Protocol for
