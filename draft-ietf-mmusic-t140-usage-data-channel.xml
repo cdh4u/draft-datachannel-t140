@@ -607,7 +607,7 @@ Answer:
           </t>
           <t>
             During a normal text flow, T140blocks received from one network are forwarded towards the other network.
-            Keep-alive traffic is handled by lower lawers on the T.140 data channel. A gateway might have to extract keep-alives from
+            Keep-alive traffic is handled by lower layers on the T.140 data channel. A gateway might have to extract keep-alives from
             incoming RTP streams, and MAY generate keep-alives on outgoing RTP streams.
           </t>
           <t>
