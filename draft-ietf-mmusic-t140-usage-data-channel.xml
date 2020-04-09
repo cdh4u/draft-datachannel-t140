@@ -520,7 +520,7 @@ Answer:
         </section>
         <section anchor="sec.t140.buff" title="Data Buffering">
           <t>
-            As described in <xref target="T140"/>, buffering can be used to reduce
+            As described in <xref target="T140"/>, buffering MAY be used to reduce
             overhead, with the maximum assigned transmission interval of T140blocks
             from the buffer being 500 ms as long as there is text to send.
           </t>
