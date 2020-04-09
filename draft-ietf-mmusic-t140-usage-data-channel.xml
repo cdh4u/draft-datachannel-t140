@@ -652,6 +652,11 @@ Answer:
     </section>
     <section anchor="sec.sec" title="Security Considerations">
         <t>
+          The generic WebRTC security considerations are defined in
+          <xref target="I-D.ietf-rtcweb-security-arch"/> and
+          <xref target="I-D.ietf-rtcweb-security"/>.
+        </t>
+        <t>
           The generic security considerations for WebRTC data channels
           are defined in <xref target="I-D.ietf-rtcweb-data-channel"/>. As data channels
           are always encrypted by design, the T.140 data channels will
@@ -941,7 +946,8 @@ Answer:
       <?rfc include="reference.RFC.8373"?>
       <?rfc include='reference.I-D.ietf-mmusic-rfc4566bis'?>
       <?rfc include='reference.I-D.ietf-rtcweb-data-channel'?>
-      <?rfc include='reference.I-D.ietf-mmusic-data-channel-sdpneg'?>
+      <?rfc include='reference.I-D.ietf-rtcweb-security-arch'?>
+      <?rfc include='reference.I-D.ietf-rtcweb-security'?>
       <reference anchor="T140">
         <front>
           <title>Recommendation ITU-T T.140 (02/1998), Protocol for
