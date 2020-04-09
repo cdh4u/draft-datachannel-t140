@@ -158,7 +158,7 @@
     
     <section anchor="sec.sdp" title="SDP Considerations">
       <t>
-        The generic SDP considerations, including the SDP Offer/Answer procedures, for
+        The generic SDP considerations, including the SDP Offer/Answer procedures <xref target="RFC3264"/>, for
         negotiating a WebRTC data channel are defined in <xref target="I-D.ietf-mmusic-data-channel-sdpneg"/>.
         This section defines the SDP considerations that are specific to a T.140 data channel.
       </t>
@@ -186,9 +186,9 @@
         </t>
         <t>
           The offerer and answerer MUST NOT include the max-retr or the max-time
-          attribute parameters in the 'dcmap' attribute. If any of the
+          attribute parameters in the 'dcmap' attribute. If either of those
           attribute parameters is received in an offer, the answerer
-          MUST reject the offer. If any of the attribute parameters is received
+          MUST reject the offer. If either of those attribute parameters is received
           in an answer the offerer MUST NOT accept the answer. Instead, the answerer
           MUST take appropriate actions, e.g., by sending a new offer without a 
           T.140 data channel, or by terminating the session.
@@ -605,7 +605,7 @@ Answer:
           </t>
           <t>
             During a normal text flow, T140blocks received from one network are forwarded towards the other network.
-            Keep-alive traffic is implicit on the T.140 data channel. A gateway might have to extract keep-alives from
+            Keep-alive traffic is handled by lower lawers on the T.140 data channel. A gateway might have to extract keep-alives from
             incoming RTP streams, and MAY generate keep-alives on outgoing RTP streams.
           </t>
           <t>
@@ -662,6 +662,13 @@ Answer:
           negotiation method are defined in <xref target="I-D.ietf-mmusic-data-channel-sdpneg"/>.
           There are no additional T.140 data channel specific security considerations.
         </t>
+        <t>
+          When performing interworking between T.140 data channels and real-time text and
+          the RTP based mechanism defined in <xref target="RFC4103"/>, in order for a gateway to
+          insert a missing text marker, or to perform other actions that require that the
+          gateway has access to the T.140 data, the T.140 data cannot be encrypted end-to-end
+          between the T.140 data channel endpoint and the RTP endpoint.
+      </t>
     </section>
     <section anchor="sec.iana" title="IANA considerations">
       <t>
