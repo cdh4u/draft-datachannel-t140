@@ -160,7 +160,9 @@
       <t>
         The generic SDP considerations, including the SDP Offer/Answer procedures <xref target="RFC3264"/>, for
         negotiating a WebRTC data channel are defined in <xref target="I-D.ietf-mmusic-data-channel-sdpneg"/>.
-        This section defines the SDP considerations that are specific to a T.140 data channel.
+        This section, and its subsections, define the SDP considerations that are specific to a T.140 data channel,
+        identified by an SDP 'dcmap' attribute <xref target="I-D.ietf-mmusic-data-channel-sdpneg"/>  with a "t140"
+        attribute parameter value.
       </t>
       <section anchor="sec.sdp.dcmap" title="Use of dcmap Attribute">
         <t>
