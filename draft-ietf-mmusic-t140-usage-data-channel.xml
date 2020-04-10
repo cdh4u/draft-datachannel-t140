@@ -520,12 +520,12 @@ Answer:
         </section>
         <section anchor="sec.t140.buff" title="Data Buffering">
           <t>
-            As described in <xref target="T140"/>, buffering MAY be used to reduce
+            As described in <xref target="T140"/>, buffering can be used to reduce
             overhead, with the maximum assigned transmission interval of T140blocks
             from the buffer being 500 ms as long as there is text to send.
           </t>
           <t>
-            Buffering can also be used for staying within the maximum character
+            Buffering MAY also be used for staying within the maximum character
             transmission rate (<xref target="sec.sdp.dcsa"/>).
           </t>
           <t>
@@ -542,7 +542,7 @@ Answer:
             In case of network failure or congestion, T.140 data channels might
             fail and get torn down.  If this happens but the session sustains, it
             is RECOMMENDED that implementations try to reestablish the T.140
-            data channels.As a T.140 data channel does not provide a mechanism for
+            data channels. As a T.140 data channel does not provide a mechanism for
             the receiver to identify retransmitted T140blocks after channel
             reestablishment, the sending endpoint MUST NOT retransmit T140blocks.
             Similarly, a receiver SHOULD indicate to the user that there has 
